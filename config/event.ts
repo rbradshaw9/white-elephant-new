@@ -6,12 +6,6 @@ export const eventConfig = {
   dressCode: 'Ugly Christmas Sweaters Encouraged! 🎄',
   giftPriceRange: '$20 - $40',
   description: 'A fast-paced, slightly chaotic holiday game where stealing is encouraged and alliances never last.',
-  tldr: [
-    'Bring a gift ($20–$40)',
-    'Take turns opening or stealing',
-    'Gifts freeze after 3 steals',
-    'Player #1 gets a final bonus turn'
-  ],
   rules: {
     classic: [
       'Bring a wrapped gift ($20–$40). Funny, weird, useful, or classy — but keep it real (no trash, no broken stuff!). Try to stay close to the limit so gifts feel fair.',
