@@ -11,8 +11,8 @@ const geistSans = Geist({
 });
 
 export const metadata: Metadata = {
-  title: "White Elephant Party 2025 | Holiday Gift Exchange",
-  description: "Join us for an evening of gift stealing, laughter, and holiday chaos at our annual White Elephant Party!",
+  title: "The White Elephant Bash 2025 | Holiday Gift Exchange",
+  description: "Join us for an evening of gift stealing, laughter, and holiday chaos at The White Elephant Bash!",
 };
 
 export default function RootLayout({

@@ -21,7 +21,7 @@ export default function Navbar() {
           {/* Logo/Title */}
           <Link href="/" className="flex items-center space-x-2 hover:opacity-80 transition-opacity">
             <span className="text-2xl">🎄</span>
-            <span className="font-bold text-xl hidden sm:inline">White Elephant 2024</span>
+            <span className="font-bold text-xl hidden sm:inline">The White Elephant Bash</span>
             <span className="font-bold text-xl sm:hidden">WE 2024</span>
           </Link>
 

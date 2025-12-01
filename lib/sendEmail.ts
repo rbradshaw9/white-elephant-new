@@ -153,7 +153,7 @@ See you at the party!
     to,
     from: {
       email: process.env.SENDGRID_FROM_EMAIL!,
-      name: process.env.SENDGRID_FROM_NAME || 'White Elephant Host'
+      name: process.env.SENDGRID_FROM_NAME || 'The White Elephant Bash'
     },
     subject: `🎄 You're confirmed for ${eventConfig.title}!`,
     text: textContent,

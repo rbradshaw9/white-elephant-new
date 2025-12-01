@@ -1,6 +1,6 @@
 export const eventConfig = {
   partyDateTime: process.env.PARTY_DATETIME || '2025-12-13T18:00:00-07:00',
-  title: 'White Elephant Party 2025',
+  title: 'The White Elephant Bash 2025',
   address: '123 Holiday Lane, North Pole, CO 80501',
   dressCode: 'Ugly Christmas Sweaters Encouraged! 🎄',
   giftPriceRange: '$20 - $30',

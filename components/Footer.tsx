@@ -6,7 +6,7 @@ export default function Footer() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center space-y-2">
           <p className="text-lg font-medium">
-            🎄 White Elephant Party {currentYear} 🎁
+            🎄 The White Elephant Bash {currentYear} 🎁
           </p>
           <p className="text-sm opacity-90">
             Made with ❤️, hot cocoa ☕, and a sprinkle of holiday magic ✨
