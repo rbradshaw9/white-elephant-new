@@ -108,7 +108,18 @@ export default function Home() {
                   <span className="text-3xl">📍</span>
                   <div>
                     <h3 className="font-bold text-lg text-gray-800">Location</h3>
-                    <p className="text-gray-700">{eventConfig.address}</p>
+                    {eventConfig.addressLink ? (
+                      <a 
+                        href={eventConfig.addressLink}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-blue-600 hover:text-blue-800 underline"
+                      >
+                        {eventConfig.address}
+                      </a>
+                    ) : (
+                      <p className="text-gray-700">{eventConfig.address}</p>
+                    )}
                   </div>
                 </div>
               </div>

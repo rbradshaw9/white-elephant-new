@@ -1,7 +1,8 @@
 export const eventConfig = {
   partyDateTime: process.env.PARTY_DATETIME || '2025-12-13T18:00:00-07:00',
   title: 'The White Elephant Bash 2025',
-  address: '123 Holiday Lane, North Pole, CO 80501',
+  address: '8853 S University Blvd, Highlands Ranch, CO 80126',
+  addressLink: 'https://maps.app.goo.gl/FgTo19iLXhYYijcV9',
   dressCode: 'Ugly Christmas Sweaters Encouraged! 🎄',
   giftPriceRange: '$20 - $30',
   description: 'Join us for an evening of laughter, gift stealing, and holiday chaos!',
