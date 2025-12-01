@@ -20,10 +20,10 @@ export default function Navbar() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           {/* Logo/Title */}
-          <Link href="/" className="flex items-center space-x-2 hover:opacity-80 transition-opacity">
+          <Link href="/" className="flex items-center space-x-1.5 hover:opacity-80 transition-opacity">
             <span className="text-2xl">🎄</span>
             <span className="font-bold text-xl hidden sm:inline">The White Elephant Bash</span>
-            <span className="font-bold text-xl sm:hidden">WE 2024</span>
+            <span className="font-bold text-base sm:hidden leading-tight">White Elephant<br/>Bash</span>
           </Link>
 
           {/* Desktop Navigation */}

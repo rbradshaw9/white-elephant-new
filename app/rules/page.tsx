@@ -146,19 +146,28 @@ export default function RulesPage() {
             </CardHeader>
             <CardContent className="p-8 bg-gradient-to-br from-yellow-50 via-orange-50 to-yellow-50">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                {eventConfig.rules.tips.map((rule, index) => (
-                  <motion.div
-                    key={index}
-                    initial={{ opacity: 0, scale: 0.9, rotate: -2 }}
-                    whileInView={{ opacity: 1, scale: 1, rotate: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: index * 0.08, type: "spring", stiffness: 80 }}
-                    whileHover={{ scale: 1.03, rotate: 1 }}
-                    className="bg-white p-5 rounded-xl shadow-lg hover:shadow-2xl transition-all border-2 border-yellow-300 hover:border-yellow-500 cursor-default"
-                  >
-                    <span className="text-base text-gray-800 font-medium leading-relaxed block">{rule}</span>
-                  </motion.div>
-                ))}
+                {eventConfig.rules.tips.map((rule, index) => {
+                  const isHighlighted = rule.includes('Friendships are temporary');
+                  return (
+                    <motion.div
+                      key={index}
+                      initial={{ opacity: 0, scale: 0.9, rotate: -2 }}
+                      whileInView={{ opacity: 1, scale: 1, rotate: 0 }}
+                      viewport={{ once: true }}
+                      transition={{ delay: index * 0.08, type: "spring", stiffness: 80 }}
+                      whileHover={{ scale: 1.03, rotate: 1 }}
+                      className={`p-5 rounded-xl shadow-lg hover:shadow-2xl transition-all border-2 cursor-default ${
+                        isHighlighted 
+                          ? 'bg-gradient-to-br from-yellow-100 via-orange-100 to-red-100 border-red-500 hover:border-red-600 ring-2 ring-red-300 col-span-1 md:col-span-2' 
+                          : 'bg-white border-yellow-300 hover:border-yellow-500'
+                      }`}
+                    >
+                      <span className={`text-base leading-relaxed block ${
+                        isHighlighted ? 'text-red-800 font-black text-lg md:text-xl text-center' : 'text-gray-800 font-medium'
+                      }`}>{rule}</span>
+                    </motion.div>
+                  );
+                })}
               </div>
             </CardContent>
           </Card>
