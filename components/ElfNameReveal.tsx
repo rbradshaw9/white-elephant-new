@@ -2,6 +2,8 @@
 
 import { motion, AnimatePresence } from 'framer-motion';
 import { Card, CardContent } from '@/components/ui/card';
+import { useEffect } from 'react';
+import confetti from 'canvas-confetti';
 
 interface ElfNameRevealProps {
   guestNames: string[];
@@ -9,6 +11,35 @@ interface ElfNameRevealProps {
 }
 
 export default function ElfNameReveal({ guestNames, elfNames }: ElfNameRevealProps) {
+  // Trigger confetti on mount
+  useEffect(() => {
+    const duration = 3000;
+    const end = Date.now() + duration;
+
+    const frame = () => {
+      confetti({
+        particleCount: 2,
+        angle: 60,
+        spread: 55,
+        origin: { x: 0 },
+        colors: ['#dc2626', '#15803d', '#fef9f3']
+      });
+      confetti({
+        particleCount: 2,
+        angle: 120,
+        spread: 55,
+        origin: { x: 1 },
+        colors: ['#dc2626', '#15803d', '#fef9f3']
+      });
+
+      if (Date.now() < end) {
+        requestAnimationFrame(frame);
+      }
+    };
+
+    frame();
+  }, []);
+
   return (
     <div className="max-w-3xl mx-auto">
       <motion.div

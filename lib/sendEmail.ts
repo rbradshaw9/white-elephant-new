@@ -26,9 +26,18 @@ async function getEmailTemplate(): Promise<string | null> {
 export async function sendRSVPConfirmation(data: EmailData): Promise<void> {
   const { to, primaryName, guestNames, elfNames } = data;
 
-  // Create the guest list with elf names
+  // Create the guest list with elf names in beautiful HTML table
   const guestList = guestNames
-    .map((name, index) => `<li><strong>${name}</strong> → 🎄 <em>${elfNames[index]}</em></li>`)
+    .map((name, index) => `
+      <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="margin-bottom: 10px;">
+        <tr>
+          <td style="padding: 12px 15px; background: #ffffff; border-radius: 6px; border-left: 3px solid #10b981;">
+            <p style="margin: 0; color: #2d3748; font-size: 15px; font-weight: 600;">${name}</p>
+            <p style="margin: 5px 0 0; color: #10b981; font-size: 14px; font-weight: 500;">🧝 ${elfNames[index]}</p>
+          </td>
+        </tr>
+      </table>
+    `)
     .join('');
 
   // Try to get custom template, fall back to default
@@ -147,8 +156,11 @@ export async function sendRSVPConfirmation(data: EmailData): Promise<void> {
   
   // Replace variables in the template
   htmlContent = htmlContent
-    .replace('{{GUEST_LIST}}', `<ul>${guestList}</ul>`)
-    .replace('{{PARTY_DATETIME}}', new Date(eventConfig.partyDateTime).toLocaleString('en-US', {
+    .replace(/{{PRIMARY_NAME}}/g, primaryName)
+    .replace(/{{EMAIL}}/g, to)
+    .replace(/{{GUEST_COUNT}}/g, guestNames.length.toString())
+    .replace(/{{GUEST_LIST}}/g, guestList)
+    .replace(/{{PARTY_DATETIME}}/g, new Date(eventConfig.partyDateTime).toLocaleString('en-US', {
       weekday: 'long',
       year: 'numeric',
       month: 'long',

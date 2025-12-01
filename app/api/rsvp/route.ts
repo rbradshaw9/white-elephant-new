@@ -16,8 +16,25 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Generate elf names
-    const elfNames = generateElfNames(guestNames);
+    // Get existing elf names to ensure global uniqueness
+    let existingElfNames = new Set<string>();
+    try {
+      const supabaseCheck = getServiceSupabase();
+      const { data: existingRsvps } = await supabaseCheck
+        .from('rsvps')
+        .select('elf_names');
+      
+      if (existingRsvps) {
+        existingRsvps.forEach(rsvp => {
+          rsvp.elf_names?.forEach((name: string) => existingElfNames.add(name));
+        });
+      }
+    } catch (err) {
+      console.log('Could not fetch existing elf names, proceeding anyway:', err);
+    }
+
+    // Generate elf names with global uniqueness
+    const elfNames = generateElfNames(guestNames, existingElfNames);
 
     // Save to Supabase using service role to bypass RLS
     let supabase;

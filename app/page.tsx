@@ -4,6 +4,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
 import Countdown from '@/components/Countdown';
+import ShareInvite from '@/components/ShareInvite';
 import { eventConfig } from '@/config/event';
 import { gallery2024 } from '@/lib/gallery2024';
 
@@ -174,6 +175,9 @@ export default function Home() {
               View Full Gallery →
             </Link>
           </div>
+
+          {/* Share Section */}
+          <ShareInvite />
         </div>
       </section>
     </div>

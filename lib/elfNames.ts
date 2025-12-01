@@ -19,17 +19,19 @@ const nouns = [
 
 /**
  * Generates unique elf/christmas nicknames for a list of guest names
+ * Ensures uniqueness both within the current session and against existing names
  * @param guestNames - Array of real guest names
+ * @param existingElfNames - Set of already used elf names from database (optional)
  * @returns Array of generated elf names (same length as input)
  */
-export function generateElfNames(guestNames: string[]): string[] {
-  const usedNames = new Set<string>();
+export function generateElfNames(guestNames: string[], existingElfNames: Set<string> = new Set()): string[] {
+  const usedNames = new Set([...existingElfNames]);
   const elfNames: string[] = [];
 
   for (let i = 0; i < guestNames.length; i++) {
     let elfName: string;
     let attempts = 0;
-    const maxAttempts = 100;
+    const maxAttempts = 200; // Increased for global uniqueness
 
     do {
       const adjective = adjectives[Math.floor(Math.random() * adjectives.length)];
@@ -40,7 +42,11 @@ export function generateElfNames(guestNames: string[]): string[] {
 
     // If we somehow can't find a unique name, add a number
     if (usedNames.has(elfName)) {
-      elfName = `${elfName} ${i + 1}`;
+      let counter = 1;
+      while (usedNames.has(`${elfName} ${counter}`)) {
+        counter++;
+      }
+      elfName = `${elfName} ${counter}`;
     }
 
     usedNames.add(elfName);
@@ -48,4 +54,12 @@ export function generateElfNames(guestNames: string[]): string[] {
   }
 
   return elfNames;
+}
+
+/**
+ * Get all existing elf names from the database
+ */
+export async function getExistingElfNames(): Promise<Set<string>> {
+  // This will be called from the API route
+  return new Set();
 }

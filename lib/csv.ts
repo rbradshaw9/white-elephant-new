@@ -1,7 +1,7 @@
 import { RSVP } from './supabase';
 
 /**
- * Converts an array of RSVPs to CSV format
+ * Converts an array of RSVPs to CSV format with one row per guest (for name tags)
  */
 export function convertToCSV(rsvps: RSVP[]): string {
   if (rsvps.length === 0) {
@@ -10,23 +10,31 @@ export function convertToCSV(rsvps: RSVP[]): string {
 
   // CSV headers
   const headers = [
-    'Created At',
-    'Primary Name',
+    'RSVP Date',
+    'Primary Contact',
     'Email',
-    'Guest Count',
-    'Guest Names',
-    'Elf Names'
+    'Guest Name',
+    'Elf Name',
+    'Party Size'
   ];
 
-  // Convert each RSVP to a row
-  const rows = rsvps.map(rsvp => [
-    new Date(rsvp.created_at).toLocaleString(),
-    rsvp.primary_name,
-    rsvp.email,
-    rsvp.guest_count.toString(),
-    rsvp.guest_names.join('; '),
-    rsvp.elf_names.join('; ')
-  ]);
+  // Flatten: one row per guest
+  const rows: string[][] = [];
+  rsvps.forEach(rsvp => {
+    const rsvpDate = new Date(rsvp.created_at).toLocaleDateString();
+    const partySize = rsvp.guest_count.toString();
+    
+    rsvp.guest_names.forEach((guestName, index) => {
+      rows.push([
+        rsvpDate,
+        rsvp.primary_name,
+        rsvp.email,
+        guestName,
+        rsvp.elf_names[index] || '',
+        partySize
+      ]);
+    });
+  });
 
   // Combine headers and rows
   const csvContent = [
