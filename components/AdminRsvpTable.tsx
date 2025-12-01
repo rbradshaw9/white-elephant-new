@@ -6,15 +6,20 @@ import { convertToCSV, downloadCSV } from '@/lib/csv';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import EditRsvpDialog from '@/components/EditRsvpDialog';
 
 interface AdminRsvpTableProps {
   rsvps: RSVP[];
+  password: string;
+  onRefresh: () => void;
 }
 
-export default function AdminRsvpTable({ rsvps }: AdminRsvpTableProps) {
+export default function AdminRsvpTable({ rsvps, password, onRefresh }: AdminRsvpTableProps) {
   const [sortedRsvps, setSortedRsvps] = useState<RSVP[]>(rsvps);
   const [sortField, setSortField] = useState<keyof RSVP>('created_at');
   const [sortDirection, setSortDirection] = useState<'asc' | 'desc'>('desc');
+  const [editingRsvp, setEditingRsvp] = useState<RSVP | null>(null);
+  const [deletingId, setDeletingId] = useState<string | null>(null);
 
   // Update sortedRsvps when rsvps prop changes
   useEffect(() => {
@@ -45,6 +50,31 @@ export default function AdminRsvpTable({ rsvps }: AdminRsvpTableProps) {
     downloadCSV(csv, `white-elephant-rsvps-${timestamp}.csv`);
   };
 
+  const handleDelete = async (rsvpId: string) => {
+    if (!confirm('Are you sure you want to delete this RSVP? This cannot be undone.')) {
+      return;
+    }
+
+    setDeletingId(rsvpId);
+    try {
+      const response = await fetch('/api/admin/delete-rsvp', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ password, rsvpId })
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to delete');
+      }
+
+      onRefresh();
+    } catch (error) {
+      alert('Failed to delete RSVP: ' + (error as Error).message);
+    } finally {
+      setDeletingId(null);
+    }
+  };
+
   const totalGuests = sortedRsvps.reduce((sum, rsvp) => sum + rsvp.guest_count, 0);
   
   // Flatten RSVPs into individual attendee rows
@@ -63,6 +93,17 @@ export default function AdminRsvpTable({ rsvps }: AdminRsvpTableProps) {
 
   return (
     <div className="space-y-6">
+      <EditRsvpDialog
+        rsvp={editingRsvp}
+        open={!!editingRsvp}
+        onClose={() => setEditingRsvp(null)}
+        onSave={() => {
+          setEditingRsvp(null);
+          onRefresh();
+        }}
+        password={password}
+      />
+
       {/* Stats Cards */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         <Card className="border-green-600">
@@ -97,7 +138,80 @@ export default function AdminRsvpTable({ rsvps }: AdminRsvpTableProps) {
         </Button>
       </div>
 
-      {/* RSVP Table */}
+      {/* RSVP Table - Grouped by RSVP */}
+      <Card>
+        <CardHeader>
+          <CardTitle>Manage RSVPs</CardTitle>
+          <CardDescription>Edit or delete entire RSVP groups</CardDescription>
+        </CardHeader>
+        <CardContent>
+          <div className="rounded-md border overflow-x-auto">
+            <Table>
+              <TableHeader>
+                <TableRow>
+                  <TableHead>Date</TableHead>
+                  <TableHead>Primary Contact</TableHead>
+                  <TableHead>Email</TableHead>
+                  <TableHead className="text-center">Guests</TableHead>
+                  <TableHead>Guest Names</TableHead>
+                  <TableHead className="text-right">Actions</TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody>
+                {sortedRsvps.length === 0 ? (
+                  <TableRow>
+                    <TableCell colSpan={6} className="text-center text-gray-500 py-8">
+                      No RSVPs yet. Check back soon! 🎄
+                    </TableCell>
+                  </TableRow>
+                ) : (
+                  sortedRsvps.map((rsvp) => (
+                    <TableRow key={rsvp.id} className="hover:bg-gray-50">
+                      <TableCell className="whitespace-nowrap">
+                        {new Date(rsvp.created_at).toLocaleDateString()}
+                      </TableCell>
+                      <TableCell className="font-medium">{rsvp.primary_name}</TableCell>
+                      <TableCell>{rsvp.email}</TableCell>
+                      <TableCell className="text-center">{rsvp.guest_count}</TableCell>
+                      <TableCell>
+                        <div className="space-y-1">
+                          {rsvp.guest_names.map((name, i) => (
+                            <div key={i} className="text-sm">
+                              {name} <span className="text-green-600">→ 🧝 {rsvp.elf_names[i]}</span>
+                            </div>
+                          ))}
+                        </div>
+                      </TableCell>
+                      <TableCell className="text-right">
+                        <div className="flex gap-2 justify-end">
+                          <Button
+                            size="sm"
+                            variant="outline"
+                            onClick={() => setEditingRsvp(rsvp)}
+                            className="text-blue-600 border-blue-600 hover:bg-blue-50"
+                          >
+                            ✏️ Edit
+                          </Button>
+                          <Button
+                            size="sm"
+                            variant="destructive"
+                            onClick={() => handleDelete(rsvp.id)}
+                            disabled={deletingId === rsvp.id}
+                          >
+                            {deletingId === rsvp.id ? '...' : '🗑️ Delete'}
+                          </Button>
+                        </div>
+                      </TableCell>
+                    </TableRow>
+                  ))
+                )}
+              </TableBody>
+            </Table>
+          </div>
+        </CardContent>
+      </Card>
+
+      {/* RSVP Table - Individual Attendees */}
       <Card>
         <CardHeader>
           <CardTitle>All Attendees (Individual)</CardTitle>

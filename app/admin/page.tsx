@@ -260,7 +260,7 @@ export default function AdminPage() {
                   🔄 Migrate Existing RSVPs (Add Primary to Guest List)
                 </Button>
               </div>
-              <AdminRsvpTable rsvps={rsvps} />
+              <AdminRsvpTable rsvps={rsvps} password={password} onRefresh={fetchRsvps} />
             </>
           )}
           {activeTab === 'settings' && <AdminSettings password={password} />}
