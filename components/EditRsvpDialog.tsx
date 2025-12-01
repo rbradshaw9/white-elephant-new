@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { RSVP } from '@/lib/supabase';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -21,11 +21,11 @@ export default function EditRsvpDialog({ rsvp, open, onClose, onSave, password }
   const [error, setError] = useState('');
 
   // Update form data when rsvp prop changes
-  useState(() => {
+  React.useEffect(() => {
     if (rsvp) {
       setFormData(rsvp);
     }
-  });
+  }, [rsvp]);
 
   if (!formData) return null;
 

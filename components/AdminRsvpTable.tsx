@@ -138,80 +138,7 @@ export default function AdminRsvpTable({ rsvps, password, onRefresh }: AdminRsvp
         </Button>
       </div>
 
-      {/* RSVP Table - Grouped by RSVP */}
-      <Card>
-        <CardHeader>
-          <CardTitle>Manage RSVPs</CardTitle>
-          <CardDescription>Edit or delete entire RSVP groups</CardDescription>
-        </CardHeader>
-        <CardContent>
-          <div className="rounded-md border overflow-x-auto">
-            <Table>
-              <TableHeader>
-                <TableRow>
-                  <TableHead>Date</TableHead>
-                  <TableHead>Primary Contact</TableHead>
-                  <TableHead>Email</TableHead>
-                  <TableHead className="text-center">Guests</TableHead>
-                  <TableHead>Guest Names</TableHead>
-                  <TableHead className="text-right">Actions</TableHead>
-                </TableRow>
-              </TableHeader>
-              <TableBody>
-                {sortedRsvps.length === 0 ? (
-                  <TableRow>
-                    <TableCell colSpan={6} className="text-center text-gray-500 py-8">
-                      No RSVPs yet. Check back soon! 🎄
-                    </TableCell>
-                  </TableRow>
-                ) : (
-                  sortedRsvps.map((rsvp) => (
-                    <TableRow key={rsvp.id} className="hover:bg-gray-50">
-                      <TableCell className="whitespace-nowrap">
-                        {new Date(rsvp.created_at).toLocaleDateString()}
-                      </TableCell>
-                      <TableCell className="font-medium">{rsvp.primary_name}</TableCell>
-                      <TableCell>{rsvp.email}</TableCell>
-                      <TableCell className="text-center">{rsvp.guest_count}</TableCell>
-                      <TableCell>
-                        <div className="space-y-1">
-                          {rsvp.guest_names.map((name, i) => (
-                            <div key={i} className="text-sm">
-                              {name} <span className="text-green-600">→ 🧝 {rsvp.elf_names[i]}</span>
-                            </div>
-                          ))}
-                        </div>
-                      </TableCell>
-                      <TableCell className="text-right">
-                        <div className="flex gap-2 justify-end">
-                          <Button
-                            size="sm"
-                            variant="outline"
-                            onClick={() => setEditingRsvp(rsvp)}
-                            className="text-blue-600 border-blue-600 hover:bg-blue-50"
-                          >
-                            ✏️ Edit
-                          </Button>
-                          <Button
-                            size="sm"
-                            variant="destructive"
-                            onClick={() => handleDelete(rsvp.id)}
-                            disabled={deletingId === rsvp.id}
-                          >
-                            {deletingId === rsvp.id ? '...' : '🗑️ Delete'}
-                          </Button>
-                        </div>
-                      </TableCell>
-                    </TableRow>
-                  ))
-                )}
-              </TableBody>
-            </Table>
-          </div>
-        </CardContent>
-      </Card>
-
-      {/* RSVP Table - Individual Attendees */}
+      {/* RSVP Table - Individual Attendees with Edit/Delete */}
       <Card>
         <CardHeader>
           <CardTitle>All Attendees (Individual)</CardTitle>
@@ -228,12 +155,13 @@ export default function AdminRsvpTable({ rsvps, password, onRefresh }: AdminRsvp
                   <TableHead>Attendee Name</TableHead>
                   <TableHead>Elf Name</TableHead>
                   <TableHead className="text-center">Party Size</TableHead>
+                  <TableHead className="text-right">Actions</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
                 {attendeeRows.length === 0 ? (
                   <TableRow>
-                    <TableCell colSpan={6} className="text-center text-gray-500 py-8">
+                    <TableCell colSpan={7} className="text-center text-gray-500 py-8">
                       No RSVPs yet. Check back soon! 🎄
                     </TableCell>
                   </TableRow>
@@ -260,6 +188,29 @@ export default function AdminRsvpTable({ rsvps, password, onRefresh }: AdminRsvp
                         </div>
                       </TableCell>
                       <TableCell className="text-center">{row.totalPartySize}</TableCell>
+                      <TableCell className="text-right">
+                        <div className="flex gap-2 justify-end">
+                          <Button
+                            size="sm"
+                            variant="outline"
+                            onClick={() => {
+                              const rsvp = sortedRsvps.find(r => r.id === row.rsvpId);
+                              if (rsvp) setEditingRsvp(rsvp);
+                            }}
+                            className="text-blue-600 border-blue-600 hover:bg-blue-50"
+                          >
+                            ✏️
+                          </Button>
+                          <Button
+                            size="sm"
+                            variant="destructive"
+                            onClick={() => handleDelete(row.rsvpId)}
+                            disabled={deletingId === row.rsvpId}
+                          >
+                            {deletingId === row.rsvpId ? '...' : '🗑️'}
+                          </Button>
+                        </div>
+                      </TableCell>
                     </TableRow>
                   ))
                 )}
