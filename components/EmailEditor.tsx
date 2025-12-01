@@ -21,27 +21,25 @@ const defaultEmailTemplate = `
   </style>
   <![endif]-->
 </head>
-<body style="margin: 0; padding: 0; background: linear-gradient(135deg, #165b33 0%, #0f4123 100%); font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;">
+<body style="margin: 0; padding: 0; background-color: #0f4123; font-family: Arial, Helvetica, sans-serif;">
   
   <!-- Wrapper Table -->
-  <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="background: linear-gradient(135deg, #165b33 0%, #0f4123 100%);">
+  <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="background-color: #0f4123;">
     <tr>
       <td style="padding: 40px 20px;">
         
         <!-- Main Container -->
-        <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="max-width: 600px; margin: 0 auto; background-color: #ffffff; border-radius: 16px; overflow: hidden; box-shadow: 0 20px 60px rgba(0,0,0,0.3);">
+        <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="600" style="margin: 0 auto; background-color: #ffffff;">
           
-          <!-- Header with Pattern -->
+          <!-- Header -->
           <tr>
-            <td style="background: linear-gradient(135deg, #c41e3a 0%, #8b1429 100%); padding: 0; position: relative;">
-              <div style="background-image: repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(255,255,255,.05) 10px, rgba(255,255,255,.05) 20px); padding: 40px 30px; text-align: center;">
-                <h1 style="color: #ffffff; font-size: 42px; font-weight: 800; margin: 0; text-shadow: 2px 2px 4px rgba(0,0,0,0.2); letter-spacing: -1px;">
-                  🎄 You're Confirmed! 🎁
-                </h1>
-                <p style="color: #fff; font-size: 18px; margin: 15px 0 0; opacity: 0.95; font-weight: 500;">
-                  The White Elephant Bash 2025
-                </p>
-              </div>
+            <td style="background-color: #c41e3a; padding: 40px 30px; text-align: center;">
+              <h1 style="color: #ffffff; font-size: 42px; font-weight: bold; margin: 0; padding: 0; font-family: Arial, Helvetica, sans-serif;">
+                🎄 You're Confirmed! 🎁
+              </h1>
+              <p style="color: #ffffff; font-size: 18px; margin: 15px 0 0; padding: 0; font-family: Arial, Helvetica, sans-serif;">
+                The White Elephant Bash 2025
+              </p>
             </td>
           </tr>
           
@@ -50,11 +48,11 @@ const defaultEmailTemplate = `
             <td style="padding: 40px 30px 30px; background-color: #f8f9fa;">
               <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
                 <tr>
-                  <td style="background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%); border-radius: 12px; padding: 25px; border-left: 4px solid #c41e3a;">
-                    <p style="color: #2d3748; font-size: 18px; line-height: 1.6; margin: 0; font-weight: 500;">
+                  <td style="background-color: #ffffff; padding: 25px; border-left: 4px solid #c41e3a;">
+                    <p style="color: #2d3748; font-size: 18px; line-height: 1.6; margin: 0; padding: 0; font-family: Arial, Helvetica, sans-serif;">
                       🎉 <strong style="color: #c41e3a;">Ho ho ho!</strong> Your RSVP is locked in!
                     </p>
-                    <p style="color: #4a5568; font-size: 15px; line-height: 1.6; margin: 12px 0 0;">
+                    <p style="color: #4a5568; font-size: 15px; line-height: 1.6; margin: 12px 0 0; padding: 0; font-family: Arial, Helvetica, sans-serif;">
                       Get ready for an evening of gift stealing, holiday cheer, and unforgettable chaos!
                     </p>
                   </td>
@@ -68,16 +66,20 @@ const defaultEmailTemplate = `
             <td style="padding: 0 30px 30px; background-color: #f8f9fa;">
               <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
                 <tr>
-                  <td style="background: #ffffff; border-radius: 12px; padding: 25px; box-shadow: 0 2px 8px rgba(0,0,0,0.08);">
-                    <h2 style="color: #165b33; font-size: 24px; font-weight: 700; margin: 0 0 8px; display: flex; align-items: center;">
+                  <td style="background-color: #ffffff; padding: 25px;">
+                    <h2 style="color: #165b33; font-size: 24px; font-weight: bold; margin: 0 0 8px; padding: 0; font-family: Arial, Helvetica, sans-serif;">
                       🧝 Your Elf Squad
                     </h2>
-                    <p style="color: #718096; font-size: 14px; margin: 0 0 20px; font-style: italic;">
+                    <p style="color: #718096; font-size: 14px; margin: 0 0 20px; padding: 0; font-style: italic; font-family: Arial, Helvetica, sans-serif;">
                       Your festive alter egos have been assigned!
                     </p>
-                    <div style="background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%); border-radius: 8px; padding: 20px; border: 2px solid #86efac;">
-                      {{GUEST_LIST}}
-                    </div>
+                    <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
+                      <tr>
+                        <td style="background-color: #dcfce7; padding: 20px; border: 2px solid #86efac;">
+                          {{GUEST_LIST}}
+                        </td>
+                      </tr>
+                    </table>
                   </td>
                 </tr>
               </table>
@@ -89,17 +91,17 @@ const defaultEmailTemplate = `
             <td style="padding: 0 30px 30px; background-color: #f8f9fa;">
               <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
                 <tr>
-                  <td style="background: linear-gradient(135deg, #c41e3a 0%, #8b1429 100%); border-radius: 12px; padding: 30px; box-shadow: 0 4px 12px rgba(196, 30, 58, 0.3);">
-                    <h2 style="color: #ffffff; font-size: 24px; font-weight: 700; margin: 0 0 20px;">
+                  <td style="background-color: #c41e3a; padding: 30px;">
+                    <h2 style="color: #ffffff; font-size: 24px; font-weight: bold; margin: 0 0 20px; padding: 0; font-family: Arial, Helvetica, sans-serif;">
                       📅 Party Details
                     </h2>
                     
                     <!-- Date -->
                     <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="margin-bottom: 15px;">
                       <tr>
-                        <td style="background: rgba(255,255,255,0.1); border-radius: 8px; padding: 15px; backdrop-filter: blur(10px);">
-                          <p style="color: rgba(255,255,255,0.8); font-size: 12px; margin: 0; text-transform: uppercase; letter-spacing: 1px; font-weight: 600;">When</p>
-                          <p style="color: #ffffff; font-size: 16px; font-weight: 600; margin: 5px 0 0;">{{PARTY_DATETIME}}</p>
+                        <td style="background-color: #8b1429; padding: 15px;">
+                          <p style="color: #ffcccc; font-size: 12px; margin: 0; padding: 0; text-transform: uppercase; letter-spacing: 1px; font-weight: bold; font-family: Arial, Helvetica, sans-serif;">WHEN</p>
+                          <p style="color: #ffffff; font-size: 16px; font-weight: bold; margin: 5px 0 0; padding: 0; font-family: Arial, Helvetica, sans-serif;">{{PARTY_DATETIME}}</p>
                         </td>
                       </tr>
                     </table>
@@ -107,9 +109,9 @@ const defaultEmailTemplate = `
                     <!-- Location -->
                     <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="margin-bottom: 15px;">
                       <tr>
-                        <td style="background: rgba(255,255,255,0.1); border-radius: 8px; padding: 15px;">
-                          <p style="color: rgba(255,255,255,0.8); font-size: 12px; margin: 0; text-transform: uppercase; letter-spacing: 1px; font-weight: 600;">Where</p>
-                          <p style="color: #ffffff; font-size: 16px; font-weight: 600; margin: 5px 0 0;">{{ADDRESS}}</p>
+                        <td style="background-color: #8b1429; padding: 15px;">
+                          <p style="color: #ffcccc; font-size: 12px; margin: 0; padding: 0; text-transform: uppercase; letter-spacing: 1px; font-weight: bold; font-family: Arial, Helvetica, sans-serif;">WHERE</p>
+                          <p style="color: #ffffff; font-size: 16px; font-weight: bold; margin: 5px 0 0; padding: 0; font-family: Arial, Helvetica, sans-serif;">{{ADDRESS}}</p>
                         </td>
                       </tr>
                     </table>
@@ -117,9 +119,9 @@ const defaultEmailTemplate = `
                     <!-- Dress Code -->
                     <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="margin-bottom: 15px;">
                       <tr>
-                        <td style="background: rgba(255,255,255,0.1); border-radius: 8px; padding: 15px;">
-                          <p style="color: rgba(255,255,255,0.8); font-size: 12px; margin: 0; text-transform: uppercase; letter-spacing: 1px; font-weight: 600;">Dress Code</p>
-                          <p style="color: #ffffff; font-size: 16px; font-weight: 600; margin: 5px 0 0;">{{DRESS_CODE}}</p>
+                        <td style="background-color: #8b1429; padding: 15px;">
+                          <p style="color: #ffcccc; font-size: 12px; margin: 0; padding: 0; text-transform: uppercase; letter-spacing: 1px; font-weight: bold; font-family: Arial, Helvetica, sans-serif;">DRESS CODE</p>
+                          <p style="color: #ffffff; font-size: 16px; font-weight: bold; margin: 5px 0 0; padding: 0; font-family: Arial, Helvetica, sans-serif;">{{DRESS_CODE}}</p>
                         </td>
                       </tr>
                     </table>
@@ -127,9 +129,9 @@ const defaultEmailTemplate = `
                     <!-- Gift Range -->
                     <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
                       <tr>
-                        <td style="background: rgba(255,255,255,0.1); border-radius: 8px; padding: 15px;">
-                          <p style="color: rgba(255,255,255,0.8); font-size: 12px; margin: 0; text-transform: uppercase; letter-spacing: 1px; font-weight: 600;">Gift Budget</p>
-                          <p style="color: #ffffff; font-size: 16px; font-weight: 600; margin: 5px 0 0;">{{GIFT_RANGE}}</p>
+                        <td style="background-color: #8b1429; padding: 15px;">
+                          <p style="color: #ffcccc; font-size: 12px; margin: 0; padding: 0; text-transform: uppercase; letter-spacing: 1px; font-weight: bold; font-family: Arial, Helvetica, sans-serif;">GIFT BUDGET</p>
+                          <p style="color: #ffffff; font-size: 16px; font-weight: bold; margin: 5px 0 0; padding: 0; font-family: Arial, Helvetica, sans-serif;">{{GIFT_RANGE}}</p>
                         </td>
                       </tr>
                     </table>
@@ -144,40 +146,35 @@ const defaultEmailTemplate = `
             <td style="padding: 0 30px 30px; background-color: #f8f9fa;">
               <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
                 <tr>
-                  <td style="background: #ffffff; border-radius: 12px; padding: 25px; box-shadow: 0 2px 8px rgba(0,0,0,0.08);">
-                    <h2 style="color: #165b33; font-size: 22px; font-weight: 700; margin: 0 0 20px;">
+                  <td style="background-color: #ffffff; padding: 25px;">
+                    <h2 style="color: #165b33; font-size: 22px; font-weight: bold; margin: 0 0 20px; padding: 0; font-family: Arial, Helvetica, sans-serif;">
                       ✨ Your Game Plan
                     </h2>
                     
                     <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
                       <tr>
-                        <td style="padding: 12px 0; border-bottom: 1px solid #e2e8f0;">
-                          <span style="color: #10b981; font-size: 18px; margin-right: 10px;">✓</span>
-                          <span style="color: #2d3748; font-size: 15px;">Wrap your gift ({{GIFT_RANGE}}) with creativity!</span>
+                        <td style="padding: 12px 0; border-bottom: 1px solid #e2e8f0; font-family: Arial, Helvetica, sans-serif;">
+                          <span style="color: #10b981; font-size: 18px;">✓ </span><span style="color: #2d3748; font-size: 15px;">Wrap your gift ({{GIFT_RANGE}}) with creativity!</span>
                         </td>
                       </tr>
                       <tr>
-                        <td style="padding: 12px 0; border-bottom: 1px solid #e2e8f0;">
-                          <span style="color: #10b981; font-size: 18px; margin-right: 10px;">✓</span>
-                          <span style="color: #2d3748; font-size: 15px;">Arrive by 7:00 PM (game starts at 7:30 PM sharp!)</span>
+                        <td style="padding: 12px 0; border-bottom: 1px solid #e2e8f0; font-family: Arial, Helvetica, sans-serif;">
+                          <span style="color: #10b981; font-size: 18px;">✓ </span><span style="color: #2d3748; font-size: 15px;">Arrive by 7:00 PM (game starts at 7:30 PM sharp!)</span>
                         </td>
                       </tr>
                       <tr>
-                        <td style="padding: 12px 0; border-bottom: 1px solid #e2e8f0;">
-                          <span style="color: #10b981; font-size: 18px; margin-right: 10px;">✓</span>
-                          <span style="color: #2d3748; font-size: 15px;">Rock your ugliest Christmas sweater 🎄</span>
+                        <td style="padding: 12px 0; border-bottom: 1px solid #e2e8f0; font-family: Arial, Helvetica, sans-serif;">
+                          <span style="color: #10b981; font-size: 18px;">✓ </span><span style="color: #2d3748; font-size: 15px;">Rock your ugliest Christmas sweater 🎄</span>
                         </td>
                       </tr>
                       <tr>
-                        <td style="padding: 12px 0; border-bottom: 1px solid #e2e8f0;">
-                          <span style="color: #10b981; font-size: 18px; margin-right: 10px;">✓</span>
-                          <span style="color: #2d3748; font-size: 15px;">Bring your A-game for gift stealing 😈</span>
+                        <td style="padding: 12px 0; border-bottom: 1px solid #e2e8f0; font-family: Arial, Helvetica, sans-serif;">
+                          <span style="color: #10b981; font-size: 18px;">✓ </span><span style="color: #2d3748; font-size: 15px;">Bring your A-game for gift stealing 😈</span>
                         </td>
                       </tr>
                       <tr>
-                        <td style="padding: 12px 0;">
-                          <span style="color: #10b981; font-size: 18px; margin-right: 10px;">✓</span>
-                          <span style="color: #2d3748; font-size: 15px;">Come ready to laugh and make memories!</span>
+                        <td style="padding: 12px 0; font-family: Arial, Helvetica, sans-serif;">
+                          <span style="color: #10b981; font-size: 18px;">✓ </span><span style="color: #2d3748; font-size: 15px;">Come ready to laugh and make memories!</span>
                         </td>
                       </tr>
                     </table>
@@ -190,13 +187,15 @@ const defaultEmailTemplate = `
           <!-- Action Buttons -->
           <tr>
             <td style="padding: 30px; background-color: #f8f9fa; text-align: center;">
-              <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
+              <table role="presentation" cellspacing="0" cellpadding="0" border="0" align="center">
                 <tr>
-                  <td style="text-align: center;">
-                    <a href="{{CALENDAR_LINK}}" style="display: inline-block; background: linear-gradient(135deg, #c41e3a 0%, #8b1429 100%); color: #ffffff; text-decoration: none; padding: 14px 28px; border-radius: 8px; font-weight: 700; font-size: 15px; margin: 8px; box-shadow: 0 4px 12px rgba(196, 30, 58, 0.3);">
+                  <td style="padding: 0 5px;">
+                    <a href="{{CALENDAR_LINK}}" style="display: inline-block; background-color: #c41e3a; color: #ffffff; text-decoration: none; padding: 14px 28px; font-weight: bold; font-size: 15px; font-family: Arial, Helvetica, sans-serif;">
                       📅 Add to Calendar
                     </a>
-                    <a href="{{MANAGE_RSVP_LINK}}" style="display: inline-block; background: linear-gradient(135deg, #165b33 0%, #0f4123 100%); color: #ffffff; text-decoration: none; padding: 14px 28px; border-radius: 8px; font-weight: 700; font-size: 15px; margin: 8px; box-shadow: 0 4px 12px rgba(22, 91, 51, 0.3);">
+                  </td>
+                  <td style="padding: 0 5px;">
+                    <a href="{{MANAGE_RSVP_LINK}}" style="display: inline-block; background-color: #165b33; color: #ffffff; text-decoration: none; padding: 14px 28px; font-weight: bold; font-size: 15px; font-family: Arial, Helvetica, sans-serif;">
                       ✏️ Manage RSVP
                     </a>
                   </td>
@@ -207,18 +206,22 @@ const defaultEmailTemplate = `
           
           <!-- Footer -->
           <tr>
-            <td style="padding: 30px; background: linear-gradient(135deg, #165b33 0%, #0f4123 100%); text-align: center;">
-              <p style="color: #ffffff; font-size: 20px; font-weight: 700; margin: 0 0 10px; text-shadow: 1px 1px 2px rgba(0,0,0,0.2);">
+            <td style="padding: 30px; background-color: #165b33; text-align: center;">
+              <p style="color: #ffffff; font-size: 20px; font-weight: bold; margin: 0 0 10px; padding: 0; font-family: Arial, Helvetica, sans-serif;">
                 Can't wait to see you there! 🎅✨
               </p>
-              <p style="color: rgba(255,255,255,0.9); font-size: 14px; margin: 15px 0 0;">
+              <p style="color: #ffffff; font-size: 14px; margin: 15px 0 0; padding: 0; font-family: Arial, Helvetica, sans-serif;">
                 Questions? Just reply to this email!
               </p>
-              <div style="margin-top: 25px; padding-top: 25px; border-top: 1px solid rgba(255,255,255,0.2);">
-                <p style="color: rgba(255,255,255,0.7); font-size: 12px; margin: 0;">
-                  The White Elephant Bash 2025
-                </p>
-              </div>
+              <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="margin-top: 25px; padding-top: 25px; border-top: 1px solid #ffffff;">
+                <tr>
+                  <td style="text-align: center;">
+                    <p style="color: #cccccc; font-size: 12px; margin: 0; padding: 0; font-family: Arial, Helvetica, sans-serif;">
+                      The White Elephant Bash 2025
+                    </p>
+                  </td>
+                </tr>
+              </table>
             </td>
           </tr>
           

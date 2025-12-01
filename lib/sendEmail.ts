@@ -250,7 +250,16 @@ See you at the party!
     },
     subject: `🎄 You're confirmed for ${eventConfig.title}!`,
     text: textContent,
-    html: htmlContent
+    html: htmlContent,
+    trackingSettings: {
+      clickTracking: {
+        enable: false,
+        enableText: false
+      },
+      openTracking: {
+        enable: true
+      }
+    }
   };
 
   await sgMail.send(msg);
