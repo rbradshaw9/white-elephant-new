@@ -162,6 +162,7 @@ export async function sendRSVPConfirmation(data: EmailData): Promise<void> {
               day: 'numeric',
               hour: 'numeric',
               minute: '2-digit',
+              timeZone: 'America/Denver',
               timeZoneName: 'short'
             })}</p>
             <p><strong>Location:</strong> ${eventConfig.address}</p>
@@ -211,6 +212,7 @@ export async function sendRSVPConfirmation(data: EmailData): Promise<void> {
     day: 'numeric',
     hour: 'numeric',
     minute: '2-digit',
+    timeZone: 'America/Denver',
     timeZoneName: 'short'
   });
   
@@ -281,6 +283,18 @@ export async function sendNotificationEmail(data: EmailData) {
   
   const guestList = guestNames.map((name, i) => `${name} → ${elfNames[i]}`).join('\n');
   
+  const notificationEmail = process.env.NOTIFICATION_EMAIL || 'jenny.bradshaw@gmail.com';
+  const fromEmail = process.env.SENDGRID_FROM_EMAIL;
+  
+  console.log('[sendNotificationEmail] Attempting to send notification');
+  console.log('[sendNotificationEmail] To:', notificationEmail);
+  console.log('[sendNotificationEmail] From:', fromEmail);
+  console.log('[sendNotificationEmail] Primary Name:', primaryName);
+  
+  if (!fromEmail) {
+    throw new Error('SENDGRID_FROM_EMAIL environment variable is not set');
+  }
+  
   const htmlContent = `
     <!DOCTYPE html>
     <html>
@@ -313,14 +327,17 @@ export async function sendNotificationEmail(data: EmailData) {
   `;
   
   const msg = {
-    to: process.env.NOTIFICATION_EMAIL || 'jenny.bradshaw@gmail.com',
+    to: notificationEmail,
     from: {
-      email: process.env.SENDGRID_FROM_EMAIL!,
+      email: fromEmail,
       name: 'White Elephant RSVP System'
     },
     subject: `🎉 New RSVP from ${primaryName}`,
     html: htmlContent,
   };
   
-  await sgMail.send(msg);
+  console.log('[sendNotificationEmail] Sending email...');
+  const result = await sgMail.send(msg);
+  console.log('[sendNotificationEmail] Email sent successfully:', result[0].statusCode);
+  return result;
 }

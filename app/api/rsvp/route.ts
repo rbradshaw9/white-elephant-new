@@ -101,7 +101,9 @@ export async function POST(request: NextRequest) {
 
     // Send notification email to Jen
     try {
-      console.log('[RSVP] Sending notification email to Jen');
+      const notificationEmail = process.env.NOTIFICATION_EMAIL || 'jenny.bradshaw@gmail.com';
+      console.log('[RSVP] Sending notification email to:', notificationEmail);
+      console.log('[RSVP] SENDGRID_FROM_EMAIL:', process.env.SENDGRID_FROM_EMAIL);
       const { sendNotificationEmail } = await import('@/lib/sendEmail');
       await sendNotificationEmail({
         to: email,
@@ -109,9 +111,10 @@ export async function POST(request: NextRequest) {
         guestNames: guestNames,
         elfNames: elfNames,
       });
-      console.log('[RSVP] Notification email sent successfully');
+      console.log('[RSVP] Notification email sent successfully to:', notificationEmail);
     } catch (notifError) {
       console.error('[RSVP] Notification email error:', notifError);
+      console.error('[RSVP] Full error:', JSON.stringify(notifError, null, 2));
       // Don't fail the request if notification fails
     }
 

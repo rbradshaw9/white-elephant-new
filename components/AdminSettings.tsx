@@ -120,14 +120,19 @@ export default function AdminSettings({ password }: AdminSettingsProps) {
 
           {/* Party Date/Time */}
           <div>
-            <Label htmlFor="dateTime">Party Date & Time</Label>
+            <Label htmlFor="dateTime">Party Date & Time (MST)</Label>
             <Input
               id="dateTime"
               type="datetime-local"
               value={settings.partyDateTime.slice(0, 16)}
-              onChange={(e) => setSettings({ ...settings, partyDateTime: e.target.value + ':00-07:00' })}
+              onChange={(e) => {
+                // Convert local datetime to MST (UTC-7)
+                const localDateTime = e.target.value;
+                const isoString = localDateTime + ':00-07:00';
+                setSettings({ ...settings, partyDateTime: isoString });
+              }}
             />
-            <p className="text-sm text-gray-500 mt-1">Current: {new Date(settings.partyDateTime).toLocaleString()}</p>
+            <p className="text-sm text-gray-500 mt-1">Current: {new Date(settings.partyDateTime).toLocaleString('en-US', { timeZone: 'America/Denver', dateStyle: 'full', timeStyle: 'long' })}</p>
           </div>
 
           {/* Address */}
