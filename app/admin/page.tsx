@@ -20,6 +20,7 @@ export default function AdminPage() {
   const [rsvps, setRsvps] = useState<RSVP[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [activeTab, setActiveTab] = useState<TabType>('rsvps');
+  const [migrationMessage, setMigrationMessage] = useState('');
 
   // Restore session from localStorage on mount
   useEffect(() => {
@@ -89,6 +90,30 @@ export default function AdminPage() {
       setRsvps(data.rsvps);
     } catch (err) {
       console.error('[Admin] Error fetching RSVPs:', err);
+    }
+  };
+
+  const handleMigrateRsvps = async () => {
+    setMigrationMessage('Migrating...');
+    try {
+      const response = await fetch('/api/admin/migrate-rsvps', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ password })
+      });
+
+      const data = await response.json();
+      if (response.ok) {
+        setMigrationMessage(`✅ Success! Migrated ${data.migrated?.length || 0} RSVPs. Refreshing...`);
+        setTimeout(() => {
+          fetchRsvps();
+          setMigrationMessage('');
+        }, 2000);
+      } else {
+        setMigrationMessage(`❌ Error: ${data.error}`);
+      }
+    } catch (error) {
+      setMigrationMessage(`❌ Error: ${(error as Error).message}`);
     }
   };
 
@@ -217,7 +242,25 @@ export default function AdminPage() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2, duration: 0.5 }}
         >
-          {activeTab === 'rsvps' && <AdminRsvpTable rsvps={rsvps} />}
+          {activeTab === 'rsvps' && (
+            <>
+              {migrationMessage && (
+                <div className={`mb-4 p-4 rounded-lg ${migrationMessage.includes('✅') ? 'bg-green-50 text-green-800' : 'bg-yellow-50 text-yellow-800'}`}>
+                  {migrationMessage}
+                </div>
+              )}
+              <div className="mb-4">
+                <Button
+                  onClick={handleMigrateRsvps}
+                  variant="outline"
+                  className="border-2 border-blue-600 text-blue-600 hover:bg-blue-50"
+                >
+                  🔄 Migrate Existing RSVPs (Add Primary to Guest List)
+                </Button>
+              </div>
+              <AdminRsvpTable rsvps={rsvps} />
+            </>
+          )}
           {activeTab === 'settings' && <AdminSettings password={password} />}
           {activeTab === 'email' && <EmailEditor password={password} />}
         </motion.div>
