@@ -15,10 +15,10 @@ export default function RulesPage() {
           className="text-center mb-12"
         >
           <h1 className="text-5xl md:text-6xl font-bold text-green-800 mb-4">
-            📜 White Elephant Rules
+            📜 How to Play
           </h1>
           <p className="text-xl text-gray-700">
-            Everything you need to know for maximum gift-stealing chaos!
+            Master the art of stealing — and keeping — the perfect gift!
           </p>
         </motion.div>
 
@@ -33,7 +33,7 @@ export default function RulesPage() {
           <Card className="border-4 border-red-600 shadow-xl">
             <CardHeader className="bg-gradient-to-r from-red-600 to-red-700 text-white">
               <CardTitle className="text-3xl flex items-center gap-2">
-                🎄 Classic White Elephant Rules
+                🎁 The Basic Rules
               </CardTitle>
             </CardHeader>
             <CardContent className="p-6">
@@ -58,7 +58,7 @@ export default function RulesPage() {
           </Card>
         </motion.div>
 
-        {/* House Rules */}
+        {/* Final Round */}
         <motion.div
           initial={{ opacity: 0, x: 50 }}
           whileInView={{ opacity: 1, x: 0 }}
@@ -66,25 +66,27 @@ export default function RulesPage() {
           transition={{ duration: 0.5 }}
           className="mb-8"
         >
-          <Card className="border-4 border-green-600 shadow-xl">
+          <Card className="border-4 border-green-600 shadow-xl bg-gradient-to-br from-green-50 to-emerald-50">
             <CardHeader className="bg-gradient-to-r from-green-600 to-green-700 text-white">
               <CardTitle className="text-3xl flex items-center gap-2">
-                🏠 House Rules for This Party
+                ⭐ FINAL ROUND TWIST
               </CardTitle>
+              <p className="text-white/90 text-sm mt-2">
+                Our signature rule — makes the game fair AND exciting!
+              </p>
             </CardHeader>
             <CardContent className="p-6">
               <ul className="space-y-4">
-                {eventConfig.rules.house.map((rule, index) => (
+                {eventConfig.rules.finalRound.map((rule, index) => (
                   <motion.li
                     key={index}
                     initial={{ opacity: 0, x: -20 }}
                     whileInView={{ opacity: 1, x: 0 }}
                     viewport={{ once: true }}
                     transition={{ delay: index * 0.1 }}
-                    className="flex gap-3 items-start"
+                    className="bg-white p-4 rounded-lg shadow-md border-2 border-green-300"
                   >
-                    <span className="text-2xl flex-shrink-0">✓</span>
-                    <span className="text-lg text-gray-800 pt-1">{rule}</span>
+                    <span className="text-lg text-gray-800 font-medium">{rule}</span>
                   </motion.li>
                 ))}
               </ul>
@@ -92,7 +94,7 @@ export default function RulesPage() {
           </Card>
         </motion.div>
 
-        {/* Chaos Mode */}
+        {/* Pro Tips */}
         <motion.div
           initial={{ opacity: 0, y: 50 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -102,15 +104,15 @@ export default function RulesPage() {
           <Card className="border-4 border-yellow-600 shadow-xl bg-gradient-to-br from-yellow-50 to-orange-50">
             <CardHeader className="bg-gradient-to-r from-yellow-600 to-orange-600 text-white">
               <CardTitle className="text-3xl flex items-center gap-2">
-                🎭 CHAOS MODE (Optional)
+                💡 Pro Tips for Maximum Fun
               </CardTitle>
               <p className="text-white/90 text-sm mt-2">
-                For those who dare... vote to activate these wild variations!
+                How to win hearts, make enemies, and steal the best gifts!
               </p>
             </CardHeader>
             <CardContent className="p-6">
               <ul className="space-y-4">
-                {eventConfig.rules.chaos.map((rule, index) => (
+                {eventConfig.rules.tips.map((rule, index) => (
                   <motion.li
                     key={index}
                     initial={{ opacity: 0, scale: 0.8 }}

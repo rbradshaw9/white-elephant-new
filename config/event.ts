@@ -7,27 +7,27 @@ export const eventConfig = {
   description: 'Join us for an evening of laughter, gift stealing, and holiday chaos!',
   rules: {
     classic: [
-      'Each person brings one wrapped gift',
-      'Draw numbers to determine the order',
-      'First person picks and unwraps a gift',
-      'Next person can steal an unwrapped gift or pick a new one',
-      'A gift can only be stolen 3 times total',
-      'After your gift is stolen, you can steal or pick new (but not steal back immediately)',
-      'Game ends when all gifts are unwrapped'
+      'Bring a wrapped gift ($20-$40 range) — funny, weird, useful, or classy all welcome!',
+      'Place your gift in the center pile when you arrive',
+      'Everyone draws a number to determine turn order (Player #1 gets a special bonus at the end!)',
+      'Player #1 picks any gift, opens it, and shows the group',
+      'Players 2+ can STEAL an opened gift OR open a new one',
+      'If your gift is stolen, you must immediately steal a different gift or open a new one',
+      'You CANNOT steal back the gift that was just taken from you',
+      'Each gift can only be stolen 2-3 times before it becomes "frozen"'
     ],
-    house: [
-      'Gifts must be between $20-$30',
-      'No gag gifts (unless they\'re REALLY funny)',
-      'Bring your gift wrapped - the more elaborate the better!',
-      'We\'ll have hot cocoa and cookies available',
-      'Arrive by 7:00 PM - game starts at 7:30 PM sharp!'
+    finalRound: [
+      '🎄 After all gifts are opened, Player #1 gets ONE FINAL TURN',
+      'Player #1 can steal ANY unfrozen gift they want',
+      'If they steal, that person gets Player #1\'s gift (no more stealing)',
+      'Game officially ends — no further swaps allowed!'
     ],
-    chaos: [
-      '🎲 Dice Roll: Roll a die before each turn - odd = steal only, even = pick only',
-      '⏰ Speed Round: Each person has 30 seconds to decide',
-      '🎭 Mystery Round: One gift is "cursed" - holder must perform a holiday song',
-      '🎁 Gift Swap: Every 5 turns, all unwrapped gifts are randomly redistributed',
-      '❄️ Freeze: Anyone who says "Christmas" must skip their next turn'
+    tips: [
+      '🎁 Wrap creatively to build mystery and excitement',
+      '🎭 Play up the drama — beg, plead, and defend your gift!',
+      '🔥 The best gifts get stolen the most — make yours irresistible',
+      '😈 Strategic stealing is encouraged — create alliances or chaos',
+      '🎉 Remember: it\'s all in good fun!'
     ]
   }
 };

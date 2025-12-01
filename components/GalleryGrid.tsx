@@ -61,6 +61,9 @@ export default function GalleryGrid({ items }: GalleryGridProps) {
                 fill
                 className="object-cover transition-transform duration-300 group-hover:scale-110"
                 sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                loading={index < 6 ? 'eager' : 'lazy'}
+                priority={index < 6}
+                quality={75}
               />
             ) : (
               <>
@@ -70,6 +73,8 @@ export default function GalleryGrid({ items }: GalleryGridProps) {
                   fill
                   className="object-cover transition-transform duration-300 group-hover:scale-110"
                   sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                  loading="lazy"
+                  quality={75}
                 />
                 <div className="absolute inset-0 bg-black/30 flex items-center justify-center group-hover:bg-black/50 transition-colors">
                   <motion.div
@@ -167,6 +172,8 @@ export default function GalleryGrid({ items }: GalleryGridProps) {
                   controls
                   autoPlay
                   muted
+                  playsInline
+                  preload="metadata"
                   className="w-full max-h-[80vh] rounded-lg"
                 >
                   Your browser does not support the video tag.
