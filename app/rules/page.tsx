@@ -2,9 +2,19 @@
 
 import { motion } from 'framer-motion';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { eventConfig } from '@/config/event';
+import { useEventSettings } from '@/hooks/useEventSettings';
 
 export default function RulesPage() {
+  const { settings: eventConfig, loading } = useEventSettings();
+
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="text-2xl text-gray-600">Loading...</div>
+      </div>
+    );
+  }
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-green-50 via-white to-red-50 py-12 px-4">
       <div className="max-w-5xl mx-auto">

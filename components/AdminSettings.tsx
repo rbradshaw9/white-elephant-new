@@ -1,11 +1,11 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Card } from '@/components/ui/card';
 import { Label } from '@/components/ui/label';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
-import { eventConfig } from '@/config/event';
+import { eventConfig as defaultConfig } from '@/config/event';
 
 interface EventSettings {
   partyDateTime: string;
@@ -23,17 +23,41 @@ interface AdminSettingsProps {
 
 export default function AdminSettings({ password }: AdminSettingsProps) {
   const [settings, setSettings] = useState<EventSettings>({
-    partyDateTime: eventConfig.partyDateTime,
-    title: eventConfig.title,
-    address: eventConfig.address,
-    dressCode: eventConfig.dressCode,
-    giftPriceRange: eventConfig.giftPriceRange,
-    description: eventConfig.description,
+    partyDateTime: defaultConfig.partyDateTime,
+    title: defaultConfig.title,
+    address: defaultConfig.address,
+    dressCode: defaultConfig.dressCode,
+    giftPriceRange: defaultConfig.giftPriceRange,
+    description: defaultConfig.description,
     emailFromName: process.env.NEXT_PUBLIC_EMAIL_FROM_NAME || 'The White Elephant Bash'
   });
 
   const [saving, setSaving] = useState(false);
   const [message, setMessage] = useState('');
+  const [loading, setLoading] = useState(true);
+
+  // Load current settings from database on mount
+  useEffect(() => {
+    async function loadSettings() {
+      try {
+        const response = await fetch('/api/admin/settings');
+        if (response.ok) {
+          const data = await response.json();
+          if (data.settings) {
+            setSettings({
+              ...settings,
+              ...data.settings
+            });
+          }
+        }
+      } catch (error) {
+        console.error('Error loading settings:', error);
+      } finally {
+        setLoading(false);
+      }
+    }
+    loadSettings();
+  }, []);
 
   const handleSave = async () => {
     setSaving(true);
@@ -51,7 +75,7 @@ export default function AdminSettings({ password }: AdminSettingsProps) {
         throw new Error(errorData.error || 'Failed to save settings');
       }
 
-      setMessage('✅ Settings saved! Changes will take effect after redeployment.');
+      setMessage('✅ Settings saved successfully! Refresh the page to see changes.');
     } catch (error) {
       setMessage(`❌ Failed to save settings: ${(error as Error).message}`);
       console.error('Save error:', error);
@@ -59,6 +83,14 @@ export default function AdminSettings({ password }: AdminSettingsProps) {
       setSaving(false);
     }
   };
+
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center py-12">
+        <div className="text-lg text-gray-600">Loading settings...</div>
+      </div>
+    );
+  }
 
   return (
     <div className="space-y-6">

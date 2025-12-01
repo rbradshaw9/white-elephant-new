@@ -1,5 +1,5 @@
 import sgMail from '@sendgrid/mail';
-import { eventConfig } from '@/config/event';
+import { getEventSettings } from '@/lib/getEventSettings';
 
 sgMail.setApiKey(process.env.SENDGRID_API_KEY!);
 
@@ -26,6 +26,9 @@ async function getEmailTemplate(): Promise<string | null> {
 export async function sendRSVPConfirmation(data: EmailData): Promise<void> {
   const { to, primaryName, guestNames, elfNames } = data;
 
+  // Load event settings from database
+  const eventConfig = await getEventSettings();
+
   // Create the guest list with elf names in beautiful HTML table
   const guestList = guestNames
     .map((name, index) => `
@@ -40,7 +43,6 @@ export async function sendRSVPConfirmation(data: EmailData): Promise<void> {
     `)
     .join('');
 
-  // Try to get custom template, fall back to default
   const customTemplate = await getEmailTemplate();
   
   const defaultTemplate = `

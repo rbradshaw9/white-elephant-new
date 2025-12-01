@@ -5,11 +5,20 @@ import Image from 'next/image';
 import { motion } from 'framer-motion';
 import Countdown from '@/components/Countdown';
 import ShareInvite from '@/components/ShareInvite';
-import { eventConfig } from '@/config/event';
+import { useEventSettings } from '@/hooks/useEventSettings';
 import { gallery2024 } from '@/lib/gallery2024';
 
 export default function Home() {
+  const { settings: eventConfig, loading } = useEventSettings();
   const featuredImages = gallery2024.filter(item => item.type === 'image').slice(0, 6);
+
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="text-2xl text-gray-600">Loading...</div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen">
