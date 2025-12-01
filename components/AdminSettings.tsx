@@ -17,7 +17,11 @@ interface EventSettings {
   emailFromName: string;
 }
 
-export default function AdminSettings() {
+interface AdminSettingsProps {
+  password: string;
+}
+
+export default function AdminSettings({ password }: AdminSettingsProps) {
   const [settings, setSettings] = useState<EventSettings>({
     partyDateTime: eventConfig.partyDateTime,
     title: eventConfig.title,
@@ -39,14 +43,18 @@ export default function AdminSettings() {
       const response = await fetch('/api/admin/settings', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(settings)
+        body: JSON.stringify({ settings, password })
       });
 
-      if (!response.ok) throw new Error('Failed to save settings');
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.error || 'Failed to save settings');
+      }
 
       setMessage('✅ Settings saved! Changes will take effect after redeployment.');
     } catch (error) {
-      setMessage('❌ Failed to save settings');
+      setMessage(`❌ Failed to save settings: ${(error as Error).message}`);
+      console.error('Save error:', error);
     } finally {
       setSaving(false);
     }

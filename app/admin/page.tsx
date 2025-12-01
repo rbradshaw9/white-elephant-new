@@ -170,7 +170,7 @@ export default function AdminPage() {
           transition={{ delay: 0.2, duration: 0.5 }}
         >
           {activeTab === 'rsvps' && <AdminRsvpTable rsvps={rsvps} />}
-          {activeTab === 'settings' && <AdminSettings />}
+          {activeTab === 'settings' && <AdminSettings password={password} />}
         </motion.div>
       </div>
     </div>
