@@ -10,6 +10,26 @@ interface EmailData {
   elfNames: string[];
 }
 
+function generateCalendarLink(eventConfig: any): string {
+  const startDate = new Date(eventConfig.partyDateTime);
+  const endDate = new Date(startDate.getTime() + 3 * 60 * 60 * 1000); // 3 hours later
+  
+  const formatDateForCal = (date: Date) => {
+    return date.toISOString().replace(/[-:]/g, '').split('.')[0] + 'Z';
+  };
+  
+  const title = encodeURIComponent(eventConfig.title);
+  const details = encodeURIComponent(`Dress Code: ${eventConfig.dressCode}\nGift Range: ${eventConfig.giftPriceRange}\n\nBring a wrapped gift and your competitive spirit!`);
+  const location = encodeURIComponent(eventConfig.address);
+  
+  return `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${title}&dates=${formatDateForCal(startDate)}/${formatDateForCal(endDate)}&details=${details}&location=${location}`;
+}
+
+function generateManageRsvpLink(email: string): string {
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://thewhiteelephantbash.com';
+  return `${baseUrl}/rsvp?email=${encodeURIComponent(email)}`;
+}
+
 async function getEmailTemplate(): Promise<string | null> {
   try {
     // Don't use fetch in server context - directly query database instead
@@ -157,6 +177,11 @@ export async function sendRSVPConfirmation(data: EmailData): Promise<void> {
             <li>✓ Bring your competitive spirit!</li>
           </ul>
 
+          <div style="text-align: center; margin: 30px 0;">
+            <a href="{{CALENDAR_LINK}}" style="display: inline-block; background-color: #c41e3a; color: white; padding: 12px 30px; text-decoration: none; border-radius: 6px; font-weight: bold; margin: 5px;">📅 Add to Calendar</a>
+            <a href="{{MANAGE_RSVP_LINK}}" style="display: inline-block; background-color: #165b33; color: white; padding: 12px 30px; text-decoration: none; border-radius: 6px; font-weight: bold; margin: 5px;">✏️ Manage RSVP</a>
+          </div>
+
           <p class="footer">
             See you at the party! 🎅<br>
             Questions? Reply to this email.
@@ -168,6 +193,10 @@ export async function sendRSVPConfirmation(data: EmailData): Promise<void> {
 
   // Use custom template if available, otherwise use default
   let htmlContent = customTemplate || defaultTemplate;
+  
+  // Generate links
+  const calendarLink = generateCalendarLink(eventConfig);
+  const manageRsvpLink = generateManageRsvpLink(to);
   
   // Replace variables in the template
   htmlContent = htmlContent
@@ -186,7 +215,9 @@ export async function sendRSVPConfirmation(data: EmailData): Promise<void> {
     }))
     .replace(/{{ADDRESS}}/g, eventConfig.address)
     .replace(/{{DRESS_CODE}}/g, eventConfig.dressCode)
-    .replace(/{{GIFT_RANGE}}/g, eventConfig.giftPriceRange);
+    .replace(/{{GIFT_RANGE}}/g, eventConfig.giftPriceRange)
+    .replace(/{{CALENDAR_LINK}}/g, calendarLink)
+    .replace(/{{MANAGE_RSVP_LINK}}/g, manageRsvpLink);
 
   const textContent = `
 ${eventConfig.title}

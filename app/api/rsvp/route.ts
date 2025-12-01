@@ -112,3 +112,42 @@ export async function POST(request: NextRequest) {
     );
   }
 }
+
+export async function GET(request: NextRequest) {
+  try {
+    const searchParams = request.nextUrl.searchParams;
+    const email = searchParams.get('email');
+
+    if (!email) {
+      return NextResponse.json(
+        { error: 'Email parameter is required' },
+        { status: 400 }
+      );
+    }
+
+    const supabase = getServiceSupabase();
+    const { data, error } = await supabase
+      .from('rsvps')
+      .select('*')
+      .eq('email', email)
+      .single();
+
+    if (error) {
+      if (error.code === 'PGRST116') {
+        return NextResponse.json({ rsvp: null });
+      }
+      return NextResponse.json(
+        { error: 'Failed to fetch RSVP' },
+        { status: 500 }
+      );
+    }
+
+    return NextResponse.json({ rsvp: data });
+  } catch (error) {
+    console.error('RSVP fetch error:', error);
+    return NextResponse.json(
+      { error: 'Internal server error' },
+      { status: 500 }
+    );
+  }
+}

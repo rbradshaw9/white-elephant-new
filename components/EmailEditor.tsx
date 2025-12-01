@@ -2,7 +2,7 @@
 
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 interface EmailEditorProps {
   password: string;
@@ -187,6 +187,24 @@ const defaultEmailTemplate = `
             </td>
           </tr>
           
+          <!-- Action Buttons -->
+          <tr>
+            <td style="padding: 30px; background-color: #f8f9fa; text-align: center;">
+              <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
+                <tr>
+                  <td style="text-align: center;">
+                    <a href="{{CALENDAR_LINK}}" style="display: inline-block; background: linear-gradient(135deg, #c41e3a 0%, #8b1429 100%); color: #ffffff; text-decoration: none; padding: 14px 28px; border-radius: 8px; font-weight: 700; font-size: 15px; margin: 8px; box-shadow: 0 4px 12px rgba(196, 30, 58, 0.3);">
+                      📅 Add to Calendar
+                    </a>
+                    <a href="{{MANAGE_RSVP_LINK}}" style="display: inline-block; background: linear-gradient(135deg, #165b33 0%, #0f4123 100%); color: #ffffff; text-decoration: none; padding: 14px 28px; border-radius: 8px; font-weight: 700; font-size: 15px; margin: 8px; box-shadow: 0 4px 12px rgba(22, 91, 51, 0.3);">
+                      ✏️ Manage RSVP
+                    </a>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+          
           <!-- Footer -->
           <tr>
             <td style="padding: 30px; background: linear-gradient(135deg, #165b33 0%, #0f4123 100%); text-align: center;">
@@ -219,6 +237,27 @@ export default function EmailEditor({ password }: EmailEditorProps) {
   const [message, setMessage] = useState('');
   const [template, setTemplate] = useState(defaultEmailTemplate);
   const [showPreview, setShowPreview] = useState(false);
+  const [loading, setLoading] = useState(true);
+
+  // Load saved template on mount
+  useEffect(() => {
+    const loadTemplate = async () => {
+      try {
+        const response = await fetch('/api/admin/email-template');
+        if (response.ok) {
+          const data = await response.json();
+          if (data.template) {
+            setTemplate(data.template);
+          }
+        }
+      } catch (error) {
+        console.error('Failed to load template:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    loadTemplate();
+  }, []);
 
   const handleSave = async () => {
     setSaving(true);
@@ -245,6 +284,14 @@ export default function EmailEditor({ password }: EmailEditorProps) {
     }
   };
 
+  if (loading) {
+    return (
+      <div className="text-center py-8 text-gray-600">
+        Loading email template...
+      </div>
+    );
+  }
+
   return (
     <div className="space-y-6">
       <div>
@@ -260,12 +307,14 @@ export default function EmailEditor({ password }: EmailEditorProps) {
             <p><code className="bg-blue-100 px-2 py-1 rounded text-xs">{`{{EMAIL}}`}</code> - Contact email</p>
             <p><code className="bg-blue-100 px-2 py-1 rounded text-xs">{`{{GUEST_LIST}}`}</code> - List of all guests with elf names</p>
             <p><code className="bg-blue-100 px-2 py-1 rounded text-xs">{`{{GUEST_COUNT}}`}</code> - Number of guests</p>
+            <p><code className="bg-blue-100 px-2 py-1 rounded text-xs">{`{{CALENDAR_LINK}}`}</code> - Add to calendar link</p>
           </div>
           <div>
             <p><code className="bg-blue-100 px-2 py-1 rounded text-xs">{`{{PARTY_DATETIME}}`}</code> - Party date and time</p>
             <p><code className="bg-blue-100 px-2 py-1 rounded text-xs">{`{{ADDRESS}}`}</code> - Party address</p>
             <p><code className="bg-blue-100 px-2 py-1 rounded text-xs">{`{{DRESS_CODE}}`}</code> - Dress code</p>
             <p><code className="bg-blue-100 px-2 py-1 rounded text-xs">{`{{GIFT_RANGE}}`}</code> - Gift price range</p>
+            <p><code className="bg-blue-100 px-2 py-1 rounded text-xs">{`{{MANAGE_RSVP_LINK}}`}</code> - Edit RSVP link</p>
           </div>
         </div>
         <p className="text-xs text-blue-700 mt-2 italic">💡 Tip: Copy and paste these codes into your email template!</p>

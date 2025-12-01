@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import React from 'react';
 import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -17,9 +18,10 @@ interface FormData {
 
 interface RSVPFormProps {
   onSuccess: (data: { guestNames: string[]; elfNames: string[] }) => void;
+  existingRsvp?: any;
 }
 
-export default function RSVPForm({ onSuccess }: RSVPFormProps) {
+export default function RSVPForm({ onSuccess, existingRsvp }: RSVPFormProps) {
   const [formData, setFormData] = useState<FormData>({
     primaryName: '',
     email: '',
@@ -28,6 +30,22 @@ export default function RSVPForm({ onSuccess }: RSVPFormProps) {
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
+
+  // Load existing RSVP data
+  React.useEffect(() => {
+    if (existingRsvp) {
+      const allGuests = existingRsvp.guest_names || [];
+      const primaryName = allGuests[0] || '';
+      const additionalGuests = allGuests.slice(1);
+      
+      setFormData({
+        primaryName,
+        email: existingRsvp.email,
+        guestCount: allGuests.length,
+        guestNames: additionalGuests,
+      });
+    }
+  }, [existingRsvp]);
 
   const handleGuestCountChange = (value: string) => {
     const count = parseInt(value);
