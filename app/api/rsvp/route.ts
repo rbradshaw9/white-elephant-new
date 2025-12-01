@@ -81,14 +81,20 @@ export async function POST(request: NextRequest) {
 
     // Send confirmation email
     try {
+      console.log('[RSVP] Sending confirmation email to:', email);
       await sendRSVPConfirmation({
         to: email,
         primaryName: primaryName,
         guestNames: guestNames,
         elfNames: elfNames,
       });
+      console.log('[RSVP] Email sent successfully');
     } catch (emailError) {
-      console.error('Email error:', emailError);
+      console.error('[RSVP] Email error:', emailError);
+      console.error('[RSVP] Email error details:', {
+        message: (emailError as Error).message,
+        stack: (emailError as Error).stack
+      });
       // Don't fail the request if email fails
       // The RSVP was saved successfully
     }

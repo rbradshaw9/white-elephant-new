@@ -10,8 +10,8 @@ export async function getEventSettings() {
   try {
     const { data, error } = await supabase
       .from('settings')
-      .select('value')
-      .eq('id', 'event_settings')
+      .select('settings')
+      .eq('id', 'event_config')
       .single();
 
     if (error || !data) {
@@ -22,7 +22,7 @@ export async function getEventSettings() {
     // Merge database settings with defaults to ensure all properties exist
     return {
       ...defaultConfig,
-      ...data.value,
+      ...data.settings,
     };
   } catch (error) {
     console.error('Error loading event settings:', error);
