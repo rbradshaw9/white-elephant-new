@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { supabase } from '@/lib/supabase';
+import { getServiceSupabase } from '@/lib/supabase';
 import { generateElfNames } from '@/lib/elfNames';
 import { sendRSVPConfirmation } from '@/lib/sendEmail';
 
@@ -19,7 +19,18 @@ export async function POST(request: NextRequest) {
     // Generate elf names
     const elfNames = generateElfNames(guestNames);
 
-    // Save to Supabase
+    // Save to Supabase using service role to bypass RLS
+    let supabase;
+    try {
+      supabase = getServiceSupabase();
+    } catch (configError) {
+      console.error('Supabase configuration error:', configError);
+      return NextResponse.json(
+        { error: 'Server configuration error', details: (configError as Error).message },
+        { status: 500 }
+      );
+    }
+    
     const { data, error } = await supabase
       .from('rsvps')
       .insert([
@@ -35,9 +46,14 @@ export async function POST(request: NextRequest) {
       .single();
 
     if (error) {
-      console.error('Supabase error:', error);
+      console.error('Supabase error:', {
+        message: error.message,
+        details: error.details,
+        hint: error.hint,
+        code: error.code
+      });
       return NextResponse.json(
-        { error: 'Failed to save RSVP' },
+        { error: 'Failed to save RSVP', details: error.message },
         { status: 500 }
       );
     }
