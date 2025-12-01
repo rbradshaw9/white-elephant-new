@@ -24,7 +24,7 @@ export const gallery2024: GalleryItem[] = [
     id: '3',
     type: 'video',
     src: '/videos/2024/video-1.mp4',
-    thumbnail: '/images/2024/party-1.jpg', // Using first image as thumbnail
+    thumbnail: '/images/2024/party-1.jpg',
     alt: 'Party video 1'
   },
   {
@@ -78,5 +78,69 @@ export const gallery2024: GalleryItem[] = [
     src: '/videos/2024/video-5.mp4',
     thumbnail: '/images/2024/party-5.jpg',
     alt: 'Party video 5'
+  },
+  {
+    id: '12',
+    type: 'image',
+    src: '/images/2024/IMG_0207.jpg',
+    alt: 'White Elephant Party 2024 - Photo 7'
+  },
+  {
+    id: '13',
+    type: 'image',
+    src: '/images/2024/IMG_0208.jpg',
+    alt: 'White Elephant Party 2024 - Photo 8'
+  },
+  {
+    id: '14',
+    type: 'video',
+    src: '/videos/2024/IMG_0209.mp4',
+    thumbnail: '/images/2024/IMG_0207.jpg',
+    alt: 'Party video 6'
+  },
+  {
+    id: '15',
+    type: 'video',
+    src: '/videos/2024/IMG_0210.mp4',
+    thumbnail: '/images/2024/IMG_0208.jpg',
+    alt: 'Party video 7'
+  },
+  {
+    id: '16',
+    type: 'image',
+    src: '/images/2024/IMG_0211.jpeg',
+    alt: 'White Elephant Party 2024 - Photo 9'
+  },
+  {
+    id: '17',
+    type: 'video',
+    src: '/videos/2024/IMG_0212.mp4',
+    thumbnail: '/images/2024/IMG_0211.jpeg',
+    alt: 'Party video 8'
+  },
+  {
+    id: '18',
+    type: 'image',
+    src: '/images/2024/IMG_0213.jpg',
+    alt: 'White Elephant Party 2024 - Photo 10'
+  },
+  {
+    id: '19',
+    type: 'video',
+    src: '/videos/2024/IMG_0215.mp4',
+    thumbnail: '/images/2024/IMG_0213.jpg',
+    alt: 'Party video 9'
+  },
+  {
+    id: '20',
+    type: 'image',
+    src: '/images/2024/IMG_0216.jpg',
+    alt: 'White Elephant Party 2024 - Photo 11'
+  },
+  {
+    id: '21',
+    type: 'image',
+    src: '/images/2024/IMG_0506.jpg',
+    alt: 'White Elephant Party 2024 - Photo 12'
   },
 ];
