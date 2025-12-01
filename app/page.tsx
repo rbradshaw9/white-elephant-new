@@ -5,6 +5,7 @@ import Image from 'next/image';
 import { motion } from 'framer-motion';
 import Countdown from '@/components/Countdown';
 import ShareInvite from '@/components/ShareInvite';
+import FloatingEmojis from '@/components/FloatingEmojis';
 import { useEventSettings } from '@/hooks/useEventSettings';
 import { gallery2024 } from '@/lib/gallery2024';
 
@@ -25,6 +26,7 @@ export default function Home() {
       {/* Hero Section */}
       <section className="relative bg-gradient-to-br from-red-700 via-red-600 to-green-700 text-white py-20 md:py-32 overflow-hidden">
         <div className="absolute inset-0 bg-[url('/pattern.svg')] opacity-10"></div>
+        <FloatingEmojis />
         
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="text-center space-y-8">
@@ -49,7 +51,7 @@ export default function Home() {
             >
               <Link
                 href="/rsvp"
-                className="inline-flex items-center justify-center px-8 py-4 text-lg font-bold bg-white text-red-700 rounded-full hover:bg-yellow-300 hover:text-red-800 transition-all transform hover:scale-105 shadow-2xl"
+                className="inline-flex items-center justify-center px-8 py-4 text-lg font-bold bg-white text-red-700 rounded-full hover:bg-yellow-300 hover:text-red-800 transition-all transform hover:scale-105 shadow-2xl animate-pulse hover:animate-none"
               >
                 🎟️ RSVP Now
               </Link>
@@ -68,6 +70,41 @@ export default function Home() {
       <section className="py-12 bg-cream-50">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <Countdown targetDate={eventConfig.partyDateTime} />
+        </div>
+      </section>
+
+      {/* 2024 Stats Section */}
+      <section className="py-16 bg-gradient-to-r from-red-600 via-green-600 to-red-600 text-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <motion.h2
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-4xl md:text-5xl font-bold text-center mb-12"
+          >
+            🎉 2024 Party By The Numbers 🎉
+          </motion.h2>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+            {[
+              { emoji: '👥', value: '24', label: 'Party Animals' },
+              { emoji: '🎁', value: '24', label: 'Gifts Exchanged' },
+              { emoji: '🔥', value: '47', label: 'Total Steals' },
+              { emoji: '😈', value: '3', label: 'Frozen Gifts' },
+            ].map((stat, index) => (
+              <motion.div
+                key={stat.label}
+                initial={{ opacity: 0, scale: 0.5 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true }}
+                transition={{ delay: index * 0.1, type: 'spring' }}
+                className="bg-white/10 backdrop-blur-md rounded-2xl p-6 text-center hover:bg-white/20 transition-all transform hover:scale-105"
+              >
+                <div className="text-5xl mb-3">{stat.emoji}</div>
+                <div className="text-4xl font-black mb-2">{stat.value}</div>
+                <div className="text-sm font-semibold opacity-90">{stat.label}</div>
+              </motion.div>
+            ))}
+          </div>
         </div>
       </section>
 

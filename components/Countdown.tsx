@@ -75,9 +75,9 @@ export default function Countdown({ targetDate }: CountdownProps) {
         {timeBlocks.map((block) => (
           <div
             key={block.label}
-            className="bg-white/10 backdrop-blur-sm rounded-lg p-3 md:p-4 text-center hover:bg-white/20 transition-colors"
+            className="bg-white/10 backdrop-blur-sm rounded-lg p-3 md:p-4 text-center hover:bg-white/20 transition-all hover:scale-105"
           >
-            <div className="text-3xl md:text-5xl font-bold mb-1 md:mb-2">
+            <div className="text-3xl md:text-5xl font-bold mb-1 md:mb-2 transition-all duration-300">
               {String(block.value).padStart(2, '0')}
             </div>
             <div className="text-xs md:text-sm font-medium opacity-90">

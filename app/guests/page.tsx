@@ -92,14 +92,14 @@ export default function GuestsPage() {
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ delay: index * 0.02, duration: 0.3 }}
               >
-                <Card className="hover:shadow-lg transition-all duration-200 border-2 hover:border-green-500 bg-white/80 backdrop-blur">
+                <Card className="hover:shadow-xl transition-all duration-200 border-2 hover:border-green-500 bg-white/80 backdrop-blur hover:scale-105 group cursor-default">
                   <CardHeader className="pb-3">
-                    <CardTitle className="text-lg text-gray-800 flex items-center gap-2">
-                      <span className="text-2xl">👤</span>
+                    <CardTitle className="text-lg text-gray-800 flex items-center gap-2 group-hover:text-green-700 transition-colors">
+                      <span className="text-2xl group-hover:scale-125 transition-transform">👤</span>
                       {guest.name}
                     </CardTitle>
                     <CardDescription className="text-base font-medium text-green-700 flex items-center gap-2">
-                      <span className="text-xl">🧝</span>
+                      <span className="text-xl group-hover:animate-bounce">🧝</span>
                       {guest.elfName}
                     </CardDescription>
                   </CardHeader>

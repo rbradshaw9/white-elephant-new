@@ -56,10 +56,14 @@ export default function ShareInvite() {
         <p className="text-gray-600 mb-4">Help us spread the word</p>
         
         {qrCode && (
-          <div className="bg-white p-4 rounded-lg inline-block mb-4">
+          <motion.div 
+            className="bg-white p-4 rounded-lg inline-block mb-4 shadow-lg"
+            whileHover={{ scale: 1.05, rotate: 2 }}
+            transition={{ type: "spring", stiffness: 300 }}
+          >
             <img src={qrCode} alt="QR Code" className="w-48 h-48 mx-auto" />
             <p className="text-xs text-gray-500 mt-2">Scan to RSVP</p>
-          </div>
+          </motion.div>
         )}
 
         <div className="space-y-2">
