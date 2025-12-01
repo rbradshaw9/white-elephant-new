@@ -174,6 +174,14 @@ export default function Home() {
             >
               <div className="space-y-4">
                 <div className="flex items-start space-x-3">
+                  <span className="text-3xl">⏰</span>
+                  <div>
+                    <h3 className="font-bold text-lg text-gray-800">Timing</h3>
+                    <p className="text-gray-700">Arrive by 7:00 PM<br/>Game starts at 7:30 sharp!</p>
+                  </div>
+                </div>
+                
+                <div className="flex items-start space-x-3">
                   <span className="text-3xl">👔</span>
                   <div>
                     <h3 className="font-bold text-lg text-gray-800">Dress Code</h3>
@@ -193,7 +201,11 @@ export default function Home() {
                   <span className="text-3xl">🍽️</span>
                   <div>
                     <h3 className="font-bold text-lg text-gray-800">What to Bring</h3>
-                    <p className="text-gray-700">A dish to share & your favorite drinks! 🍷</p>
+                    <p className="text-gray-700">
+                      • A dish to share (dessert, snack, appetizer)<br/>
+                      • Your favorite drinks/booze 🍷🍺<br/>
+                      • Your competitive spirit!
+                    </p>
                   </div>
                 </div>
               </div>

@@ -178,7 +178,7 @@ export async function sendRSVPConfirmation(data: EmailData): Promise<void> {
             <li>✓ Your ugliest Christmas sweater</li>
             <li>✓ Your competitive spirit!</li>
           </ul>
-          <p style="font-size: 14px; color: #666; margin-top: 15px;"><em>Arrive by 6:00 PM so we can start on time!</em></p>
+          <p style="font-size: 14px; color: #666; margin-top: 15px;"><em>Arrive by 7:00 PM — Game starts at 7:30 sharp!</em></p>
 
           <div style="text-align: center; margin: 30px 0;">
             <a href="{{CALENDAR_LINK}}" style="display: inline-block; background-color: #c41e3a; color: white; padding: 12px 30px; text-decoration: none; border-radius: 6px; font-weight: bold; margin: 5px;">📅 Add to Calendar</a>
