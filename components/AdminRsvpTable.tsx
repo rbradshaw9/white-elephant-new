@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { RSVP } from '@/lib/supabase';
 import { convertToCSV, downloadCSV } from '@/lib/csv';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
@@ -15,6 +15,12 @@ export default function AdminRsvpTable({ rsvps }: AdminRsvpTableProps) {
   const [sortedRsvps, setSortedRsvps] = useState<RSVP[]>(rsvps);
   const [sortField, setSortField] = useState<keyof RSVP>('created_at');
   const [sortDirection, setSortDirection] = useState<'asc' | 'desc'>('desc');
+
+  // Update sortedRsvps when rsvps prop changes
+  useEffect(() => {
+    console.log('[AdminRsvpTable] RSVPs prop updated:', rsvps.length);
+    setSortedRsvps(rsvps);
+  }, [rsvps]);
 
   const handleSort = (field: keyof RSVP) => {
     const newDirection = field === sortField && sortDirection === 'asc' ? 'desc' : 'asc';

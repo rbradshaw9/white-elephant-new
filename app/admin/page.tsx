@@ -20,6 +20,16 @@ export default function AdminPage() {
   const [isLoading, setIsLoading] = useState(false);
   const [activeTab, setActiveTab] = useState<TabType>('rsvps');
 
+  // Restore session from localStorage on mount
+  useEffect(() => {
+    const savedPassword = localStorage.getItem('adminPassword');
+    if (savedPassword) {
+      console.log('[Admin] Restoring session from localStorage');
+      setPassword(savedPassword);
+      setIsAuthenticated(true);
+    }
+  }, []);
+
   // Refetch RSVPs when switching to RSVPs tab
   useEffect(() => {
     console.log('[Admin] useEffect triggered - isAuthenticated:', isAuthenticated, 'activeTab:', activeTab, 'password length:', password?.length);
@@ -50,6 +60,7 @@ export default function AdminPage() {
       console.log('[Admin] Login successful, setting password and auth state');
       setPassword(loginPassword);
       setIsAuthenticated(true);
+      localStorage.setItem('adminPassword', loginPassword);
     } catch (err) {
       console.error('[Admin] Login error:', err);
       setError('Invalid password. Please try again.');
@@ -149,9 +160,11 @@ export default function AdminPage() {
             </h1>
             <Button
               onClick={() => {
+                console.log('[Admin] Logging out');
                 setIsAuthenticated(false);
                 setPassword('');
                 setLoginPassword('');
+                localStorage.removeItem('adminPassword');
               }}
               variant="outline"
               className="border-2 border-gray-700"
