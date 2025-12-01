@@ -241,6 +241,7 @@ export default function EmailEditor({ password }: EmailEditorProps) {
   const [template, setTemplate] = useState(defaultEmailTemplate);
   const [showPreview, setShowPreview] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [resetting, setResetting] = useState(false);
 
   // Generate preview with sample data
   const getPreviewHtml = () => {
@@ -330,6 +331,38 @@ export default function EmailEditor({ password }: EmailEditorProps) {
     }
   };
 
+  const handleResetToDefault = async () => {
+    if (!confirm('This will reset the email template in the database to the default. Are you sure?')) {
+      return;
+    }
+
+    setResetting(true);
+    setMessage('');
+
+    try {
+      // Delete from database
+      const response = await fetch('/api/admin/reset-email-template', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ password })
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.error || 'Failed to reset template');
+      }
+
+      // Reset local state
+      setTemplate(defaultEmailTemplate);
+      setMessage('✅ Email template reset to default successfully! Click Save to apply.');
+    } catch (error) {
+      setMessage(`❌ Failed to reset template: ${(error as Error).message}`);
+      console.error('Reset error:', error);
+    } finally {
+      setResetting(false);
+    }
+  };
+
   if (loading) {
     return (
       <div className="text-center py-8 text-gray-600">
@@ -411,16 +444,17 @@ export default function EmailEditor({ password }: EmailEditorProps) {
       <div className="flex gap-4">
         <Button
           onClick={handleSave}
-          disabled={saving}
+          disabled={saving || resetting}
           className="bg-gradient-to-r from-green-600 to-red-600 hover:from-green-700 hover:to-red-700"
         >
           {saving ? '💾 Saving...' : '💾 Save Template'}
         </Button>
         <Button
-          onClick={() => setTemplate(defaultEmailTemplate)}
-          variant="outline"
+          onClick={handleResetToDefault}
+          disabled={saving || resetting}
+          variant="destructive"
         >
-          🔄 Reset to Default
+          {resetting ? '🔄 Resetting...' : '🔄 Reset to Default (with Buttons)'}
         </Button>
       </div>
     </div>
