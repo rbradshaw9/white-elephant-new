@@ -6,7 +6,10 @@ import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import AdminRsvpTable from '@/components/AdminRsvpTable';
+import AdminSettings from '@/components/AdminSettings';
 import { RSVP } from '@/lib/supabase';
+
+type TabType = 'rsvps' | 'settings';
 
 export default function AdminPage() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -14,6 +17,7 @@ export default function AdminPage() {
   const [error, setError] = useState('');
   const [rsvps, setRsvps] = useState<RSVP[]>([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [activeTab, setActiveTab] = useState<TabType>('rsvps');
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -131,15 +135,42 @@ export default function AdminPage() {
               🔒 Logout
             </Button>
           </div>
-          <p className="text-gray-600 mt-2">Manage White Elephant Party RSVPs</p>
+          <p className="text-gray-600 mt-2">Manage your White Elephant Bash</p>
         </motion.div>
+
+        {/* Tabs */}
+        <div className="mb-6 border-b border-gray-200">
+          <nav className="-mb-px flex space-x-8">
+            <button
+              onClick={() => setActiveTab('rsvps')}
+              className={`py-4 px-1 border-b-2 font-medium text-sm ${
+                activeTab === 'rsvps'
+                  ? 'border-red-600 text-red-600'
+                  : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
+              }`}
+            >
+              📋 RSVPs
+            </button>
+            <button
+              onClick={() => setActiveTab('settings')}
+              className={`py-4 px-1 border-b-2 font-medium text-sm ${
+                activeTab === 'settings'
+                  ? 'border-red-600 text-red-600'
+                  : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
+              }`}
+            >
+              ⚙️ Event Settings
+            </button>
+          </nav>
+        </div>
 
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2, duration: 0.5 }}
         >
-          <AdminRsvpTable rsvps={rsvps} />
+          {activeTab === 'rsvps' && <AdminRsvpTable rsvps={rsvps} />}
+          {activeTab === 'settings' && <AdminSettings />}
         </motion.div>
       </div>
     </div>

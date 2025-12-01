@@ -6,46 +6,46 @@ export type GalleryItem = {
   alt: string;
 };
 
-// 2024 Gallery items - update these with your actual images/videos
+// 2024 Gallery items - Using placeholder images for now
 export const gallery2024: GalleryItem[] = [
   {
     id: '1',
     type: 'image',
-    src: '/images/2024/party-1.jpg',
+    src: 'https://placehold.co/800x600/dc2626/ffffff?text=Party+Photo+1',
     alt: 'Group photo at White Elephant Party 2024'
   },
   {
     id: '2',
     type: 'image',
-    src: '/images/2024/party-2.jpg',
+    src: 'https://placehold.co/800x600/15803d/ffffff?text=Gift+Stealing',
     alt: 'Gift stealing moment'
   },
   {
     id: '3',
     type: 'image',
-    src: '/images/2024/party-3.jpg',
+    src: 'https://placehold.co/800x600/dc2626/ffffff?text=Ugly+Sweaters',
     alt: 'Ugly sweater contest winners'
   },
   {
     id: '4',
-    type: 'video',
-    src: '/videos/2024/highlights.mp4',
-    thumbnail: '/images/2024/video-thumb-1.jpg',
+    type: 'image',
+    src: 'https://placehold.co/800x600/15803d/ffffff?text=Video+Placeholder',
     alt: 'Party highlights video'
   },
   {
     id: '5',
     type: 'image',
-    src: '/images/2024/party-4.jpg',
+    src: 'https://placehold.co/800x600/dc2626/ffffff?text=Popular+Gift',
     alt: 'The most fought-over gift'
   },
   {
     id: '6',
     type: 'image',
-    src: '/images/2024/party-5.jpg',
+    src: 'https://placehold.co/800x600/15803d/ffffff?text=Hot+Cocoa',
     alt: 'Hot cocoa station'
   },
-  // Add more gallery items as needed
-  // For now, these are placeholder paths
-  // Replace with actual images/videos in the public folder
+  // To use your own images:
+  // 1. Upload images to /public/images/2024/
+  // 2. Replace src with: '/images/2024/your-image.jpg'
+  // For videos: type: 'video', src: '/videos/2024/video.mp4', thumbnail: '/images/2024/thumb.jpg'
 ];
