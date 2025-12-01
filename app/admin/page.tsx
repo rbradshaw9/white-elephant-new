@@ -14,10 +14,18 @@ type TabType = 'rsvps' | 'settings';
 export default function AdminPage() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [password, setPassword] = useState('');
+  const [loginPassword, setLoginPassword] = useState('');
   const [error, setError] = useState('');
   const [rsvps, setRsvps] = useState<RSVP[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [activeTab, setActiveTab] = useState<TabType>('rsvps');
+
+  // Refetch RSVPs when switching to RSVPs tab
+  useEffect(() => {
+    if (isAuthenticated && activeTab === 'rsvps') {
+      fetchRsvps();
+    }
+  }, [activeTab, isAuthenticated]);
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -28,15 +36,15 @@ export default function AdminPage() {
       const response = await fetch('/api/admin/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ password }),
+        body: JSON.stringify({ password: loginPassword }),
       });
 
       if (!response.ok) {
         throw new Error('Invalid password');
       }
 
+      setPassword(loginPassword);
       setIsAuthenticated(true);
-      fetchRsvps();
     } catch (err) {
       setError('Invalid password. Please try again.');
     } finally {
@@ -82,8 +90,8 @@ export default function AdminPage() {
                 <div>
                   <Input
                     type="password"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
+                    value={loginPassword}
+                    onChange={(e) => setLoginPassword(e.target.value)}
                     placeholder="Enter admin password"
                     className="text-lg py-6"
                     autoFocus
@@ -102,7 +110,7 @@ export default function AdminPage() {
 
                 <Button
                   type="submit"
-                  disabled={isLoading || !password}
+                  disabled={isLoading || !loginPassword}
                   className="w-full bg-gradient-to-r from-gray-700 to-gray-800 hover:from-gray-800 hover:to-gray-900 text-white font-bold py-6 text-lg"
                 >
                   {isLoading ? 'Checking...' : '🔓 Login'}
@@ -132,6 +140,7 @@ export default function AdminPage() {
               onClick={() => {
                 setIsAuthenticated(false);
                 setPassword('');
+                setLoginPassword('');
               }}
               variant="outline"
               className="border-2 border-gray-700"

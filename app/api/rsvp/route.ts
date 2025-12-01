@@ -31,17 +31,21 @@ export async function POST(request: NextRequest) {
       );
     }
     
+    // Use upsert to update existing RSVP if email exists
     const { data, error } = await supabase
       .from('rsvps')
-      .insert([
+      .upsert(
         {
-          primary_name: primaryName,
           email: email,
+          primary_name: primaryName,
           guest_count: guestCount,
           guest_names: guestNames,
           elf_names: elfNames,
         },
-      ])
+        {
+          onConflict: 'email',
+        }
+      )
       .select()
       .single();
 
