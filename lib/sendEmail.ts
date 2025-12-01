@@ -198,21 +198,31 @@ export async function sendRSVPConfirmation(data: EmailData): Promise<void> {
   const calendarLink = generateCalendarLink(eventConfig);
   const manageRsvpLink = generateManageRsvpLink(to);
   
+  console.log('[sendEmail] Using custom template:', !!customTemplate);
+  console.log('[sendEmail] Calendar link:', calendarLink);
+  console.log('[sendEmail] Manage RSVP link:', manageRsvpLink);
+  console.log('[sendEmail] Party DateTime:', eventConfig.partyDateTime);
+  
+  // Format the date
+  const formattedDate = new Date(eventConfig.partyDateTime).toLocaleString('en-US', {
+    weekday: 'long',
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+    hour: 'numeric',
+    minute: '2-digit',
+    timeZoneName: 'short'
+  });
+  
+  console.log('[sendEmail] Formatted date:', formattedDate);
+  
   // Replace variables in the template
   htmlContent = htmlContent
     .replace(/{{PRIMARY_NAME}}/g, primaryName)
     .replace(/{{EMAIL}}/g, to)
     .replace(/{{GUEST_COUNT}}/g, guestNames.length.toString())
     .replace(/{{GUEST_LIST}}/g, guestList)
-    .replace(/{{PARTY_DATETIME}}/g, new Date(eventConfig.partyDateTime).toLocaleString('en-US', {
-      weekday: 'long',
-      year: 'numeric',
-      month: 'long',
-      day: 'numeric',
-      hour: 'numeric',
-      minute: '2-digit',
-      timeZoneName: 'short'
-    }))
+    .replace(/{{PARTY_DATETIME}}/g, formattedDate)
     .replace(/{{ADDRESS}}/g, eventConfig.address)
     .replace(/{{DRESS_CODE}}/g, eventConfig.dressCode)
     .replace(/{{GIFT_RANGE}}/g, eventConfig.giftPriceRange)
