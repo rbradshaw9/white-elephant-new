@@ -21,6 +21,8 @@ export default function AdminPage() {
   const [isLoading, setIsLoading] = useState(false);
   const [activeTab, setActiveTab] = useState<TabType>('rsvps');
   const [migrationMessage, setMigrationMessage] = useState('');
+  const [emailTestMessage, setEmailTestMessage] = useState('');
+  const [testEmail, setTestEmail] = useState('');
 
   // Restore session from localStorage on mount
   useEffect(() => {

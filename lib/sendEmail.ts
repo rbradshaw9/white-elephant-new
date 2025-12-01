@@ -12,11 +12,24 @@ interface EmailData {
 
 async function getEmailTemplate(): Promise<string | null> {
   try {
-    const response = await fetch(`${process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'}/api/admin/email-template`);
-    if (response.ok) {
-      const data = await response.json();
-      return data.template;
+    // Don't use fetch in server context - directly query database instead
+    const { createClient } = await import('@supabase/supabase-js');
+    const supabase = createClient(
+      process.env.NEXT_PUBLIC_SUPABASE_URL!,
+      process.env.SUPABASE_SERVICE_ROLE_KEY!
+    );
+
+    const { data, error } = await supabase
+      .from('settings')
+      .select('value')
+      .eq('id', 'email_template')
+      .single();
+
+    if (error || !data) {
+      return null;
     }
+
+    return data.value as string;
   } catch (error) {
     console.error('Failed to fetch custom email template:', error);
   }
