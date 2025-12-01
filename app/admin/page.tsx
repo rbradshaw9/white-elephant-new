@@ -46,7 +46,11 @@ export default function AdminPage() {
 
   const fetchRsvps = async () => {
     try {
-      const response = await fetch('/api/admin/rsvps');
+      const response = await fetch('/api/admin/rsvps', {
+        headers: {
+          'x-admin-password': password,
+        },
+      });
       if (!response.ok) {
         throw new Error('Failed to fetch RSVPs');
       }

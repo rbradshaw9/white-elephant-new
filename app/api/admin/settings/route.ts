@@ -7,14 +7,7 @@ export async function POST(request: NextRequest) {
     const { settings, password } = body;
 
     // Validate admin password sent with request
-    console.log('Settings save attempt:', {
-      hasPassword: !!password,
-      hasSettings: !!settings,
-      envPasswordExists: !!process.env.ADMIN_PASSWORD
-    });
-
     if (password !== process.env.ADMIN_PASSWORD) {
-      console.error('Settings save: Invalid password');
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 

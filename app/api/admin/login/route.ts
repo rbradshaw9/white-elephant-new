@@ -6,14 +6,6 @@ export async function POST(request: NextRequest) {
     const { password } = body;
 
     const adminPassword = process.env.ADMIN_PASSWORD;
-    
-    // Debug logging (remove after troubleshooting)
-    console.log('Login attempt:', {
-      receivedPasswordLength: password?.length,
-      envPasswordExists: !!adminPassword,
-      envPasswordLength: adminPassword?.length,
-      passwordsMatch: password === adminPassword
-    });
 
     if (!adminPassword) {
       console.error('ADMIN_PASSWORD environment variable is not set!');
