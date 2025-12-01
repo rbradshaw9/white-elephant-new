@@ -100,21 +100,30 @@ export async function POST(request: NextRequest) {
     }
 
     // Send notification email to Jen
+    const notificationEmail = process.env.NOTIFICATION_EMAIL || 'jenny.bradshaw@gmail.com';
+    console.log('[RSVP] ========================================');
+    console.log('[RSVP] ATTEMPTING TO SEND NOTIFICATION EMAIL');
+    console.log('[RSVP] To:', notificationEmail);
+    console.log('[RSVP] From:', process.env.SENDGRID_FROM_EMAIL);
+    console.log('[RSVP] For RSVP from:', primaryName, '(', email, ')');
+    console.log('[RSVP] ========================================');
+    
     try {
-      const notificationEmail = process.env.NOTIFICATION_EMAIL || 'jenny.bradshaw@gmail.com';
-      console.log('[RSVP] Sending notification email to:', notificationEmail);
-      console.log('[RSVP] SENDGRID_FROM_EMAIL:', process.env.SENDGRID_FROM_EMAIL);
       const { sendNotificationEmail } = await import('@/lib/sendEmail');
-      await sendNotificationEmail({
+      const result = await sendNotificationEmail({
         to: email,
         primaryName: primaryName,
         guestNames: guestNames,
         elfNames: elfNames,
       });
-      console.log('[RSVP] Notification email sent successfully to:', notificationEmail);
-    } catch (notifError) {
-      console.error('[RSVP] Notification email error:', notifError);
-      console.error('[RSVP] Full error:', JSON.stringify(notifError, null, 2));
+      console.log('[RSVP] ✅ NOTIFICATION EMAIL SENT SUCCESSFULLY');
+      console.log('[RSVP] SendGrid response:', result);
+    } catch (notifError: any) {
+      console.error('[RSVP] ❌ NOTIFICATION EMAIL FAILED');
+      console.error('[RSVP] Error message:', notifError?.message);
+      console.error('[RSVP] Error code:', notifError?.code);
+      console.error('[RSVP] Error response:', notifError?.response?.body);
+      console.error('[RSVP] Full error:', notifError);
       // Don't fail the request if notification fails
     }
 
