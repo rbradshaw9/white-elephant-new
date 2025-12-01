@@ -188,6 +188,14 @@ export default function Home() {
                     <p className="text-gray-700">{eventConfig.giftPriceRange}</p>
                   </div>
                 </div>
+                
+                <div className="flex items-start space-x-3">
+                  <span className="text-3xl">🍽️</span>
+                  <div>
+                    <h3 className="font-bold text-lg text-gray-800">What to Bring</h3>
+                    <p className="text-gray-700">A dish to share & your favorite drinks! 🍷</p>
+                  </div>
+                </div>
               </div>
             </motion.div>
           </div>

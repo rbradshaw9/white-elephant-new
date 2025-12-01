@@ -170,13 +170,15 @@ export async function sendRSVPConfirmation(data: EmailData): Promise<void> {
             <p><strong>Gift Price Range:</strong> ${eventConfig.giftPriceRange}</p>
           </div>
 
-          <h2>🎁 Remember:</h2>
+          <h2>🎁 Remember to Bring:</h2>
           <ul>
-            <li>✓ Bring a wrapped gift (${eventConfig.giftPriceRange})</li>
-            <li>✓ Arrive by 7:00 PM</li>
-            <li>✓ Wear your ugliest Christmas sweater</li>
-            <li>✓ Bring your competitive spirit!</li>
+            <li>✓ A wrapped gift (${eventConfig.giftPriceRange})</li>
+            <li>✓ A dish to share (dessert, snack, appetizer - whatever sounds good!)</li>
+            <li>✓ Your favorite booze if you'd like 🍷🍺</li>
+            <li>✓ Your ugliest Christmas sweater</li>
+            <li>✓ Your competitive spirit!</li>
           </ul>
+          <p style="font-size: 14px; color: #666; margin-top: 15px;"><em>Arrive by 6:00 PM so we can start on time!</em></p>
 
           <div style="text-align: center; margin: 30px 0;">
             <a href="{{CALENDAR_LINK}}" style="display: inline-block; background-color: #c41e3a; color: white; padding: 12px 30px; text-decoration: none; border-radius: 6px; font-weight: bold; margin: 5px;">📅 Add to Calendar</a>
