@@ -41,7 +41,7 @@ async function getEmailTemplate(): Promise<string | null> {
 
     const { data, error } = await supabase
       .from('settings')
-      .select('value')
+      .select('settings')
       .eq('id', 'email_template')
       .single();
 
@@ -49,7 +49,7 @@ async function getEmailTemplate(): Promise<string | null> {
       return null;
     }
 
-    return data.value as string;
+    return data.settings?.template as string;
   } catch (error) {
     console.error('Failed to fetch custom email template:', error);
   }

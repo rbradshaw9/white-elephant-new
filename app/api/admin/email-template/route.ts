@@ -19,7 +19,7 @@ export async function POST(request: NextRequest) {
       .upsert([
         {
           id: 'email_template',
-          value: template,
+          settings: { template },
           updated_at: new Date().toISOString()
         }
       ])
@@ -62,7 +62,7 @@ export async function GET() {
       );
     }
 
-    return NextResponse.json({ template: data?.value || null });
+    return NextResponse.json({ template: data?.settings?.template || null });
   } catch (error) {
     console.error('Email template API error:', error);
     return NextResponse.json(
