@@ -10,6 +10,7 @@ export default function Navbar() {
   const links = [
     { href: '/', label: 'Home' },
     { href: '/rsvp', label: 'RSVP' },
+    { href: '/guests', label: 'Guests' },
     { href: '/gallery', label: 'Gallery' },
     { href: '/rules', label: 'Rules' },
   ];
