@@ -50,26 +50,57 @@ export default function AdminRsvpTable({ rsvps, password, onRefresh }: AdminRsvp
     downloadCSV(csv, `white-elephant-rsvps-${timestamp}.csv`);
   };
 
-  const handleDelete = async (rsvpId: string) => {
-    if (!confirm('Are you sure you want to delete this RSVP? This cannot be undone.')) {
+  const handleDeleteAttendee = async (rsvpId: string, attendeeIndex: number) => {
+    const rsvp = sortedRsvps.find(r => r.id === rsvpId);
+    if (!rsvp) return;
+
+    const attendeeName = rsvp.guest_names[attendeeIndex];
+    if (!confirm(`Are you sure you want to remove ${attendeeName} from this RSVP? This cannot be undone.`)) {
       return;
     }
 
-    setDeletingId(rsvpId);
+    setDeletingId(`${rsvpId}-${attendeeIndex}`);
     try {
-      const response = await fetch('/api/admin/delete-rsvp', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ password, rsvpId })
-      });
+      // If this is the last attendee, delete the entire RSVP
+      if (rsvp.guest_names.length === 1) {
+        const response = await fetch('/api/admin/delete-rsvp', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ password, rsvpId })
+        });
 
-      if (!response.ok) {
-        throw new Error('Failed to delete');
+        if (!response.ok) {
+          throw new Error('Failed to delete');
+        }
+      } else {
+        // Remove just this attendee
+        const newGuestNames = rsvp.guest_names.filter((_, i) => i !== attendeeIndex);
+        const newElfNames = rsvp.elf_names.filter((_, i) => i !== attendeeIndex);
+
+        const response = await fetch('/api/admin/update-rsvp', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            password,
+            rsvp: {
+              id: rsvp.id,
+              primary_name: rsvp.primary_name,
+              email: rsvp.email,
+              guest_count: newGuestNames.length,
+              guest_names: newGuestNames,
+              elf_names: newElfNames,
+            }
+          })
+        });
+
+        if (!response.ok) {
+          throw new Error('Failed to update');
+        }
       }
 
       onRefresh();
     } catch (error) {
-      alert('Failed to delete RSVP: ' + (error as Error).message);
+      alert('Failed to delete attendee: ' + (error as Error).message);
     } finally {
       setDeletingId(null);
     }
@@ -204,10 +235,16 @@ export default function AdminRsvpTable({ rsvps, password, onRefresh }: AdminRsvp
                           <Button
                             size="sm"
                             variant="destructive"
-                            onClick={() => handleDelete(row.rsvpId)}
-                            disabled={deletingId === row.rsvpId}
+                            onClick={() => {
+                              const rsvp = sortedRsvps.find(r => r.id === row.rsvpId);
+                              if (rsvp) {
+                                const attendeeIndex = rsvp.guest_names.indexOf(row.attendeeName);
+                                handleDeleteAttendee(row.rsvpId, attendeeIndex);
+                              }
+                            }}
+                            disabled={deletingId === `${row.rsvpId}-${sortedRsvps.find(r => r.id === row.rsvpId)?.guest_names.indexOf(row.attendeeName)}`}
                           >
-                            {deletingId === row.rsvpId ? '...' : '🗑️'}
+                            {deletingId === `${row.rsvpId}-${sortedRsvps.find(r => r.id === row.rsvpId)?.guest_names.indexOf(row.attendeeName)}` ? '...' : '🗑️'}
                           </Button>
                         </div>
                       </TableCell>

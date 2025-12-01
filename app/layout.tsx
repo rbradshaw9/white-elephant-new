@@ -11,7 +11,7 @@ const geistSans = Geist({
 });
 
 export const metadata: Metadata = {
-  title: "The White Elephant Bash 2025 | Holiday Gift Exchange",
+  title: "The White Elephant Bash 2025",
   description: "Join us for an evening of gift stealing, laughter, and holiday chaos at The White Elephant Bash!",
   viewport: {
     width: 'device-width',
