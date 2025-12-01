@@ -6,46 +6,77 @@ export type GalleryItem = {
   alt: string;
 };
 
-// 2024 Gallery items - Using placeholder images for now
+// 2024 Gallery items - Your actual party photos and videos!
 export const gallery2024: GalleryItem[] = [
   {
     id: '1',
     type: 'image',
-    src: 'https://placehold.co/800x600/dc2626/ffffff?text=Party+Photo+1',
-    alt: 'Group photo at White Elephant Party 2024'
+    src: '/images/2024/party-1.jpg',
+    alt: 'White Elephant Party 2024 - Photo 1'
   },
   {
     id: '2',
     type: 'image',
-    src: 'https://placehold.co/800x600/15803d/ffffff?text=Gift+Stealing',
-    alt: 'Gift stealing moment'
+    src: '/images/2024/party-2.jpg',
+    alt: 'White Elephant Party 2024 - Photo 2'
   },
   {
     id: '3',
-    type: 'image',
-    src: 'https://placehold.co/800x600/dc2626/ffffff?text=Ugly+Sweaters',
-    alt: 'Ugly sweater contest winners'
+    type: 'video',
+    src: '/videos/2024/video-1.mp4',
+    thumbnail: '/images/2024/party-1.jpg', // Using first image as thumbnail
+    alt: 'Party video 1'
   },
   {
     id: '4',
     type: 'image',
-    src: 'https://placehold.co/800x600/15803d/ffffff?text=Video+Placeholder',
-    alt: 'Party highlights video'
+    src: '/images/2024/party-3.jpg',
+    alt: 'White Elephant Party 2024 - Photo 3'
   },
   {
     id: '5',
-    type: 'image',
-    src: 'https://placehold.co/800x600/dc2626/ffffff?text=Popular+Gift',
-    alt: 'The most fought-over gift'
+    type: 'video',
+    src: '/videos/2024/video-2.mp4',
+    thumbnail: '/images/2024/party-2.jpg',
+    alt: 'Party video 2'
   },
   {
     id: '6',
     type: 'image',
-    src: 'https://placehold.co/800x600/15803d/ffffff?text=Hot+Cocoa',
-    alt: 'Hot cocoa station'
+    src: '/images/2024/party-4.jpg',
+    alt: 'White Elephant Party 2024 - Photo 4'
   },
-  // To use your own images:
-  // 1. Upload images to /public/images/2024/
-  // 2. Replace src with: '/images/2024/your-image.jpg'
-  // For videos: type: 'video', src: '/videos/2024/video.mp4', thumbnail: '/images/2024/thumb.jpg'
+  {
+    id: '7',
+    type: 'video',
+    src: '/videos/2024/video-3.mp4',
+    thumbnail: '/images/2024/party-3.jpg',
+    alt: 'Party video 3'
+  },
+  {
+    id: '8',
+    type: 'image',
+    src: '/images/2024/party-5.jpg',
+    alt: 'White Elephant Party 2024 - Photo 5'
+  },
+  {
+    id: '9',
+    type: 'video',
+    src: '/videos/2024/video-4.mp4',
+    thumbnail: '/images/2024/party-4.jpg',
+    alt: 'Party video 4'
+  },
+  {
+    id: '10',
+    type: 'image',
+    src: '/images/2024/party-6.jpg',
+    alt: 'White Elephant Party 2024 - Photo 6'
+  },
+  {
+    id: '11',
+    type: 'video',
+    src: '/videos/2024/video-5.mp4',
+    thumbnail: '/images/2024/party-5.jpg',
+    alt: 'Party video 5'
+  },
 ];
