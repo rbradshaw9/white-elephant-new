@@ -10,6 +10,19 @@ interface EmailData {
   elfNames: string[];
 }
 
+async function getEmailTemplate(): Promise<string | null> {
+  try {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'}/api/admin/email-template`);
+    if (response.ok) {
+      const data = await response.json();
+      return data.template;
+    }
+  } catch (error) {
+    console.error('Failed to fetch custom email template:', error);
+  }
+  return null;
+}
+
 export async function sendRSVPConfirmation(data: EmailData): Promise<void> {
   const { to, primaryName, guestNames, elfNames } = data;
 
@@ -18,7 +31,10 @@ export async function sendRSVPConfirmation(data: EmailData): Promise<void> {
     .map((name, index) => `<li><strong>${name}</strong> → 🎄 <em>${elfNames[index]}</em></li>`)
     .join('');
 
-  const htmlContent = `
+  // Try to get custom template, fall back to default
+  const customTemplate = await getEmailTemplate();
+  
+  const defaultTemplate = `
     <!DOCTYPE html>
     <html>
       <head>
@@ -125,6 +141,25 @@ export async function sendRSVPConfirmation(data: EmailData): Promise<void> {
       </body>
     </html>
   `;
+
+  // Use custom template if available, otherwise use default
+  let htmlContent = customTemplate || defaultTemplate;
+  
+  // Replace variables in the template
+  htmlContent = htmlContent
+    .replace('{{GUEST_LIST}}', `<ul>${guestList}</ul>`)
+    .replace('{{PARTY_DATETIME}}', new Date(eventConfig.partyDateTime).toLocaleString('en-US', {
+      weekday: 'long',
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+      hour: 'numeric',
+      minute: '2-digit',
+      timeZoneName: 'short'
+    }))
+    .replace(/{{ADDRESS}}/g, eventConfig.address)
+    .replace(/{{DRESS_CODE}}/g, eventConfig.dressCode)
+    .replace(/{{GIFT_RANGE}}/g, eventConfig.giftPriceRange);
 
   const textContent = `
 ${eventConfig.title}

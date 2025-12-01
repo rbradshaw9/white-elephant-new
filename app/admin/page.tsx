@@ -7,9 +7,10 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import AdminRsvpTable from '@/components/AdminRsvpTable';
 import AdminSettings from '@/components/AdminSettings';
+import EmailEditor from '@/components/EmailEditor';
 import { RSVP } from '@/lib/supabase';
 
-type TabType = 'rsvps' | 'settings';
+type TabType = 'rsvps' | 'settings' | 'email';
 
 export default function AdminPage() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -198,6 +199,16 @@ export default function AdminPage() {
             >
               ⚙️ Event Settings
             </button>
+            <button
+              onClick={() => setActiveTab('email')}
+              className={`py-4 px-1 border-b-2 font-medium text-sm ${
+                activeTab === 'email'
+                  ? 'border-red-600 text-red-600'
+                  : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
+              }`}
+            >
+              ✉️ Email Template
+            </button>
           </nav>
         </div>
 
@@ -208,6 +219,7 @@ export default function AdminPage() {
         >
           {activeTab === 'rsvps' && <AdminRsvpTable rsvps={rsvps} />}
           {activeTab === 'settings' && <AdminSettings password={password} />}
+          {activeTab === 'email' && <EmailEditor password={password} />}
         </motion.div>
       </div>
     </div>
