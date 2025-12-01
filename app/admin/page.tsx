@@ -22,15 +22,18 @@ export default function AdminPage() {
 
   // Refetch RSVPs when switching to RSVPs tab
   useEffect(() => {
+    console.log('[Admin] useEffect triggered - isAuthenticated:', isAuthenticated, 'activeTab:', activeTab, 'password length:', password?.length);
     if (isAuthenticated && activeTab === 'rsvps') {
+      console.log('[Admin] Calling fetchRsvps from useEffect');
       fetchRsvps();
     }
-  }, [activeTab, isAuthenticated]);
+  }, [activeTab, isAuthenticated, password]);
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     setError('');
     setIsLoading(true);
+    console.log('[Admin] Login attempt with password length:', loginPassword.length);
 
     try {
       const response = await fetch('/api/admin/login', {
@@ -39,13 +42,16 @@ export default function AdminPage() {
         body: JSON.stringify({ password: loginPassword }),
       });
 
+      console.log('[Admin] Login response status:', response.status);
       if (!response.ok) {
         throw new Error('Invalid password');
       }
 
+      console.log('[Admin] Login successful, setting password and auth state');
       setPassword(loginPassword);
       setIsAuthenticated(true);
     } catch (err) {
+      console.error('[Admin] Login error:', err);
       setError('Invalid password. Please try again.');
     } finally {
       setIsLoading(false);
@@ -53,19 +59,24 @@ export default function AdminPage() {
   };
 
   const fetchRsvps = async () => {
+    console.log('[Admin] Fetching RSVPs with password length:', password?.length);
     try {
       const response = await fetch('/api/admin/rsvps', {
         headers: {
           'x-admin-password': password,
         },
       });
+      console.log('[Admin] RSVP fetch response status:', response.status);
       if (!response.ok) {
+        const errorData = await response.json();
+        console.error('[Admin] RSVP fetch failed:', errorData);
         throw new Error('Failed to fetch RSVPs');
       }
       const data = await response.json();
+      console.log('[Admin] RSVPs fetched:', data.rsvps?.length || 0, 'items');
       setRsvps(data.rsvps);
     } catch (err) {
-      console.error('Error fetching RSVPs:', err);
+      console.error('[Admin] Error fetching RSVPs:', err);
     }
   };
 
