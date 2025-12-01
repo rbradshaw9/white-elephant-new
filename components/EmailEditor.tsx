@@ -242,6 +242,49 @@ export default function EmailEditor({ password }: EmailEditorProps) {
   const [showPreview, setShowPreview] = useState(false);
   const [loading, setLoading] = useState(true);
 
+  // Generate preview with sample data
+  const getPreviewHtml = () => {
+    const sampleCalendarLink = 'https://calendar.google.com/calendar/render?action=TEMPLATE&text=The+White+Elephant+Bash+2025';
+    const sampleManageLink = 'https://thewhiteelephantbash.com/rsvp?email=sample@example.com';
+    
+    return template
+      .replace(/{{PRIMARY_NAME}}/g, 'John Doe')
+      .replace(/{{EMAIL}}/g, 'john@example.com')
+      .replace(/{{GUEST_COUNT}}/g, '3')
+      .replace(/{{GUEST_LIST}}/g, `
+        <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="margin-bottom: 10px;">
+          <tr>
+            <td style="padding: 12px 15px; background-color: #ffffff; border-left: 3px solid #10b981;">
+              <p style="margin: 0; color: #2d3748; font-size: 15px; font-weight: bold; font-family: Arial, Helvetica, sans-serif;">John Doe</p>
+              <p style="margin: 5px 0 0; color: #10b981; font-size: 14px; font-weight: 500; font-family: Arial, Helvetica, sans-serif;">🧝 Jolly Jingleberry</p>
+            </td>
+          </tr>
+        </table>
+        <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="margin-bottom: 10px;">
+          <tr>
+            <td style="padding: 12px 15px; background-color: #ffffff; border-left: 3px solid #10b981;">
+              <p style="margin: 0; color: #2d3748; font-size: 15px; font-weight: bold; font-family: Arial, Helvetica, sans-serif;">Jane Smith</p>
+              <p style="margin: 5px 0 0; color: #10b981; font-size: 14px; font-weight: 500; font-family: Arial, Helvetica, sans-serif;">🧝 Sparkle Snowflake</p>
+            </td>
+          </tr>
+        </table>
+        <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="margin-bottom: 10px;">
+          <tr>
+            <td style="padding: 12px 15px; background-color: #ffffff; border-left: 3px solid #10b981;">
+              <p style="margin: 0; color: #2d3748; font-size: 15px; font-weight: bold; font-family: Arial, Helvetica, sans-serif;">Bob Johnson</p>
+              <p style="margin: 5px 0 0; color: #10b981; font-size: 14px; font-weight: 500; font-family: Arial, Helvetica, sans-serif;">🧝 Tinsel McTwinkle</p>
+            </td>
+          </tr>
+        </table>
+      `)
+      .replace(/{{PARTY_DATETIME}}/g, 'Friday, December 13, 2025, 6:00 PM MST')
+      .replace(/{{ADDRESS}}/g, '8853 S University Blvd, Highlands Ranch, CO 80126')
+      .replace(/{{DRESS_CODE}}/g, 'Ugly Christmas Sweaters Encouraged! 🎄')
+      .replace(/{{GIFT_RANGE}}/g, '$20 - $40')
+      .replace(/{{CALENDAR_LINK}}/g, sampleCalendarLink)
+      .replace(/{{MANAGE_RSVP_LINK}}/g, sampleManageLink);
+  };
+
   // Load saved template on mount
   useEffect(() => {
     const loadTemplate = async () => {
@@ -358,7 +401,7 @@ export default function EmailEditor({ password }: EmailEditorProps) {
         <Card className="overflow-hidden bg-gray-100">
           <div className="p-4">
             <div 
-              dangerouslySetInnerHTML={{ __html: template }}
+              dangerouslySetInnerHTML={{ __html: getPreviewHtml() }}
               style={{ maxWidth: '600px', margin: '0 auto' }}
             />
           </div>
