@@ -274,3 +274,53 @@ See you at the party!
 
   await sgMail.send(msg);
 }
+
+export async function sendNotificationEmail(data: EmailData) {
+  const { to, primaryName, guestNames, elfNames } = data;
+  const eventConfig = await getEventSettings();
+  
+  const guestList = guestNames.map((name, i) => `${name} → ${elfNames[i]}`).join('\n');
+  
+  const htmlContent = `
+    <!DOCTYPE html>
+    <html>
+      <head>
+        <meta charset="utf-8">
+        <style>
+          body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; }
+          .container { max-width: 600px; margin: 0 auto; padding: 20px; }
+          h1 { color: #c41e3a; }
+          .details { background-color: #f9f9f9; padding: 15px; border-radius: 8px; margin: 20px 0; }
+        </style>
+      </head>
+      <body>
+        <div class="container">
+          <h1>🎄 New RSVP Received!</h1>
+          <p>Someone just RSVP'd to the party!</p>
+          
+          <div class="details">
+            <p><strong>Primary Contact:</strong> ${primaryName}</p>
+            <p><strong>Email:</strong> ${to}</p>
+            <p><strong>Party Size:</strong> ${guestNames.length} guest${guestNames.length > 1 ? 's' : ''}</p>
+            <p><strong>Guests & Elf Names:</strong></p>
+            <pre>${guestList}</pre>
+          </div>
+          
+          <p>Total RSVPs so far: Check the guest list at <a href="${process.env.NEXT_PUBLIC_BASE_URL || 'https://thewhiteelephantbash.com'}/guests">thewhiteelephantbash.com/guests</a></p>
+        </div>
+      </body>
+    </html>
+  `;
+  
+  const msg = {
+    to: process.env.NOTIFICATION_EMAIL || 'jenny.bradshaw@gmail.com',
+    from: {
+      email: process.env.SENDGRID_FROM_EMAIL!,
+      name: 'White Elephant RSVP System'
+    },
+    subject: `🎉 New RSVP from ${primaryName}`,
+    html: htmlContent,
+  };
+  
+  await sgMail.send(msg);
+}

@@ -99,6 +99,22 @@ export async function POST(request: NextRequest) {
       // The RSVP was saved successfully
     }
 
+    // Send notification email to Jen
+    try {
+      console.log('[RSVP] Sending notification email to Jen');
+      const { sendNotificationEmail } = await import('@/lib/sendEmail');
+      await sendNotificationEmail({
+        to: email,
+        primaryName: primaryName,
+        guestNames: guestNames,
+        elfNames: elfNames,
+      });
+      console.log('[RSVP] Notification email sent successfully');
+    } catch (notifError) {
+      console.error('[RSVP] Notification email error:', notifError);
+      // Don't fail the request if notification fails
+    }
+
     return NextResponse.json({
       success: true,
       guestNames: guestNames,
