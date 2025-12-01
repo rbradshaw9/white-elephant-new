@@ -177,7 +177,10 @@ export default function Home() {
                   <span className="text-3xl">⏰</span>
                   <div>
                     <h3 className="font-bold text-lg text-gray-800">Timing</h3>
-                    <p className="text-gray-700">Arrive by 7:00 PM<br/>Game starts at 7:30 sharp!</p>
+                    <p className="text-gray-700">
+                      Party starts at 6:00 PM<br/>
+                      <span className="text-sm text-gray-600">Arrive by 7:00 PM — Game starts at 7:30 sharp!</span>
+                    </p>
                   </div>
                 </div>
                 
