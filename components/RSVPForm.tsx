@@ -24,14 +24,16 @@ export default function RSVPForm({ onSuccess }: RSVPFormProps) {
     primaryName: '',
     email: '',
     guestCount: 1,
-    guestNames: [''],
+    guestNames: [],
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
   const handleGuestCountChange = (value: string) => {
     const count = parseInt(value);
-    const newGuestNames = Array(count).fill('').map((_, i) => formData.guestNames[i] || '');
+    // Additional guests (not including primary)
+    const additionalGuestsCount = Math.max(0, count - 1);
+    const newGuestNames = Array(additionalGuestsCount).fill('').map((_, i) => formData.guestNames[i] || '');
     setFormData({ ...formData, guestCount: count, guestNames: newGuestNames });
   };
 
@@ -59,15 +61,21 @@ export default function RSVPForm({ onSuccess }: RSVPFormProps) {
       return;
     }
 
-    // Validate all guest names are filled
+    // Validate all additional guest names are filled
     const allNamesFilled = formData.guestNames.every(name => name.trim());
-    if (!allNamesFilled) {
-      setError('Please fill in all guest names');
+    if (!allNamesFilled && formData.guestNames.length > 0) {
+      setError('Please fill in all additional guest names');
       setIsSubmitting(false);
       return;
     }
 
     try {
+      // Combine primary name with additional guests
+      const allAttendees = [
+        formData.primaryName.trim(),
+        ...formData.guestNames.map(name => name.trim())
+      ];
+
       const response = await fetch('/api/rsvp', {
         method: 'POST',
         headers: {
@@ -77,7 +85,7 @@ export default function RSVPForm({ onSuccess }: RSVPFormProps) {
           primaryName: formData.primaryName.trim(),
           email: formData.email.trim(),
           guestCount: formData.guestCount,
-          guestNames: formData.guestNames.map(name => name.trim()),
+          guestNames: allAttendees,
         }),
       });
 
@@ -143,7 +151,7 @@ export default function RSVPForm({ onSuccess }: RSVPFormProps) {
           {/* Guest Count */}
           <div>
             <Label htmlFor="guestCount" className="text-lg font-medium">
-              Number of Guests *
+              Total Attendees (including you) *
             </Label>
             <Select
               value={formData.guestCount.toString()}
@@ -155,17 +163,22 @@ export default function RSVPForm({ onSuccess }: RSVPFormProps) {
               <SelectContent>
                 {[1, 2, 3, 4, 5, 6].map((num) => (
                   <SelectItem key={num} value={num.toString()}>
-                    {num} {num === 1 ? 'Guest' : 'Guests'}
+                    {num} {num === 1 ? 'Person (just you)' : 'People'}
                   </SelectItem>
                 ))}
               </SelectContent>
             </Select>
           </div>
 
-          {/* Guest Names */}
-          {formData.guestCount > 0 && (
+          {/* Additional Guest Names */}
+          {formData.guestCount > 1 && (
             <div className="space-y-4">
-              <Label className="text-lg font-medium">Guest Names *</Label>
+              <Label className="text-lg font-medium">
+                Additional Guests ({formData.guestCount - 1}) *
+              </Label>
+              <p className="text-sm text-gray-600 -mt-2">
+                You're already included above! Enter names for your {formData.guestCount - 1} additional {formData.guestCount === 2 ? 'guest' : 'guests'}.
+              </p>
               {formData.guestNames.map((name, index) => (
                 <motion.div
                   key={index}
@@ -174,7 +187,7 @@ export default function RSVPForm({ onSuccess }: RSVPFormProps) {
                   transition={{ delay: index * 0.1 }}
                 >
                   <Label htmlFor={`guest-${index}`} className="text-sm text-gray-600">
-                    Guest {index + 1}
+                    Additional Guest {index + 1}
                   </Label>
                   <Input
                     id={`guest-${index}`}

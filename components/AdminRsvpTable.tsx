@@ -46,6 +46,20 @@ export default function AdminRsvpTable({ rsvps }: AdminRsvpTableProps) {
   };
 
   const totalGuests = sortedRsvps.reduce((sum, rsvp) => sum + rsvp.guest_count, 0);
+  
+  // Flatten RSVPs into individual attendee rows
+  const attendeeRows = sortedRsvps.flatMap(rsvp => 
+    rsvp.guest_names.map((name, index) => ({
+      rsvpId: rsvp.id,
+      date: rsvp.created_at,
+      primaryName: rsvp.primary_name,
+      email: rsvp.email,
+      attendeeName: name,
+      elfName: rsvp.elf_names[index] || '',
+      totalPartySize: rsvp.guest_count,
+      isPrimary: index === 0
+    }))
+  );
 
   return (
     <div className="space-y-6">
@@ -86,64 +100,52 @@ export default function AdminRsvpTable({ rsvps }: AdminRsvpTableProps) {
       {/* RSVP Table */}
       <Card>
         <CardHeader>
-          <CardTitle>All RSVPs</CardTitle>
-          <CardDescription>Click column headers to sort</CardDescription>
+          <CardTitle>All Attendees (Individual)</CardTitle>
+          <CardDescription>Each person listed with their elf name - {totalGuests} total attendees</CardDescription>
         </CardHeader>
         <CardContent>
           <div className="rounded-md border overflow-x-auto">
             <Table>
               <TableHeader>
                 <TableRow>
-                  <TableHead 
-                    className="cursor-pointer hover:bg-gray-100"
-                    onClick={() => handleSort('created_at')}
-                  >
-                    Date {sortField === 'created_at' && (sortDirection === 'asc' ? '↑' : '↓')}
-                  </TableHead>
-                  <TableHead 
-                    className="cursor-pointer hover:bg-gray-100"
-                    onClick={() => handleSort('primary_name')}
-                  >
-                    Primary Name {sortField === 'primary_name' && (sortDirection === 'asc' ? '↑' : '↓')}
-                  </TableHead>
+                  <TableHead>RSVP Date</TableHead>
+                  <TableHead>Primary Contact</TableHead>
                   <TableHead>Email</TableHead>
-                  <TableHead className="text-center">Guests</TableHead>
-                  <TableHead>Guest Names</TableHead>
-                  <TableHead>Elf Names</TableHead>
+                  <TableHead>Attendee Name</TableHead>
+                  <TableHead>Elf Name</TableHead>
+                  <TableHead className="text-center">Party Size</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
-                {sortedRsvps.length === 0 ? (
+                {attendeeRows.length === 0 ? (
                   <TableRow>
                     <TableCell colSpan={6} className="text-center text-gray-500 py-8">
                       No RSVPs yet. Check back soon! 🎄
                     </TableCell>
                   </TableRow>
                 ) : (
-                  sortedRsvps.map((rsvp) => (
-                    <TableRow key={rsvp.id} className="hover:bg-gray-50">
+                  attendeeRows.map((row, index) => (
+                    <TableRow 
+                      key={`${row.rsvpId}-${index}`} 
+                      className={`hover:bg-gray-50 ${row.isPrimary ? 'bg-green-50/30' : ''}`}
+                    >
                       <TableCell className="whitespace-nowrap">
-                        {new Date(rsvp.created_at).toLocaleDateString()}
+                        {new Date(row.date).toLocaleDateString()}
                       </TableCell>
-                      <TableCell className="font-medium">{rsvp.primary_name}</TableCell>
-                      <TableCell>{rsvp.email}</TableCell>
-                      <TableCell className="text-center">{rsvp.guest_count}</TableCell>
-                      <TableCell>
-                        <div className="space-y-1">
-                          {rsvp.guest_names.map((name, i) => (
-                            <div key={i} className="text-sm">{name}</div>
-                          ))}
-                        </div>
+                      <TableCell className="font-medium">{row.primaryName}</TableCell>
+                      <TableCell>{row.email}</TableCell>
+                      <TableCell className="font-semibold text-gray-800">
+                        {row.attendeeName}
+                        {row.isPrimary && (
+                          <span className="ml-2 text-xs bg-green-100 text-green-700 px-2 py-0.5 rounded">Primary</span>
+                        )}
                       </TableCell>
                       <TableCell>
-                        <div className="space-y-1">
-                          {rsvp.elf_names.map((name, i) => (
-                            <div key={i} className="text-sm text-green-700 font-medium">
-                              🧝 {name}
-                            </div>
-                          ))}
+                        <div className="text-sm text-green-700 font-medium">
+                          🧝 {row.elfName}
                         </div>
                       </TableCell>
+                      <TableCell className="text-center">{row.totalPartySize}</TableCell>
                     </TableRow>
                   ))
                 )}
