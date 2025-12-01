@@ -56,10 +56,10 @@ export default function Home() {
                 🎟️ RSVP Now
               </Link>
               <Link
-                href="/gallery"
+                href="/rules"
                 className="inline-flex items-center justify-center px-8 py-4 text-lg font-bold bg-green-800 text-white rounded-full hover:bg-green-900 transition-all transform hover:scale-105 shadow-2xl"
               >
-                📸 View 2024 Gallery
+                📜 Learn the Rules
               </Link>
             </motion.div>
           </div>
