@@ -82,14 +82,18 @@ export default function Home() {
             viewport={{ once: true }}
             className="text-4xl md:text-5xl font-bold text-center mb-12"
           >
-            🎉 2024 Party By The Numbers 🎉
+            🎉 2024 Party: The Receipts 🎉
           </motion.h2>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
             {[
-              { emoji: '👥', value: '24', label: 'Party Animals' },
-              { emoji: '🎁', value: '24', label: 'Gifts Exchanged' },
-              { emoji: '🔥', value: '47', label: 'Total Steals' },
-              { emoji: '😈', value: '3', label: 'Frozen Gifts' },
+              { emoji: '😭', value: '12', label: 'Broken Friendships' },
+              { emoji: '🍷', value: '37', label: 'Glasses of Wine' },
+              { emoji: '🤬', value: '89', label: 'Curse Words Used' },
+              { emoji: '😈', value: '4', label: 'People Who Came Just to Steal' },
+              { emoji: '🎁', value: '3', label: 'Regrettable Gift Choices' },
+              { emoji: '💔', value: '7', label: 'Dramatic Exits' },
+              { emoji: '📱', value: '23', label: 'Passive-Aggressive Texts Sent' },
+              { emoji: '🙈', value: '1', label: 'Person Who Didn\'t Read the Rules' },
             ].map((stat, index) => (
               <motion.div
                 key={stat.label}
