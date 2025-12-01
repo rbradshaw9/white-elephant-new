@@ -1,12 +1,12 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import RSVPForm from '@/components/RSVPForm';
 import ElfNameReveal from '@/components/ElfNameReveal';
 import { motion } from 'framer-motion';
 
-export default function RSVPPage() {
+function RSVPContent() {
   const [showSuccess, setShowSuccess] = useState(false);
   const [rsvpData, setRsvpData] = useState<{ guestNames: string[]; elfNames: string[] } | null>(null);
   const [existingRsvp, setExistingRsvp] = useState<any>(null);
@@ -67,5 +67,17 @@ export default function RSVPPage() {
         )}
       </div>
     </div>
+  );
+}
+
+export default function RSVPPage() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen bg-gradient-to-br from-cream-50 via-white to-green-50 flex items-center justify-center">
+        <div className="text-2xl text-gray-700">Loading...</div>
+      </div>
+    }>
+      <RSVPContent />
+    </Suspense>
   );
 }

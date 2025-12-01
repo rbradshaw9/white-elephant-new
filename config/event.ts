@@ -4,32 +4,40 @@ export const eventConfig = {
   address: '8853 S University Blvd, Highlands Ranch, CO 80126',
   addressLink: 'https://maps.app.goo.gl/FgTo19iLXhYYijcV9',
   dressCode: 'Ugly Christmas Sweaters Encouraged! 🎄',
-  giftPriceRange: '$20 - $30',
-  description: 'Join us for an evening of laughter, gift stealing, and holiday chaos!',
+  giftPriceRange: '$20 - $40',
+  description: 'A fast-paced, slightly chaotic holiday game where stealing is encouraged and alliances never last.',
+  tldr: [
+    'Bring a gift ($20–$40)',
+    'Take turns opening or stealing',
+    'Gifts freeze after 3 steals',
+    'Player #1 gets a final bonus turn'
+  ],
   rules: {
     classic: [
-      'Bring a wrapped gift ($20-$40 range) — funny, weird, useful, or classy all welcome! (Yes, a toaster AND a rubber chicken both qualify)',
-      'Place your gift in the center pile when you arrive (resist the urge to guard it)',
-      'Everyone draws a number to determine turn order (Player #1 gets a special bonus at the end — stay tuned!)',
-      'Player #1 picks any gift, opens it, and shows the group (dramatic gasps encouraged)',
-      'Players 2+ can STEAL an opened gift OR open a new one (choose wisely, young padawan)',
-      'If your gift is stolen, you must immediately steal a different gift or open a new one (no crying allowed)',
-      'You CANNOT steal back the gift that was just taken from you (no instant revenge — that\'s what the final round is for)',
-      'Each gift can only be stolen 3 times before it becomes "frozen" (three strikes and you\'re out!)'
+      'Bring a wrapped gift ($20–$40). Funny, weird, useful, or classy — but keep it real (no trash, no broken stuff!). Try to stay close to the limit so gifts feel fair.',
+      'Everyone participating must bring a gift. Place your gift in the center pile. No guarding, no booby traps.',
+      'Everyone draws a number for turn order. (And Player #1 gets a special final turn, so don\'t feel bad for them.)',
+      'Player #1 opens the first gift. Show it to the group — dramatic reactions required.',
+      'Players 2+ may STEAL an opened gift or open a new one. Choose wisely, young padawan.',
+      'If your gift is stolen: You must immediately steal a different gift or open a new one. No crying allowed.',
+      'You cannot steal back the gift that was just taken from you. No instant revenge. Save it for the finale.',
+      'Each gift can only be stolen 3 times. After the 3rd steal, it becomes frozen = locked to that player permanently.'
     ],
     finalRound: [
-      '🎄 After all gifts are opened, Player #1 gets ONE FINAL TURN (patience pays off!)',
-      'Player #1 can steal ANY unfrozen gift they want (revenge is a dish best served cold)',
-      'If they steal, that person gets Player #1\'s gift (no backsies)',
-      'Game officially ends — no further swaps, tears, or tantrums allowed!'
+      '🎄 After all gifts are opened, Player #1 gets ONE FINAL TURN. Patience pays off!',
+      'Player #1 may steal ANY unfrozen gift they want. (Revenge is a dish best served cold.)',
+      'Player #1 cannot steal gifts that are already frozen.',
+      'If Player #1 steals: The victim gets Player #1\'s old gift. That\'s it — game over.',
+      'No further swaps, steals, bargains, debates, or tantrums allowed.'
     ],
     tips: [
-      '🎁 Wrap creatively to build mystery and excitement (duct tape is your friend)',
-      '🎭 Play up the drama — beg, plead, and defend your gift like your life depends on it!',
-      '🔥 The best gifts get stolen the most — make yours the belle of the ball',
-      '😈 Strategic stealing is encouraged — backstab your friends, form alliances, create chaos',
-      '🍷 Pro tip: Gifts pair well with wine and bad decisions',
-      '🎉 Remember: friendships are temporary, but that awesome gift is forever (or at least until next year)'
+      '🎁 Wrap creatively — duct tape is encouraged.',
+      '🎭 Play up the drama — beg, plead, threaten (lightly).',
+      '🔥 The best gifts get stolen the most — embrace it.',
+      '😈 Stealing is strategic — form alliances, betray alliances, repeat.',
+      '🎉 Keep the game moving quickly — no long debates over rules.',
+      '🍷 Gifts pair well with wine and questionable decisions.',
+      '🎟️ Friendships are temporary. Your new gift is forever. (Or until next year.)'
     ]
   }
 };

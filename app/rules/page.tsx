@@ -22,14 +22,50 @@ export default function RulesPage() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
-          className="text-center mb-12"
+          className="text-center mb-8"
         >
           <h1 className="text-5xl md:text-6xl font-bold text-green-800 mb-4">
-            📜 How to Play
+            🎄 How to Play
           </h1>
           <p className="text-xl text-gray-700">
-            Master the art of stealing — and keeping — the perfect gift!
+            Master the art of stealing — and keeping — the perfect holiday gift!
           </p>
+        </motion.div>
+
+        {/* TL;DR Section */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5 }}
+          className="mb-8"
+        >
+          <Card className="border-4 border-blue-600 shadow-xl bg-gradient-to-br from-blue-50 to-cyan-50">
+            <CardHeader className="bg-gradient-to-r from-blue-600 to-cyan-600 text-white">
+              <CardTitle className="text-3xl flex items-center gap-2">
+                🧁 TL;DR (Super Quick Version)
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="p-6">
+              <ul className="space-y-3">
+                {eventConfig.tldr?.map((item, index) => (
+                  <motion.li
+                    key={index}
+                    initial={{ opacity: 0, x: -20 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: index * 0.1 }}
+                    className="flex items-center gap-3 text-lg text-gray-800"
+                  >
+                    <span className="flex-shrink-0 w-6 h-6 bg-blue-600 text-white rounded-full flex items-center justify-center text-sm font-bold">
+                      ✓
+                    </span>
+                    <span>{item}</span>
+                  </motion.li>
+                ))}
+              </ul>
+            </CardContent>
+          </Card>
         </motion.div>
 
         {/* Classic Rules */}
@@ -79,10 +115,10 @@ export default function RulesPage() {
           <Card className="border-4 border-green-600 shadow-xl bg-gradient-to-br from-green-50 to-emerald-50">
             <CardHeader className="bg-gradient-to-r from-green-600 to-green-700 text-white">
               <CardTitle className="text-3xl flex items-center gap-2">
-                ⭐ FINAL ROUND TWIST
+                ⭐ FINAL ROUND TWIST (Our Signature Rule)
               </CardTitle>
               <p className="text-white/90 text-sm mt-2">
-                Our signature rule — makes the game fair AND exciting!
+                This is where the chaos begins.
               </p>
             </CardHeader>
             <CardContent className="p-6">
