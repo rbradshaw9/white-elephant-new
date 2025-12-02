@@ -35,5 +35,6 @@ export type RSVP = {
   guest_count: number;
   guest_names: string[];
   elf_names: string[];
+  elf_taglines?: string[];
   created_at: string;
 };

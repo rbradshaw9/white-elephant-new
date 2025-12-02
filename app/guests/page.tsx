@@ -43,28 +43,28 @@ export default function GuestsPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-green-50 via-white to-red-50 py-12 px-4">
+    <div className="min-h-screen bg-gradient-to-br from-green-50 via-white to-red-50 py-8 sm:py-12 px-4">
       <div className="max-w-6xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
-          className="text-center mb-12"
+          className="text-center mb-8 sm:mb-12"
         >
-          <h1 className="text-5xl md:text-6xl font-bold text-green-800 mb-4">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-green-800 mb-3 sm:mb-4 px-2">
             🎄 Guest List 🎅
           </h1>
-          <p className="text-xl text-gray-700 mb-2">
+          <p className="text-base sm:text-lg md:text-xl text-gray-700 mb-2 px-4">
             Meet your fellow party-goers and their festive elf names!
           </p>
-          <div className="flex justify-center gap-8 mt-6">
+          <div className="flex justify-center gap-6 sm:gap-8 mt-4 sm:mt-6">
             <div className="text-center">
-              <div className="text-4xl font-bold text-red-600">{guests.length}</div>
-              <div className="text-sm text-gray-600">Total Guests</div>
+              <div className="text-3xl sm:text-4xl font-bold text-red-600">{guests.length}</div>
+              <div className="text-xs sm:text-sm text-gray-600">Total Guests</div>
             </div>
             <div className="text-center">
-              <div className="text-4xl font-bold text-green-600">{totalParties}</div>
-              <div className="text-sm text-gray-600">Parties</div>
+              <div className="text-3xl sm:text-4xl font-bold text-green-600">{totalParties}</div>
+              <div className="text-xs sm:text-sm text-gray-600">Parties</div>
             </div>
           </div>
         </motion.div>
@@ -83,7 +83,7 @@ export default function GuestsPage() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.2, duration: 0.5 }}
-            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4"
+            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4"
           >
             {guests.map((guest, index) => (
               <motion.div
@@ -93,14 +93,14 @@ export default function GuestsPage() {
                 transition={{ delay: index * 0.02, duration: 0.3 }}
               >
                 <Card className="hover:shadow-xl transition-all duration-200 border-2 hover:border-green-500 bg-white/80 backdrop-blur hover:scale-105 group cursor-default">
-                  <CardHeader className="pb-3">
-                    <CardTitle className="text-lg text-gray-800 flex items-center gap-2 group-hover:text-green-700 transition-colors">
-                      <span className="text-2xl group-hover:scale-125 transition-transform">👤</span>
-                      {guest.name}
+                  <CardHeader className="pb-3 p-4 sm:p-6">
+                    <CardTitle className="text-base sm:text-lg text-gray-800 flex items-center gap-2 group-hover:text-green-700 transition-colors">
+                      <span className="text-xl sm:text-2xl flex-shrink-0 group-hover:scale-125 transition-transform">👤</span>
+                      <span className="break-words min-w-0">{guest.name}</span>
                     </CardTitle>
-                    <CardDescription className="text-base font-medium text-green-700 flex items-center gap-2">
-                      <span className="text-xl group-hover:animate-bounce">🧝</span>
-                      {guest.elfName}
+                    <CardDescription className="text-sm sm:text-base font-medium text-green-700 flex items-center gap-2">
+                      <span className="text-lg sm:text-xl flex-shrink-0 group-hover:animate-bounce">🧝</span>
+                      <span className="break-words min-w-0">{guest.elfName}</span>
                     </CardDescription>
                   </CardHeader>
                 </Card>
@@ -113,16 +113,16 @@ export default function GuestsPage() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.4, duration: 0.5 }}
-          className="mt-12 text-center"
+          className="mt-8 sm:mt-12 text-center"
         >
           <Card className="bg-gradient-to-r from-red-50 to-green-50 border-2 border-red-200">
-            <CardContent className="py-8">
-              <p className="text-lg text-gray-700 mb-4">
+            <CardContent className="py-6 sm:py-8 px-4">
+              <p className="text-base sm:text-lg text-gray-700 mb-4">
                 Haven't RSVP'd yet? Join the fun!
               </p>
               <a
                 href="/rsvp"
-                className="inline-block px-8 py-3 bg-gradient-to-r from-green-600 to-red-600 hover:from-green-700 hover:to-red-700 text-white font-semibold rounded-lg shadow-lg hover:shadow-xl transition-all duration-200"
+                className="inline-block px-6 sm:px-8 py-3 sm:py-4 min-h-[48px] bg-gradient-to-r from-green-600 to-red-600 hover:from-green-700 hover:to-red-700 text-white text-base sm:text-lg font-semibold rounded-lg shadow-lg hover:shadow-xl transition-all duration-200"
               >
                 RSVP Now! 🎄
               </a>

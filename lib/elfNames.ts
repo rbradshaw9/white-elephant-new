@@ -5,7 +5,14 @@ const adjectives = [
   'Peppermint', 'Gingerbread', 'Tinsel', 'Blizzard', 'Candy', 'Sugar',
   'Glitter', 'Mistletoe', 'Holly', 'Cozy', 'Cocoa', 'Cinnamon', 'Nutmeg',
   'Starry', 'Shimmer', 'Dazzle', 'Bouncy', 'Giggly', 'Cheery', 'Bubbly',
-  'Snuggly', 'Festive', 'Magical', 'Whimsical', 'Sprightly', 'Zippy'
+  'Snuggly', 'Festive', 'Magical', 'Whimsical', 'Sprightly', 'Zippy',
+  // Funnier additions
+  'Tipsy', 'Wobbly', 'Sassy', 'Dizzy', 'Clumsy', 'Grumpy', 'Sleepy',
+  'Stinky', 'Boozy', 'Hangry', 'Krispy', 'Questionable', 'Suspicious',
+  'Sweaty', 'Awkward', 'Confused', 'Feral', 'Unhinged', 'Chaotic',
+  'Slightly-Aggressive', 'Moderately-Sober', 'Overly-Caffeinated', 'Wine-Drunk',
+  'Passive-Aggressive', 'Emotionally-Unstable', 'Barely-Legal', 'Discount',
+  'Regrettable', 'Semi-Professional', 'Bootleg', 'Sketchy', 'Janky'
 ];
 
 const nouns = [
@@ -14,7 +21,16 @@ const nouns = [
   'Sparklebucket', 'Mittens', 'Eggnog', 'Stocking', 'Ornament',
   'Pinecone', 'Reindeer', 'Elfshoes', 'Gingerbread', 'Winterberry',
   'Frostbite', 'Sleighbell', 'Snowdrift', 'Cocoacup', 'Cookiejar',
-  'Tinseltown', 'Northpole', 'Iceberg', 'Marshmallow', 'Peppermint'
+  'Tinseltown', 'Northpole', 'Iceberg', 'Marshmallow', 'Peppermint',
+  // Funnier additions
+  'Thunderbuns', 'Noodlewhisk', 'Pantssteal', 'Hotmess', 'Trainwreck',
+  'Sockthief', 'Faceplant', 'Dumpsterfire', 'Glitterbomb', 'Badfriend',
+  'Kneecapper', 'Snackgobbler', 'Winestealer', 'McStabby', 'Elbowthrow',
+  'Backstabber', 'Dramallama', 'Hotsauce', 'Pantsdropper', 'Regretmaker',
+  'Badchoice', 'Pickpocket', 'Giftsnatcher', 'Fistfight', 'Debacle',
+  'Shenanigans', 'Nonsense', 'Catastrophe', 'Disaster', 'Menace',
+  'Troublemaker', 'Saboteur', 'Instigator', 'Enabler', 'Accomplice',
+  'Cheapskate', 'Freeloader', 'Mooch', 'Buzzkill', 'Killjoy'
 ];
 
 /**

@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { getServiceSupabase } from '@/lib/supabase';
 import { generateElfNames } from '@/lib/elfNames';
 import { sendRSVPConfirmation } from '@/lib/sendEmail';
+import { generateElfTaglines } from '@/lib/generateTagline';
 
 export async function POST(request: NextRequest) {
   try {
@@ -36,6 +37,11 @@ export async function POST(request: NextRequest) {
     // Generate elf names with global uniqueness
     const elfNames = generateElfNames(guestNames, existingElfNames);
 
+    // Generate AI taglines for each elf name
+    console.log('Generating AI taglines for:', elfNames);
+    const elfTaglines = await generateElfTaglines(elfNames);
+    console.log('Generated taglines:', elfTaglines);
+
     // Save to Supabase using service role to bypass RLS
     let supabase;
     try {
@@ -58,6 +64,7 @@ export async function POST(request: NextRequest) {
           guest_count: guestCount,
           guest_names: guestNames,
           elf_names: elfNames,
+          elf_taglines: elfTaglines,
         },
         {
           onConflict: 'email',
@@ -131,6 +138,7 @@ export async function POST(request: NextRequest) {
       success: true,
       guestNames: guestNames,
       elfNames: elfNames,
+      elfTaglines: elfTaglines,
     });
   } catch (error) {
     console.error('RSVP error:', error);

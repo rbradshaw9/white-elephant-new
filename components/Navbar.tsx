@@ -43,7 +43,7 @@ export default function Navbar() {
           {/* Mobile menu button */}
           <button
             onClick={() => setIsOpen(!isOpen)}
-            className="md:hidden p-2 rounded-md hover:bg-red-800 transition-colors"
+            className="md:hidden p-2 min-h-[44px] min-w-[44px] flex items-center justify-center rounded-md hover:bg-red-800 transition-colors"
             aria-label="Toggle menu"
           >
             <svg
@@ -73,12 +73,12 @@ export default function Navbar() {
           exit={{ opacity: 0, height: 0 }}
           className="md:hidden bg-red-800"
         >
-          <div className="px-2 pt-2 pb-3 space-y-1">
+          <div className="px-2 pt-2 pb-3 space-y-2">
             {links.map((link) => (
               <Link
                 key={link.href}
                 href={link.href}
-                className="block px-3 py-2 rounded-md hover:bg-red-700 transition-colors"
+                className="block px-4 py-3 min-h-[48px] text-base rounded-md hover:bg-red-700 transition-colors font-medium"
                 onClick={() => setIsOpen(false)}
               >
                 {link.label}

@@ -8,9 +8,10 @@ import confetti from 'canvas-confetti';
 interface ElfNameRevealProps {
   guestNames: string[];
   elfNames: string[];
+  elfTaglines?: string[];
 }
 
-export default function ElfNameReveal({ guestNames, elfNames }: ElfNameRevealProps) {
+export default function ElfNameReveal({ guestNames, elfNames, elfTaglines = [] }: ElfNameRevealProps) {
   // Trigger confetti on mount
   useEffect(() => {
     const duration = 3000;
@@ -90,15 +91,15 @@ export default function ElfNameReveal({ guestNames, elfNames }: ElfNameRevealPro
                     →
                   </motion.div>
 
-                  <div className="flex items-center space-x-3">
+                  <div className="flex items-center space-x-3 flex-1">
                     <motion.div
                       animate={{ rotate: [0, -10, 10, 0] }}
                       transition={{ repeat: Infinity, duration: 2, delay: index * 0.3 + 0.5 }}
-                      className="text-4xl"
+                      className="text-4xl flex-shrink-0"
                     >
                       🧝
                     </motion.div>
-                    <div>
+                    <div className="flex-1">
                       <p className="text-sm text-green-600 font-medium">Elf Name</p>
                       <motion.p
                         initial={{ scale: 0.8, opacity: 0 }}
@@ -108,6 +109,16 @@ export default function ElfNameReveal({ guestNames, elfNames }: ElfNameRevealPro
                       >
                         {elfNames[index]}
                       </motion.p>
+                      {elfTaglines[index] && (
+                        <motion.p
+                          initial={{ opacity: 0, y: -10 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          transition={{ delay: index * 0.2 + 0.7 }}
+                          className="text-sm italic text-gray-600 mt-1"
+                        >
+                          &quot;{elfTaglines[index]}&quot;
+                        </motion.p>
+                      )}
                     </div>
                   </div>
                 </div>

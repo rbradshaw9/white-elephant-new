@@ -17,7 +17,7 @@ interface FormData {
 }
 
 interface RSVPFormProps {
-  onSuccess: (data: { guestNames: string[]; elfNames: string[] }) => void;
+  onSuccess: (data: { guestNames: string[]; elfNames: string[]; elfTaglines: string[] }) => void;
   existingRsvp?: any;
 }
 
@@ -116,6 +116,7 @@ export default function RSVPForm({ onSuccess, existingRsvp }: RSVPFormProps) {
       onSuccess({
         guestNames: data.guestNames,
         elfNames: data.elfNames,
+        elfTaglines: data.elfTaglines || [],
       });
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Something went wrong. Please try again.');
@@ -126,17 +127,17 @@ export default function RSVPForm({ onSuccess, existingRsvp }: RSVPFormProps) {
 
   return (
     <Card className="max-w-2xl mx-auto shadow-xl border-4 border-red-600">
-      <CardHeader className="bg-gradient-to-r from-red-600 to-green-600 text-white">
-        <CardTitle className="text-3xl text-center">🎄 RSVP for the Party! 🎁</CardTitle>
-        <CardDescription className="text-center text-white/90 text-lg">
+      <CardHeader className="bg-gradient-to-r from-red-600 to-green-600 text-white p-4 sm:p-6">
+        <CardTitle className="text-2xl sm:text-3xl text-center">🎄 RSVP for the Party! 🎁</CardTitle>
+        <CardDescription className="text-center text-white/90 text-sm sm:text-base md:text-lg mt-2">
           Join us for an evening of gift stealing and holiday cheer!
         </CardDescription>
       </CardHeader>
-      <CardContent className="p-6">
-        <form onSubmit={handleSubmit} className="space-y-6">
+      <CardContent className="p-4 sm:p-6">
+        <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-6">
           {/* Primary Name */}
           <div>
-            <Label htmlFor="primaryName" className="text-lg font-medium">
+            <Label htmlFor="primaryName" className="text-base sm:text-lg font-medium">
               Your Name *
             </Label>
             <Input
@@ -145,14 +146,14 @@ export default function RSVPForm({ onSuccess, existingRsvp }: RSVPFormProps) {
               value={formData.primaryName}
               onChange={(e) => setFormData({ ...formData, primaryName: e.target.value })}
               placeholder="Santa Claus"
-              className="mt-2"
+              className="mt-1.5 sm:mt-2 min-h-[44px] text-base"
               required
             />
           </div>
 
           {/* Email */}
           <div>
-            <Label htmlFor="email" className="text-lg font-medium">
+            <Label htmlFor="email" className="text-base sm:text-lg font-medium">
               Email Address *
             </Label>
             <Input
@@ -161,21 +162,21 @@ export default function RSVPForm({ onSuccess, existingRsvp }: RSVPFormProps) {
               value={formData.email}
               onChange={(e) => setFormData({ ...formData, email: e.target.value })}
               placeholder="santa@northpole.com"
-              className="mt-2"
+              className="mt-1.5 sm:mt-2 min-h-[44px] text-base"
               required
             />
           </div>
 
           {/* Guest Count */}
           <div>
-            <Label htmlFor="guestCount" className="text-lg font-medium">
+            <Label htmlFor="guestCount" className="text-base sm:text-lg font-medium">
               Total Attendees (including you) *
             </Label>
             <Select
               value={formData.guestCount.toString()}
               onValueChange={handleGuestCountChange}
             >
-              <SelectTrigger className="mt-2">
+              <SelectTrigger className="mt-1.5 sm:mt-2 min-h-[44px] text-base">
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
@@ -190,11 +191,11 @@ export default function RSVPForm({ onSuccess, existingRsvp }: RSVPFormProps) {
 
           {/* Additional Guest Names */}
           {formData.guestCount > 1 && (
-            <div className="space-y-4">
-              <Label className="text-lg font-medium">
+            <div className="space-y-3 sm:space-y-4">
+              <Label className="text-base sm:text-lg font-medium">
                 Additional Guests ({formData.guestCount - 1}) *
               </Label>
-              <p className="text-sm text-gray-600 -mt-2">
+              <p className="text-xs sm:text-sm text-gray-600 -mt-1 sm:-mt-2">
                 You're already included above! Enter names for your {formData.guestCount - 1} additional {formData.guestCount === 2 ? 'guest' : 'guests'}.
               </p>
               {formData.guestNames.map((name, index) => (
@@ -213,7 +214,7 @@ export default function RSVPForm({ onSuccess, existingRsvp }: RSVPFormProps) {
                     value={name}
                     onChange={(e) => handleGuestNameChange(index, e.target.value)}
                     placeholder={`Guest ${index + 1} name`}
-                    className="mt-1"
+                    className="mt-1 min-h-[44px] text-base"
                     required
                   />
                 </motion.div>
@@ -226,7 +227,7 @@ export default function RSVPForm({ onSuccess, existingRsvp }: RSVPFormProps) {
             <motion.div
               initial={{ opacity: 0, y: -10 }}
               animate={{ opacity: 1, y: 0 }}
-              className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded"
+              className="bg-red-100 border border-red-400 text-red-700 px-3 sm:px-4 py-2.5 sm:py-3 rounded text-sm sm:text-base"
             >
               {error}
             </motion.div>
@@ -236,7 +237,7 @@ export default function RSVPForm({ onSuccess, existingRsvp }: RSVPFormProps) {
           <Button
             type="submit"
             disabled={isSubmitting}
-            className="w-full bg-gradient-to-r from-red-600 to-green-600 hover:from-red-700 hover:to-green-700 text-white font-bold py-6 text-lg"
+            className="w-full bg-gradient-to-r from-red-600 to-green-600 hover:from-red-700 hover:to-green-700 text-white font-bold py-4 sm:py-5 md:py-6 min-h-[52px] text-base sm:text-lg"
           >
             {isSubmitting ? '🎄 Submitting...' : '🎁 Submit RSVP'}
           </Button>
