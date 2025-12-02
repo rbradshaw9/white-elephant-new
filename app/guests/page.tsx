@@ -10,6 +10,9 @@ interface GuestWithElf {
   elfName: string;
   elfTagline?: string;
   rsvpDate: string;
+  strategy?: string;
+  lifeAsGift?: string;
+  isPrimary?: boolean;
 }
 
 export default function GuestsPage() {
@@ -108,6 +111,26 @@ export default function GuestsPage() {
                         <p className="text-xs sm:text-sm italic text-gray-600 ml-7">
                           &quot;{guest.elfTagline}&quot;
                         </p>
+                      )}
+                      {(guest.strategy || guest.lifeAsGift) && (
+                        <div className="mt-2 pt-2 border-t border-dashed border-yellow-300 space-y-1">
+                          {guest.strategy && (
+                            <div className="text-xs text-gray-600 ml-7">
+                              <span className="font-semibold">Strategy:</span>{' '}
+                              {guest.strategy === 'steal-everything' && '🦹 Steal everything'}
+                              {guest.strategy === 'play-safe' && '😇 Play it safe'}
+                              {guest.strategy === 'pure-chaos' && '🔥 Pure chaos'}
+                              {guest.strategy === 'no-idea' && '🤷 No idea'}
+                              {guest.strategy === 'here-for-snacks' && '🍕 Here for snacks'}
+                              {guest.strategy === 'friendship-destroyer' && '💔 Friendship destroyer'}
+                            </div>
+                          )}
+                          {guest.lifeAsGift && (
+                            <div className="text-xs italic text-gray-600 ml-7">
+                              <span className="font-semibold not-italic">Life as gift:</span> &quot;{guest.lifeAsGift}&quot;
+                            </div>
+                          )}
+                        </div>
                       )}
                     </CardDescription>
                   </CardHeader>

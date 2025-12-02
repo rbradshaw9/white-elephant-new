@@ -7,7 +7,7 @@ export async function GET() {
     
     const { data: rsvps, error } = await supabase
       .from('rsvps')
-      .select('guest_names, elf_names, elf_taglines, created_at')
+      .select('guest_names, elf_names, elf_taglines, strategy, life_as_gift, primary_name, created_at')
       .order('created_at', { ascending: true });
 
     if (error) {
@@ -29,7 +29,11 @@ export async function GET() {
             name: rsvp.guest_names[i],
             elfName: rsvp.elf_names[i],
             elfTagline: rsvp.elf_taglines?.[i] || '',
-            rsvpDate: rsvp.created_at
+            rsvpDate: rsvp.created_at,
+            // Only include funny responses for primary contact
+            strategy: i === 0 ? rsvp.strategy : undefined,
+            lifeAsGift: i === 0 ? rsvp.life_as_gift : undefined,
+            isPrimary: i === 0
           });
         }
       }

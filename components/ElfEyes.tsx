@@ -125,9 +125,22 @@ export default function ElfEyes() {
       <AnimatePresence>
         {eyes.map((eye, index) => {
           const pupilPos = calculatePupilPosition(eye.x, eye.y);
-          const position = eye.side === 'left' || eye.side === 'right' 
-            ? { [eye.side]: '0px', top: `${eye.y}%` }
-            : { [eye.side]: '0px', left: `${eye.x}%` };
+          
+          // Calculate position based on which side elf is peeking from
+          let position: any = {};
+          let rotation = 0;
+          
+          if (eye.side === 'left') {
+            position = { left: '-60px', top: `${eye.y}%`, transform: 'translateY(-50%)' };
+            rotation = 15;
+          } else if (eye.side === 'right') {
+            position = { right: '-60px', top: `${eye.y}%`, transform: 'translateY(-50%) scaleX(-1)' };
+            rotation = -15;
+          } else if (eye.side === 'top') {
+            position = { top: '-60px', left: `${eye.x}%`, transform: 'translateX(-50%) rotate(90deg)' };
+          } else {
+            position = { bottom: '-60px', left: `${eye.x}%`, transform: 'translateX(-50%) rotate(-90deg)' };
+          }
 
           return (
             <motion.div
@@ -139,49 +152,73 @@ export default function ElfEyes() {
               className="absolute"
               style={position}
             >
-              <div className="relative flex gap-3">
-                {/* Left Eye */}
-                <div className="relative w-12 h-16 bg-white rounded-full shadow-lg border-2 border-gray-800 overflow-hidden">
-                  {!isBlinking[index] ? (
-                    <>
-                      <div className="absolute inset-0 bg-gradient-to-b from-white to-gray-100" />
-                      <motion.div
-                        className="absolute w-6 h-6 bg-gradient-to-br from-gray-800 to-black rounded-full top-1/2 left-1/2"
-                        style={{
-                          x: pupilPos.x,
-                          y: pupilPos.y,
-                          transform: 'translate(-50%, -50%)',
-                        }}
-                        transition={{ type: 'spring', stiffness: 300, damping: 20 }}
-                      >
-                        <div className="absolute w-2 h-2 bg-white rounded-full top-1 right-1" />
-                      </motion.div>
-                    </>
-                  ) : (
-                    <div className="absolute inset-0 bg-gradient-to-b from-red-900 to-red-800" />
-                  )}
+              {/* Elf Head */}
+              <div className="relative w-24 h-28">
+                {/* Hat */}
+                <div className="absolute -top-2 left-1/2 -translate-x-1/2 w-20 h-12 bg-gradient-to-b from-red-600 to-red-700 rounded-t-full border-2 border-red-800 shadow-lg">
+                  <div className="absolute -top-1 right-2 w-3 h-3 bg-yellow-400 rounded-full shadow-sm"></div>
                 </div>
-
-                {/* Right Eye */}
-                <div className="relative w-12 h-16 bg-white rounded-full shadow-lg border-2 border-gray-800 overflow-hidden">
-                  {!isBlinking[index] ? (
-                    <>
-                      <div className="absolute inset-0 bg-gradient-to-b from-white to-gray-100" />
-                      <motion.div
-                        className="absolute w-6 h-6 bg-gradient-to-br from-gray-800 to-black rounded-full top-1/2 left-1/2"
-                        style={{
-                          x: pupilPos.x,
-                          y: pupilPos.y,
-                          transform: 'translate(-50%, -50%)',
-                        }}
-                        transition={{ type: 'spring', stiffness: 300, damping: 20 }}
-                      >
-                        <div className="absolute w-2 h-2 bg-white rounded-full top-1 right-1" />
-                      </motion.div>
-                    </>
-                  ) : (
-                    <div className="absolute inset-0 bg-gradient-to-b from-red-900 to-red-800" />
-                  )}
+                <div className="absolute top-9 left-1/2 -translate-x-1/2 w-20 h-3 bg-white rounded-full shadow-sm"></div>
+                <div className="absolute top-11 -right-1 w-6 h-6 bg-white rounded-full shadow-md border-2 border-gray-200">
+                  <div className="absolute inset-0.5 bg-red-600 rounded-full"></div>
+                </div>
+                
+                {/* Head */}
+                <div className="absolute top-12 left-1/2 -translate-x-1/2 w-16 h-20 bg-gradient-to-b from-orange-200 to-orange-300 rounded-full border-2 border-orange-400 shadow-xl">
+                  {/* Ears */}
+                  <div className="absolute -left-2 top-6 w-6 h-8 bg-orange-200 rounded-full border-2 border-orange-400 transform -rotate-12"></div>
+                  <div className="absolute -right-2 top-6 w-6 h-8 bg-orange-200 rounded-full border-2 border-orange-400 transform rotate-12"></div>
+                  
+                  {/* Eyes */}
+                  <div className="absolute top-8 left-1/2 -translate-x-1/2 flex gap-3">
+                    {/* Left Eye */}
+                    <div className="relative w-5 h-7 bg-white rounded-full shadow-md border border-gray-800 overflow-hidden">
+                      {!isBlinking[index] ? (
+                        <>
+                          <motion.div
+                            className="absolute w-3 h-3 bg-gradient-to-br from-gray-800 to-black rounded-full top-1/2 left-1/2"
+                            style={{
+                              x: pupilPos.x,
+                              y: pupilPos.y,
+                              transform: 'translate(-50%, -50%)',
+                            }}
+                            transition={{ type: 'spring', stiffness: 300, damping: 20 }}
+                          >
+                            <div className="absolute w-1 h-1 bg-white rounded-full top-0.5 right-0.5" />
+                          </motion.div>
+                        </>
+                      ) : (
+                        <div className="absolute inset-x-0 top-1/2 h-0.5 bg-gray-800" />
+                      )}
+                    </div>
+                    
+                    {/* Right Eye */}
+                    <div className="relative w-5 h-7 bg-white rounded-full shadow-md border border-gray-800 overflow-hidden">
+                      {!isBlinking[index] ? (
+                        <>
+                          <motion.div
+                            className="absolute w-3 h-3 bg-gradient-to-br from-gray-800 to-black rounded-full top-1/2 left-1/2"
+                            style={{
+                              x: pupilPos.x,
+                              y: pupilPos.y,
+                              transform: 'translate(-50%, -50%)',
+                            }}
+                            transition={{ type: 'spring', stiffness: 300, damping: 20 }}
+                          >
+                            <div className="absolute w-1 h-1 bg-white rounded-full top-0.5 right-0.5" />
+                          </motion.div>
+                        </>
+                      ) : (
+                        <div className="absolute inset-x-0 top-1/2 h-0.5 bg-gray-800" />
+                      )}
+                    </div>
+                  </div>
+                  
+                  {/* Nose */}
+                  <div className="absolute top-14 left-1/2 -translate-x-1/2 w-2 h-2 bg-red-400 rounded-full shadow-sm"></div>
+                  
+                  {/* Mouth */}
+                  <div className="absolute top-16 left-1/2 -translate-x-1/2 w-6 h-3 border-b-2 border-gray-700 rounded-b-full"></div>
                 </div>
               </div>
             </motion.div>
