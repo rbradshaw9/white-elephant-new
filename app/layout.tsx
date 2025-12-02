@@ -4,7 +4,6 @@ import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import Snowfall from "@/components/Snowfall";
-import ElfEyes from "@/components/ElfEyes";
 import CookieBannerParody from "@/components/CookieBannerParody";
 import NaughtyListChecker from "@/components/NaughtyListChecker";
 import MobileBottomNav from "@/components/MobileBottomNav";
@@ -34,7 +33,6 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${geistSans.variable} antialiased min-h-screen flex flex-col`}>
         <Snowfall />
-        <ElfEyes />
         <CookieBannerParody />
         <NaughtyListChecker />
         <ElfChatbot />
