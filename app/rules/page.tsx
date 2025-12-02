@@ -54,15 +54,15 @@ export default function RulesPage() {
           className="mb-6 sm:mb-10"
         >
           <Card className="border-2 sm:border-4 border-red-600 shadow-2xl overflow-hidden">
-            <CardHeader className="bg-gradient-to-r from-red-600 via-red-700 to-red-600 text-white relative overflow-hidden">
+            <CardHeader className="bg-gradient-to-r from-red-600 via-red-700 to-red-600 text-white relative overflow-hidden py-6 sm:py-8 md:py-10 px-6 sm:px-8">
               <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PHBhdHRlcm4gaWQ9ImdyaWQiIHdpZHRoPSI0MCIgaGVpZ2h0PSI0MCIgcGF0dGVyblVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+PHBhdGggZD0iTSAwIDEwIEwgNDAgMTAgTSAxMCAwIEwgMTAgNDAgTSAwIDIwIEwgNDAgMjAgTSAyMCAwIEwgMjAgNDAgTSAwIDMwIEwgNDAgMzAgTSAzMCAwIEwgMzAgNDAiIGZpbGw9Im5vbmUiIHN0cm9rZT0id2hpdGUiIHN0cm9rZS1vcGFjaXR5PSIwLjEiIHN0cm9rZS13aWR0aD0iMSIvPjwvcGF0dGVybj48L2RlZnM+PHJlY3Qgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0idXJsKCNncmlkKSIvPjwvc3ZnPg==')] opacity-30"></div>
               <CardTitle className="text-2xl sm:text-3xl md:text-4xl font-black flex items-center gap-2 sm:gap-3 relative z-10">
                 🎁 The Basic Rules
               </CardTitle>
-              <p className="text-white/90 mt-2 text-sm sm:text-base relative z-10">Everything you need to know to play like a pro</p>
+              <p className="text-white/90 mt-3 sm:mt-4 text-sm sm:text-base md:text-lg relative z-10 font-medium">Everything you need to know to play like a pro</p>
             </CardHeader>
-            <CardContent className="p-4 sm:p-6 md:p-8 bg-gradient-to-br from-white to-red-50">
-              <ol className="space-y-3 sm:space-y-5">
+            <CardContent className="p-6 sm:p-8 md:p-10 bg-gradient-to-br from-white to-red-50">
+              <ol className="space-y-4 sm:space-y-6">
                 {eventConfig.rules.classic.map((rule, index) => (
                   <motion.li
                     key={index}
@@ -93,17 +93,17 @@ export default function RulesPage() {
         >
           <Card className="border-2 sm:border-4 border-green-600 shadow-2xl overflow-hidden relative">
             <div className="absolute top-0 right-0 w-64 h-64 bg-yellow-300 rounded-full blur-3xl opacity-20 -mr-32 -mt-32"></div>
-            <CardHeader className="bg-gradient-to-r from-green-600 via-emerald-600 to-green-600 text-white relative overflow-hidden">
+            <CardHeader className="bg-gradient-to-r from-green-600 via-emerald-600 to-green-600 text-white relative overflow-hidden py-6 sm:py-8 md:py-10 px-6 sm:px-8">
               <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PHBhdHRlcm4gaWQ9InN0YXJzIiB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHBhdHRlcm5Vbml0cz0idXNlclNwYWNlT25Vc2UiPjx0ZXh0IHg9IjMwIiB5PSIzMCIgZm9udC1zaXplPSIyMCIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZmlsbD0id2hpdGUiIG9wYWNpdHk9IjAuMSI+4q2Q77iPPC90ZXh0PjwvcGF0dGVybj48L2RlZnM+PHJlY3Qgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0idXJsKCNzdGFycykiLz48L3N2Zz4=')] opacity-40"></div>
               <CardTitle className="text-2xl sm:text-3xl md:text-4xl font-black flex items-center gap-2 sm:gap-3 relative z-10">
                 ⭐ FINAL ROUND TWIST
               </CardTitle>
-              <p className="text-yellow-100 font-bold text-sm sm:text-base md:text-lg mt-2 relative z-10">
+              <p className="text-yellow-100 font-bold text-sm sm:text-base md:text-lg mt-3 sm:mt-4 relative z-10">
                 This is where the chaos begins. Our signature rule!
               </p>
             </CardHeader>
-            <CardContent className="p-4 sm:p-6 md:p-8 bg-gradient-to-br from-green-50 via-emerald-50 to-green-50">
-              <ul className="space-y-3 sm:space-y-4">
+            <CardContent className="p-6 sm:p-8 md:p-10 bg-gradient-to-br from-green-50 via-emerald-50 to-green-50">
+              <ul className="space-y-4 sm:space-y-5">
                 {eventConfig.rules.finalRound.map((rule, index) => (
                   <motion.li
                     key={index}
@@ -132,7 +132,7 @@ export default function RulesPage() {
           transition={{ duration: 0.6, delay: 0.3 }}
         >
           <Card className="border-2 sm:border-4 border-yellow-500 shadow-2xl overflow-hidden">
-            <CardHeader className="bg-gradient-to-r from-yellow-500 via-orange-500 to-yellow-500 text-white relative overflow-hidden">
+            <CardHeader className="bg-gradient-to-r from-yellow-500 via-orange-500 to-yellow-500 text-white relative overflow-hidden py-6 sm:py-8 md:py-10 px-6 sm:px-8">
               <div className="absolute inset-0 opacity-20">
                 <div className="absolute top-0 left-0 w-32 h-32 bg-white rounded-full blur-2xl"></div>
                 <div className="absolute bottom-0 right-0 w-40 h-40 bg-white rounded-full blur-3xl"></div>
@@ -140,12 +140,12 @@ export default function RulesPage() {
               <CardTitle className="text-2xl sm:text-3xl md:text-4xl font-black flex items-center gap-2 sm:gap-3 relative z-10">
                 💡 Pro Tips for Maximum Fun
               </CardTitle>
-              <p className="text-white/95 font-semibold text-sm sm:text-base mt-2 relative z-10">
+              <p className="text-white/95 font-semibold text-sm sm:text-base md:text-lg mt-3 sm:mt-4 relative z-10">
                 How to win hearts, make enemies, and secure the ultimate prize!
               </p>
             </CardHeader>
-            <CardContent className="p-4 sm:p-6 md:p-8 bg-gradient-to-br from-yellow-50 via-orange-50 to-yellow-50">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4">
+            <CardContent className="p-6 sm:p-8 md:p-10 bg-gradient-to-br from-yellow-50 via-orange-50 to-yellow-50">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-5 md:gap-6">
                 {eventConfig.rules.tips.map((rule, index) => {
                   const isHighlighted = rule.includes('Friendships are temporary');
                   return (
