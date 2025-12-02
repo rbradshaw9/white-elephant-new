@@ -10,6 +10,19 @@ interface Message {
   content: string;
 }
 
+const quickReplies = [
+  "What gift should I bring?",
+  "How do I win?",
+  "Can I steal from anyone?",
+  "What if my gift gets stolen?",
+  "Should I bring wine?",
+  "What's the best strategy?",
+  "Can I peek at gifts?",
+  "What are the rules?",
+  "How many times can I steal?",
+  "What's a good cheap gift?",
+];
+
 export default function ElfChatbot() {
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState<Message[]>([
@@ -17,12 +30,14 @@ export default function ElfChatbot() {
   ]);
   const [input, setInput] = useState('');
   const [isTyping, setIsTyping] = useState(false);
+  const [showQuickReplies, setShowQuickReplies] = useState(true);
 
-  const sendMessage = async () => {
-    if (!input.trim()) return;
+  const sendMessage = async (messageText?: string) => {
+    const userMessage = (messageText || input).trim();
+    if (!userMessage) return;
 
-    const userMessage = input.trim();
     setInput('');
+    setShowQuickReplies(false);
     setMessages(prev => [...prev, { role: 'user', content: userMessage }]);
     setIsTyping(true);
 
@@ -133,6 +148,31 @@ export default function ElfChatbot() {
                     </div>
                   </motion.div>
                 ))}
+                
+                {/* Quick Reply Buttons */}
+                {showQuickReplies && messages.length === 1 && !isTyping && (
+                  <motion.div
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    className="space-y-2"
+                  >
+                    <p className="text-xs text-gray-500 text-center mb-3">Quick questions:</p>
+                    <div className="grid grid-cols-2 gap-2">
+                      {quickReplies.slice(0, 6).map((reply, idx) => (
+                        <motion.button
+                          key={idx}
+                          whileHover={{ scale: 1.02 }}
+                          whileTap={{ scale: 0.98 }}
+                          onClick={() => sendMessage(reply)}
+                          className="text-xs bg-green-50 hover:bg-green-100 text-green-700 px-3 py-2 rounded-lg border border-green-200 transition-colors text-left"
+                        >
+                          {reply}
+                        </motion.button>
+                      ))}
+                    </div>
+                  </motion.div>
+                )}
+                
                 {isTyping && (
                   <div className="flex justify-start">
                     <div className="bg-green-100 text-gray-800 p-3 rounded-2xl rounded-bl-sm">
@@ -158,7 +198,30 @@ export default function ElfChatbot() {
                 )}
               </div>
 
-              <div className="bg-white border-t border-gray-200 p-4 rounded-b-2xl">
+              <div className="bg-white border-t border-gray-200 p-4 rounded-b-2xl space-y-3">
+                {/* Quick Reply Chips - Always Available */}
+                {!showQuickReplies && messages.length > 1 && (
+                  <div className="flex gap-2 overflow-x-auto pb-2 scrollbar-hide">
+                    {quickReplies.slice(0, 4).map((reply, idx) => (
+                      <button
+                        key={idx}
+                        onClick={() => sendMessage(reply)}
+                        className="text-xs bg-gray-100 hover:bg-gray-200 text-gray-700 px-3 py-1.5 rounded-full whitespace-nowrap transition-colors flex-shrink-0"
+                        disabled={isTyping}
+                      >
+                        {reply}
+                      </button>
+                    ))}
+                    <button
+                      onClick={() => setShowQuickReplies(true)}
+                      className="text-xs bg-green-100 hover:bg-green-200 text-green-700 px-3 py-1.5 rounded-full whitespace-nowrap transition-colors flex-shrink-0"
+                      disabled={isTyping}
+                    >
+                      More...
+                    </button>
+                  </div>
+                )}
+                
                 <form
                   onSubmit={(e) => {
                     e.preventDefault();
