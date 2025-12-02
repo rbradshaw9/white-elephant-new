@@ -15,45 +15,44 @@ export default function ElfEyes() {
   const [isBlinking, setIsBlinking] = useState<boolean[]>([]);
 
   useEffect(() => {
-    // Generate random eye positions on the edges
+    // Generate one pair of eyes on a random edge
     const generateEyes = () => {
       const sides: ('left' | 'right' | 'top' | 'bottom')[] = ['left', 'right', 'top', 'bottom'];
-      const newEyes: EyePosition[] = [];
+      const side = sides[Math.floor(Math.random() * sides.length)];
+      let x, y;
       
-      // 2-4 pairs of eyes
-      const eyeCount = Math.floor(Math.random() * 3) + 2;
-      
-      for (let i = 0; i < eyeCount; i++) {
-        const side = sides[Math.floor(Math.random() * sides.length)];
-        let x, y;
-        
-        switch (side) {
-          case 'left':
-            x = -20;
-            y = Math.random() * 80 + 10; // 10-90%
-            break;
-          case 'right':
-            x = window.innerWidth + 20;
-            y = Math.random() * 80 + 10;
-            break;
-          case 'top':
-            x = Math.random() * 80 + 10;
-            y = -20;
-            break;
-          case 'bottom':
-            x = Math.random() * 80 + 10;
-            y = window.innerHeight + 20;
-            break;
-        }
-        
-        newEyes.push({ x, y, side });
+      switch (side) {
+        case 'left':
+          x = -20;
+          y = Math.random() * 60 + 20; // 20-80%
+          break;
+        case 'right':
+          x = window.innerWidth + 20;
+          y = Math.random() * 60 + 20;
+          break;
+        case 'top':
+          x = Math.random() * 60 + 20;
+          y = -20;
+          break;
+        case 'bottom':
+          x = Math.random() * 60 + 20;
+          y = window.innerHeight + 20;
+          break;
       }
       
-      setEyes(newEyes);
-      setIsBlinking(new Array(newEyes.length).fill(false));
+      setEyes([{ x, y, side }]);
+      setIsBlinking([false]);
     };
 
-    generateEyes();
+    // Show eyes after a delay
+    const showTimer = setTimeout(() => {
+      generateEyes();
+    }, 3000);
+
+    // Hide eyes after 8-12 seconds
+    const hideTimer = setTimeout(() => {
+      setEyes([]);
+    }, Math.random() * 4000 + 8000);
 
     // Track mouse position
     const handleMouseMove = (e: MouseEvent) => {
@@ -64,25 +63,48 @@ export default function ElfEyes() {
 
     // Random blinking
     const blinkInterval = setInterval(() => {
-      setIsBlinking(prev => 
-        prev.map(() => Math.random() > 0.7) // 30% chance to blink
-      );
-      
-      // Reset blink after 150ms
-      setTimeout(() => {
-        setIsBlinking(prev => prev.map(() => false));
-      }, 150);
-    }, 2000);
+      if (eyes.length > 0) {
+        setIsBlinking([Math.random() > 0.7]); // 30% chance to blink
+        
+        // Reset blink after 150ms
+        setTimeout(() => {
+          setIsBlinking([false]);
+        }, 150);
+      }
+    }, 2500);
 
-    // Regenerate eyes occasionally
-    const regenerateInterval = setInterval(() => {
-      generateEyes();
-    }, 15000);
+    // Show/hide eyes in cycles
+    const cycleInterval = setInterval(() => {
+      if (eyes.length > 0) {
+        // Hide eyes
+        setEyes([]);
+        
+        // Show new eyes after 5-10 seconds
+        setTimeout(() => {
+          generateEyes();
+          
+          // Hide again after 8-12 seconds
+          setTimeout(() => {
+            setEyes([]);
+          }, Math.random() * 4000 + 8000);
+        }, Math.random() * 5000 + 5000);
+      } else {
+        // Show eyes immediately if hidden
+        generateEyes();
+        
+        // Hide after 8-12 seconds
+        setTimeout(() => {
+          setEyes([]);
+        }, Math.random() * 4000 + 8000);
+      }
+    }, 20000);
 
     return () => {
       window.removeEventListener('mousemove', handleMouseMove);
       clearInterval(blinkInterval);
-      clearInterval(regenerateInterval);
+      clearInterval(cycleInterval);
+      clearTimeout(showTimer);
+      clearTimeout(hideTimer);
     };
   }, []);
 

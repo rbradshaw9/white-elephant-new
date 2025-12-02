@@ -54,11 +54,11 @@ export default function CookieBannerParody() {
     <AnimatePresence>
       {isVisible && (
         <motion.div
-          initial={{ y: 100, opacity: 0 }}
+          initial={{ y: -100, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
-          exit={{ y: 100, opacity: 0 }}
+          exit={{ y: -100, opacity: 0 }}
           transition={{ type: 'spring', stiffness: 200, damping: 20 }}
-          className="fixed bottom-4 left-4 right-4 sm:left-auto sm:right-4 sm:max-w-md z-[100] pointer-events-auto"
+          className="fixed top-4 left-4 right-4 sm:left-4 sm:right-auto sm:max-w-md z-[100] pointer-events-auto"
         >
           <div className="bg-gradient-to-br from-red-600 via-red-700 to-green-700 p-1 rounded-2xl shadow-2xl">
             <div className="bg-white rounded-xl p-6 relative">

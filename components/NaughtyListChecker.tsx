@@ -10,16 +10,22 @@ export default function NaughtyListChecker() {
   const [isChecking, setIsChecking] = useState(false);
   const [result, setResult] = useState<string | null>(null);
   const [showButton, setShowButton] = useState(true);
+  const [name, setName] = useState('');
+  const [hasEnteredName, setHasEnteredName] = useState(false);
 
   const checkNaughtyList = async () => {
+    if (!name.trim()) return;
+    
     setIsChecking(true);
     setResult(null);
+    setHasEnteredName(true);
 
     try {
       const response = await fetch('/api/naughty-list', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
+          name: name.trim(),
           timestamp: new Date().toISOString(),
           userAgent: navigator.userAgent,
         }),
@@ -47,6 +53,8 @@ export default function NaughtyListChecker() {
   const handleClose = () => {
     setIsOpen(false);
     setResult(null);
+    setName('');
+    setHasEnteredName(false);
   };
 
   return (
@@ -118,14 +126,35 @@ export default function NaughtyListChecker() {
                     {!result && !isChecking && (
                       <>
                         <p className="text-gray-600 mb-6 text-sm sm:text-base">
-                          Dare to find out why you're on the naughty list this year?
+                          {!hasEnteredName ? "First, tell us your name so Santa knows who to judge..." : "Ready to face the truth?"}
                         </p>
-                        <Button
-                          onClick={checkNaughtyList}
-                          className="bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 text-white px-8 py-6 text-lg font-black rounded-xl shadow-lg"
-                        >
-                          Check My Status
-                        </Button>
+                        {!hasEnteredName ? (
+                          <>
+                            <input
+                              type="text"
+                              value={name}
+                              onChange={(e) => setName(e.target.value)}
+                              onKeyDown={(e) => e.key === 'Enter' && checkNaughtyList()}
+                              placeholder="Enter your name..."
+                              className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg mb-4 text-center text-lg font-semibold focus:outline-none focus:border-red-600 focus:ring-2 focus:ring-red-200"
+                              autoFocus
+                            />
+                            <Button
+                              onClick={checkNaughtyList}
+                              disabled={!name.trim()}
+                              className="bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 text-white px-8 py-6 text-lg font-black rounded-xl shadow-lg disabled:opacity-50 disabled:cursor-not-allowed"
+                            >
+                              Check My Status
+                            </Button>
+                          </>
+                        ) : (
+                          <Button
+                            onClick={checkNaughtyList}
+                            className="bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 text-white px-8 py-6 text-lg font-black rounded-xl shadow-lg"
+                          >
+                            Check Again
+                          </Button>
+                        )}
                       </>
                     )}
 
@@ -158,10 +187,7 @@ export default function NaughtyListChecker() {
                           </p>
                         </div>
                         <Button
-                          onClick={() => {
-                            setResult(null);
-                            checkNaughtyList();
-                          }}
+                          onClick={checkNaughtyList}
                           variant="outline"
                           className="border-2 border-red-600 text-red-600 hover:bg-red-50 font-bold"
                         >
