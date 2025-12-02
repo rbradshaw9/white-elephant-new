@@ -9,7 +9,6 @@ export default function NaughtyListChecker() {
   const [isOpen, setIsOpen] = useState(false);
   const [isChecking, setIsChecking] = useState(false);
   const [result, setResult] = useState<string | null>(null);
-  const [showButton, setShowButton] = useState(true);
   const [name, setName] = useState('');
   const [hasEnteredName, setHasEnteredName] = useState(false);
 
@@ -47,7 +46,6 @@ export default function NaughtyListChecker() {
 
   const handleOpen = () => {
     setIsOpen(true);
-    setShowButton(false);
   };
 
   const handleClose = () => {
@@ -60,28 +58,25 @@ export default function NaughtyListChecker() {
   return (
     <>
       {/* Floating Button */}
-      <AnimatePresence>
-        {showButton && (
-          <motion.div
-            initial={{ scale: 0, rotate: -180 }}
-            animate={{ scale: 1, rotate: 0 }}
-            exit={{ scale: 0, rotate: 180 }}
-            transition={{ type: 'spring', stiffness: 200, damping: 15, delay: 5 }}
-            className="fixed bottom-24 sm:bottom-8 right-4 z-50"
+      {!isOpen && (
+        <motion.div
+          initial={{ scale: 0, rotate: -180 }}
+          animate={{ scale: 1, rotate: 0 }}
+          transition={{ type: 'spring', stiffness: 200, damping: 15, delay: 5 }}
+          className="fixed bottom-24 sm:bottom-8 right-4 z-50"
+        >
+          <motion.button
+            onClick={handleOpen}
+            whileHover={{ scale: 1.1, rotate: 5 }}
+            whileTap={{ scale: 0.95 }}
+            className="bg-gradient-to-r from-red-600 via-red-700 to-red-800 text-white px-4 sm:px-6 py-3 sm:py-4 rounded-full shadow-2xl font-black text-sm sm:text-base flex items-center gap-2 border-2 border-white hover:shadow-red-500/50 transition-shadow min-h-[48px]"
           >
-            <motion.button
-              onClick={handleOpen}
-              whileHover={{ scale: 1.1, rotate: 5 }}
-              whileTap={{ scale: 0.95 }}
-              className="bg-gradient-to-r from-red-600 via-red-700 to-red-800 text-white px-4 sm:px-6 py-3 sm:py-4 rounded-full shadow-2xl font-black text-sm sm:text-base flex items-center gap-2 border-2 border-white hover:shadow-red-500/50 transition-shadow min-h-[48px]"
-            >
-              <Sparkles className="w-5 h-5" />
-              <span className="hidden sm:inline">Check Naughty List</span>
-              <span className="sm:hidden">Naughty?</span>
-            </motion.button>
-          </motion.div>
-        )}
-      </AnimatePresence>
+            <Sparkles className="w-5 h-5" />
+            <span className="hidden sm:inline">Check Naughty List</span>
+            <span className="sm:hidden">Naughty List</span>
+          </motion.button>
+        </motion.div>
+      )}
 
       {/* Modal */}
       <AnimatePresence>

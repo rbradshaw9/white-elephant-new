@@ -79,27 +79,24 @@ export default function ElfChatbot() {
   return (
     <>
       {/* Chat Button */}
-      <AnimatePresence>
-        {!isOpen && (
-          <motion.button
-            initial={{ scale: 0, rotate: -180 }}
-            animate={{ scale: 1, rotate: 0 }}
-            exit={{ scale: 0, rotate: 180 }}
-            transition={{ type: 'spring', stiffness: 200, damping: 15, delay: 6 }}
-            onClick={() => setIsOpen(true)}
-            className="fixed bottom-24 sm:bottom-20 left-4 z-[85] bg-gradient-to-r from-green-600 to-emerald-700 text-white p-4 rounded-full shadow-2xl hover:shadow-green-500/50 transition-all"
-            whileHover={{ scale: 1.1, rotate: 5 }}
-            whileTap={{ scale: 0.95 }}
-          >
-            <MessageCircle className="w-6 h-6" />
-            <motion.div
-              animate={{ scale: [1, 1.3, 1] }}
-              transition={{ duration: 2, repeat: Infinity }}
-              className="absolute -top-1 -right-1 w-3 h-3 bg-red-500 rounded-full"
-            />
-          </motion.button>
-        )}
-      </AnimatePresence>
+      {!isOpen && (
+        <motion.button
+          initial={{ scale: 0, rotate: -180 }}
+          animate={{ scale: 1, rotate: 0 }}
+          transition={{ type: 'spring', stiffness: 200, damping: 15, delay: 6 }}
+          onClick={() => setIsOpen(true)}
+          className="fixed bottom-24 sm:bottom-20 left-4 z-[85] bg-gradient-to-r from-green-600 to-emerald-700 text-white p-4 rounded-full shadow-2xl hover:shadow-green-500/50 transition-all"
+          whileHover={{ scale: 1.1, rotate: 5 }}
+          whileTap={{ scale: 0.95 }}
+        >
+          <MessageCircle className="w-6 h-6" />
+          <motion.div
+            animate={{ scale: [1, 1.3, 1] }}
+            transition={{ duration: 2, repeat: Infinity }}
+            className="absolute -top-1 -right-1 w-3 h-3 bg-red-500 rounded-full"
+          />
+        </motion.button>
+      )}
 
       {/* Chat Window */}
       <AnimatePresence>
