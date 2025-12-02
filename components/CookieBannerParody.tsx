@@ -10,7 +10,7 @@ export default function CookieBannerParody() {
 
   useEffect(() => {
     // Show after 3 seconds, only if not dismissed before
-    const dismissed = localStorage.getItem('cookieParodyDismissed');
+    const dismissed = localStorage.getItem('cookieParodyDismissed_v2');
     if (!dismissed) {
       const timer = setTimeout(() => {
         setIsVisible(true);
@@ -42,7 +42,7 @@ export default function CookieBannerParody() {
 
   const handleDismiss = () => {
     setIsVisible(false);
-    localStorage.setItem('cookieParodyDismissed', 'true');
+    localStorage.setItem('cookieParodyDismissed_v2', 'true');
   };
 
   const handleReject = () => {
