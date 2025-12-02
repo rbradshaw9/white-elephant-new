@@ -4,6 +4,9 @@ import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import Snowfall from "@/components/Snowfall";
+import ElfEyes from "@/components/ElfEyes";
+import CookieBannerParody from "@/components/CookieBannerParody";
+import NaughtyListChecker from "@/components/NaughtyListChecker";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -29,6 +32,9 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${geistSans.variable} antialiased min-h-screen flex flex-col`}>
         <Snowfall />
+        <ElfEyes />
+        <CookieBannerParody />
+        <NaughtyListChecker />
         <Navbar />
         <main className="flex-grow">
           {children}
