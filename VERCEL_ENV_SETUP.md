@@ -30,7 +30,7 @@ Copy and paste these **EXACTLY** (including the values):
 - **Value**: Copy from your `.env.local` file
 
 - **Name**: `SENDGRID_FROM_EMAIL`
-- **Value**: `jenny.bradshaw@gmail.com`
+- **Value**: `party@thewhiteelephantbash.com`
 
 - **Name**: `SENDGRID_FROM_NAME`
 - **Value**: `White Elephant Party`

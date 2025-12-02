@@ -14,7 +14,7 @@
 **You're using SendGrid - Perfect choice!**
 - ✅ Sends automated RSVP confirmations
 - ✅ Free tier: 100 emails/day (plenty for your party)
-- ✅ Sends from: `jenny.bradshaw@gmail.com` as "The White Elephant Bash"
+- ✅ Sends from: `party@thewhiteelephantbash.com` as "The White Elephant Bash"
 - ✅ No domain required
 - ✅ Already configured and working
 
