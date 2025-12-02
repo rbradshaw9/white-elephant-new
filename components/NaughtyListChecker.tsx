@@ -102,7 +102,7 @@ export default function NaughtyListChecker() {
               animate={{ scale: 1, opacity: 1, y: 0 }}
               exit={{ scale: 0.5, opacity: 0, y: 50 }}
               transition={{ type: 'spring', stiffness: 300, damping: 25 }}
-              className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-[201] w-[90%] max-w-lg"
+              className="fixed inset-4 md:top-1/2 md:left-1/2 md:-translate-x-1/2 md:-translate-y-1/2 md:inset-auto z-[201] md:w-[90%] md:max-w-lg max-h-[90vh] overflow-auto"
             >
               <div className="bg-gradient-to-br from-red-600 via-red-700 to-green-700 p-1 rounded-2xl shadow-2xl">
                 <div className="bg-white rounded-xl p-6 sm:p-8 relative">

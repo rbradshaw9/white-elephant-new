@@ -7,6 +7,8 @@ import Snowfall from "@/components/Snowfall";
 import ElfEyes from "@/components/ElfEyes";
 import CookieBannerParody from "@/components/CookieBannerParody";
 import NaughtyListChecker from "@/components/NaughtyListChecker";
+import MobileBottomNav from "@/components/MobileBottomNav";
+import ElfChatbot from "@/components/ElfChatbot";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -35,11 +37,13 @@ export default function RootLayout({
         <ElfEyes />
         <CookieBannerParody />
         <NaughtyListChecker />
+        <ElfChatbot />
         <Navbar />
-        <main className="flex-grow">
+        <main className="flex-grow pb-20 md:pb-0">
           {children}
         </main>
         <Footer />
+        <MobileBottomNav />
       </body>
     </html>
   );
