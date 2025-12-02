@@ -256,18 +256,11 @@ Remember:
 See you at the party!
   `;
 
-  const fromEmail = process.env.SENDGRID_FROM_EMAIL || 'party@thewhiteelephantbash.com';
-  const fromName = process.env.SENDGRID_FROM_NAME || 'The White Elephant Bash';
-  
   const msg = {
     to,
     from: {
-      email: fromEmail,
-      name: fromName
-    },
-    replyTo: {
-      email: 'jenny.bradshaw@gmail.com',
-      name: 'Jenny Bradshaw'
+      email: process.env.SENDGRID_FROM_EMAIL || 'jenny.bradshaw@gmail.com',
+      name: process.env.SENDGRID_FROM_NAME || 'The White Elephant Bash'
     },
     subject: `🎄 You're confirmed for ${eventConfig.title}!`,
     text: textContent,
