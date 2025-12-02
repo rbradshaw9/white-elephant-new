@@ -36,5 +36,7 @@ export type RSVP = {
   guest_names: string[];
   elf_names: string[];
   elf_taglines?: string[];
+  strategy?: string;
+  life_as_gift?: string;
   created_at: string;
 };

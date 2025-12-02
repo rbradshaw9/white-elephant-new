@@ -7,7 +7,7 @@ import { generateElfTaglines } from '@/lib/generateTagline';
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
-    const { primaryName, email, guestCount, guestNames } = body;
+    const { primaryName, email, guestCount, guestNames, strategy, lifeAsGift } = body;
 
     // Validation
     if (!primaryName || !email || !guestCount || !guestNames || guestNames.length !== guestCount) {
@@ -65,6 +65,8 @@ export async function POST(request: NextRequest) {
           guest_names: guestNames,
           elf_names: elfNames,
           elf_taglines: elfTaglines,
+          strategy: strategy || null,
+          life_as_gift: lifeAsGift || null,
         },
         {
           onConflict: 'email',

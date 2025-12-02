@@ -14,6 +14,8 @@ interface FormData {
   email: string;
   guestCount: number;
   guestNames: string[];
+  strategy: string;
+  lifeAsGift: string;
 }
 
 interface RSVPFormProps {
@@ -27,6 +29,8 @@ export default function RSVPForm({ onSuccess, existingRsvp }: RSVPFormProps) {
     email: '',
     guestCount: 1,
     guestNames: [],
+    strategy: '',
+    lifeAsGift: '',
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -43,6 +47,8 @@ export default function RSVPForm({ onSuccess, existingRsvp }: RSVPFormProps) {
         email: existingRsvp.email,
         guestCount: allGuests.length,
         guestNames: additionalGuests,
+        strategy: existingRsvp.strategy || '',
+        lifeAsGift: existingRsvp.life_as_gift || '',
       });
     }
   }, [existingRsvp]);
@@ -104,6 +110,8 @@ export default function RSVPForm({ onSuccess, existingRsvp }: RSVPFormProps) {
           email: formData.email.trim(),
           guestCount: formData.guestCount,
           guestNames: allAttendees,
+          strategy: formData.strategy || null,
+          lifeAsGift: formData.lifeAsGift || null,
         }),
       });
 
@@ -221,6 +229,52 @@ export default function RSVPForm({ onSuccess, existingRsvp }: RSVPFormProps) {
               ))}
             </div>
           )}
+
+          {/* Funny Questions */}
+          <div className="border-t-2 border-dashed border-gray-300 pt-4 sm:pt-6 space-y-4">
+            <div className="text-center">
+              <h3 className="text-lg sm:text-xl font-bold text-gray-800 mb-1">🎭 For Laughs (Optional)</h3>
+              <p className="text-xs sm:text-sm text-gray-600">Help us get to know your chaos level</p>
+            </div>
+
+            {/* Strategy Dropdown */}
+            <div>
+              <Label htmlFor="strategy" className="text-base sm:text-lg font-medium">
+                What's your White Elephant strategy?
+              </Label>
+              <Select
+                value={formData.strategy}
+                onValueChange={(value) => setFormData({ ...formData, strategy: value })}
+              >
+                <SelectTrigger className="mt-1.5 sm:mt-2 min-h-[44px] text-base">
+                  <SelectValue placeholder="Pick your vibe..." />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="steal-everything">🦹 Steal everything (chaos agent)</SelectItem>
+                  <SelectItem value="play-safe">😇 Play it safe (boring)</SelectItem>
+                  <SelectItem value="pure-chaos">🔥 Pure chaos (agent of destruction)</SelectItem>
+                  <SelectItem value="no-idea">🤷 I have no idea what I'm doing</SelectItem>
+                  <SelectItem value="here-for-snacks">🍕 Just here for snacks</SelectItem>
+                  <SelectItem value="friendship-destroyer">💔 Friendship destroyer</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+
+            {/* Life as Gift Text Field */}
+            <div>
+              <Label htmlFor="lifeAsGift" className="text-base sm:text-lg font-medium">
+                If your life was a White Elephant gift, what would it be?
+              </Label>
+              <Input
+                id="lifeAsGift"
+                type="text"
+                value={formData.lifeAsGift}
+                onChange={(e) => setFormData({ ...formData, lifeAsGift: e.target.value })}
+                placeholder="A half-eaten box of regrets..."
+                className="mt-1.5 sm:mt-2 min-h-[44px] text-base"
+              />
+            </div>
+          </div>
 
           {/* Error Message */}
           {error && (

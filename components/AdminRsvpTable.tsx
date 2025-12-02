@@ -123,9 +123,14 @@ export default function AdminRsvpTable({ rsvps, password, onRefresh }: AdminRsvp
       attendeeName: name,
       elfName: rsvp.elf_names[index] || '',
       totalPartySize: rsvp.guest_count,
-      isPrimary: index === 0
+      isPrimary: index === 0,
+      strategy: rsvp.strategy,
+      lifeAsGift: rsvp.life_as_gift
     }))
   );
+
+  // Get RSVPs with funny responses
+  const funnyResponses = sortedRsvps.filter(rsvp => rsvp.strategy || rsvp.life_as_gift);
 
   return (
     <div className="space-y-6">
@@ -139,6 +144,44 @@ export default function AdminRsvpTable({ rsvps, password, onRefresh }: AdminRsvp
         }}
         password={password}
       />
+
+      {/* Funny Responses */}
+      {funnyResponses.length > 0 && (
+        <Card className="border-yellow-500 bg-yellow-50/30">
+          <CardHeader>
+            <CardTitle className="text-yellow-800">🎭 Funny Responses</CardTitle>
+            <CardDescription>Laugh-worthy answers from your guests</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <div className="space-y-4">
+              {funnyResponses.map(rsvp => (
+                <div key={rsvp.id} className="bg-white p-4 rounded-lg border-2 border-yellow-200">
+                  <div className="font-bold text-gray-800 mb-2">{rsvp.primary_name}</div>
+                  {rsvp.strategy && (
+                    <div className="mb-2">
+                      <span className="text-xs font-semibold text-gray-600">Strategy:</span>
+                      <p className="text-sm text-gray-700 mt-1">
+                        {rsvp.strategy === 'steal-everything' && '🦹 Steal everything (chaos agent)'}
+                        {rsvp.strategy === 'play-safe' && '😇 Play it safe (boring)'}
+                        {rsvp.strategy === 'pure-chaos' && '🔥 Pure chaos (agent of destruction)'}
+                        {rsvp.strategy === 'no-idea' && '🤷 I have no idea what I\'m doing'}
+                        {rsvp.strategy === 'here-for-snacks' && '🍕 Just here for snacks'}
+                        {rsvp.strategy === 'friendship-destroyer' && '💔 Friendship destroyer'}
+                      </p>
+                    </div>
+                  )}
+                  {rsvp.life_as_gift && (
+                    <div>
+                      <span className="text-xs font-semibold text-gray-600">Life as a gift:</span>
+                      <p className="text-sm text-gray-700 mt-1 italic">&quot;{rsvp.life_as_gift}&quot;</p>
+                    </div>
+                  )}
+                </div>
+              ))}
+            </div>
+          </CardContent>
+        </Card>
+      )}
 
       {/* Stats Cards */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
