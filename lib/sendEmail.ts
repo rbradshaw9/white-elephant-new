@@ -286,22 +286,13 @@ export async function sendNotificationEmail(data: EmailData) {
   const guestList = guestNames.map((name, i) => `${name} → ${elfNames[i]}`).join('\n');
   
   const notificationEmail = process.env.NOTIFICATION_EMAIL || 'jenny.bradshaw@gmail.com';
-  const fromEmail = process.env.SENDGRID_FROM_EMAIL;
+  // Use rbradshaw@gmail.com for notification emails to avoid from=to issue
+  const notificationFromEmail = process.env.NOTIFICATION_FROM_EMAIL || 'rbradshaw@gmail.com';
   
   console.log('[sendNotificationEmail] Attempting to send notification');
   console.log('[sendNotificationEmail] To:', notificationEmail);
-  console.log('[sendNotificationEmail] From:', fromEmail);
+  console.log('[sendNotificationEmail] From:', notificationFromEmail);
   console.log('[sendNotificationEmail] Primary Name:', primaryName);
-  console.log('[sendNotificationEmail] WARNING: Sending from and to same address may cause delivery issues');
-  
-  if (!fromEmail) {
-    throw new Error('SENDGRID_FROM_EMAIL environment variable is not set');
-  }
-  
-  // If from and to are the same, Gmail might reject it
-  if (fromEmail === notificationEmail) {
-    console.log('[sendNotificationEmail] ⚠️  FROM and TO are identical - this may cause Gmail to block delivery');
-  }
   
   const htmlContent = `
     <!DOCTYPE html>
@@ -337,12 +328,12 @@ export async function sendNotificationEmail(data: EmailData) {
   const msg = {
     to: notificationEmail,
     from: {
-      email: fromEmail,
-      name: 'White Elephant RSVP System'
+      email: notificationFromEmail,
+      name: 'White Elephant Party'
     },
     replyTo: {
-      email: fromEmail,
-      name: 'White Elephant Bash'
+      email: notificationFromEmail,
+      name: 'Ryan Bradshaw'
     },
     subject: `🎉 New RSVP from ${primaryName}`,
     html: htmlContent,
