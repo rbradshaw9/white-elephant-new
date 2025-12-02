@@ -286,8 +286,8 @@ export async function sendNotificationEmail(data: EmailData) {
   const guestList = guestNames.map((name, i) => `${name} → ${elfNames[i]}`).join('\n');
   
   const notificationEmail = process.env.NOTIFICATION_EMAIL || 'jenny.bradshaw@gmail.com';
-  // Use rbradshaw@gmail.com for notification emails to avoid from=to issue
-  const notificationFromEmail = process.env.NOTIFICATION_FROM_EMAIL || 'rbradshaw@gmail.com';
+  // Use domain email for better deliverability, fallback to rbradshaw@gmail.com
+  const notificationFromEmail = process.env.NOTIFICATION_FROM_EMAIL || process.env.SENDGRID_FROM_EMAIL || 'notifications@thewhiteelephantbash.com';
   
   console.log('[sendNotificationEmail] Attempting to send notification');
   console.log('[sendNotificationEmail] To:', notificationEmail);
