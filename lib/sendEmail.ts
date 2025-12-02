@@ -325,6 +325,19 @@ export async function sendNotificationEmail(data: EmailData) {
     </html>
   `;
   
+  const textContent = `
+New RSVP Received!
+
+Primary Contact: ${primaryName}
+Email: ${to}
+Party Size: ${guestNames.length} guest${guestNames.length > 1 ? 's' : ''}
+
+Guests & Elf Names:
+${guestList}
+
+Total RSVPs so far: Check the guest list at ${process.env.NEXT_PUBLIC_BASE_URL || 'https://thewhiteelephantbash.com'}/guests
+  `.trim();
+
   const msg = {
     to: notificationEmail,
     from: {
@@ -336,22 +349,43 @@ export async function sendNotificationEmail(data: EmailData) {
       name: 'Ryan Bradshaw'
     },
     subject: `🎉 New RSVP from ${primaryName}`,
+    text: textContent,
     html: htmlContent,
     mailSettings: {
       sandboxMode: {
         enable: false
       }
+    },
+    trackingSettings: {
+      clickTracking: {
+        enable: false,
+        enableText: false
+      }
     }
   };
   
-  console.log('[sendNotificationEmail] Sending email...');
-  console.log('[sendNotificationEmail] Message config:', JSON.stringify({
-    to: msg.to,
-    from: msg.from,
-    subject: msg.subject
-  }));
-  const result = await sgMail.send(msg);
-  console.log('[sendNotificationEmail] Email sent successfully:', result[0].statusCode);
-  console.log('[sendNotificationEmail] Message ID:', result[0].headers['x-message-id']);
-  return result;
+  console.log('[sendNotificationEmail] ========================================');
+  console.log('[sendNotificationEmail] NOTIFICATION EMAIL DETAILS');
+  console.log('[sendNotificationEmail] To:', notificationEmail);
+  console.log('[sendNotificationEmail] From:', notificationFromEmail);
+  console.log('[sendNotificationEmail] Subject:', msg.subject);
+  console.log('[sendNotificationEmail] Has HTML:', !!msg.html);
+  console.log('[sendNotificationEmail] Has Text:', !!msg.text);
+  console.log('[sendNotificationEmail] Full msg object:', JSON.stringify(msg, null, 2));
+  console.log('[sendNotificationEmail] ========================================');
+  
+  try {
+    const result = await sgMail.send(msg);
+    console.log('[sendNotificationEmail] ✅ SendGrid accepted email');
+    console.log('[sendNotificationEmail] Status Code:', result[0].statusCode);
+    console.log('[sendNotificationEmail] Message ID:', result[0].headers['x-message-id']);
+    console.log('[sendNotificationEmail] Full response:', JSON.stringify(result[0], null, 2));
+    return result;
+  } catch (error: any) {
+    console.error('[sendNotificationEmail] ❌ SendGrid REJECTED email');
+    console.error('[sendNotificationEmail] Error code:', error.code);
+    console.error('[sendNotificationEmail] Error message:', error.message);
+    console.error('[sendNotificationEmail] Response body:', error.response?.body);
+    throw error;
+  }
 }
