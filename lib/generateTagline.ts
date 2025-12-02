@@ -1,14 +1,22 @@
 import OpenAI from 'openai';
 
-const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY,
-});
+// Initialize OpenAI client only if API key is available
+const openai = process.env.OPENAI_API_KEY 
+  ? new OpenAI({
+      apiKey: process.env.OPENAI_API_KEY,
+    })
+  : null;
 
 /**
  * Generate a funny, personalized tagline for an elf name
  * The tagline should be directly related to the elf name and White Elephant party context
  */
 export async function generateElfTagline(elfName: string): Promise<string> {
+  // If no OpenAI client, use fallback
+  if (!openai) {
+    return getFallbackTagline(elfName);
+  }
+
   try {
     const completion = await openai.chat.completions.create({
       model: "gpt-4o-mini",
