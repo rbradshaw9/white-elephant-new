@@ -23,17 +23,20 @@ export default function CookieBannerParody() {
     {
       title: "🍪 Cookie Notice",
       text: "This website uses cookies to judge your gift-wrapping skills and share your questionable life choices with Santa.",
-      buttons: ["Accept All Judgement", "Reject (Santa will remember this)"]
+      buttons: ["Accept All Judgement", "Reject (Santa will remember this)"],
+      disclaimer: ""
     },
     {
       title: "🎅 Are You Sure?",
       text: "By rejecting cookies, you acknowledge that you're probably on the Naughty List anyway. We'll also tell your mom about that time you regifted her present.",
-      buttons: ["Fine, Accept", "I Stand By My Poor Choices"]
+      buttons: ["Fine, Accept", "I Stand By My Poor Choices"],
+      disclaimer: ""
     },
     {
       title: "🔥 Final Warning",
       text: "Okay, we're legally required to tell you we don't actually use cookies. But we ARE judging you. That's free and doesn't require consent.",
-      buttons: ["Whatever, Close This"]
+      buttons: ["Fine, Whatever 🙄"],
+      disclaimer: "(This is obviously a joke. We don't use cookies.)"
     }
   ];
 
@@ -97,6 +100,12 @@ export default function CookieBannerParody() {
                     </button>
                   ))}
                 </div>
+
+                {messages[stage].disclaimer && (
+                  <p className="text-xs text-gray-500 italic mt-3 text-center">
+                    {messages[stage].disclaimer}
+                  </p>
+                )}
               </motion.div>
 
               <div className="flex gap-1.5 mt-4 justify-center">
