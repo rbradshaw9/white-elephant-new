@@ -36,6 +36,11 @@ export default function AdminRsvpTable({ rsvps, password, onRefresh }: AdminRsvp
       const aValue = a[field];
       const bValue = b[field];
       
+      // Handle undefined values
+      if (aValue === undefined && bValue === undefined) return 0;
+      if (aValue === undefined) return 1;
+      if (bValue === undefined) return -1;
+      
       if (aValue < bValue) return newDirection === 'asc' ? -1 : 1;
       if (aValue > bValue) return newDirection === 'asc' ? 1 : -1;
       return 0;
