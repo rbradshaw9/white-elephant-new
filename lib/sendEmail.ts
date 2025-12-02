@@ -338,8 +338,11 @@ ${guestList}
 Total RSVPs so far: Check the guest list at ${process.env.NEXT_PUBLIC_BASE_URL || 'https://thewhiteelephantbash.com'}/guests
   `.trim();
 
+  // Try multiple recipients as a backup
+  const recipients = notificationEmail.split(',').map(email => email.trim());
+  
   const msg = {
-    to: notificationEmail,
+    to: recipients,
     from: {
       email: notificationFromEmail,
       name: 'White Elephant Party'
@@ -354,13 +357,24 @@ Total RSVPs so far: Check the guest list at ${process.env.NEXT_PUBLIC_BASE_URL |
     mailSettings: {
       sandboxMode: {
         enable: false
+      },
+      bypassListManagement: {
+        enable: true
       }
     },
     trackingSettings: {
       clickTracking: {
         enable: false,
         enableText: false
+      },
+      openTracking: {
+        enable: false
       }
+    },
+    categories: ['rsvp-notification'],
+    customArgs: {
+      notification_type: 'rsvp',
+      recipient_email: to
     }
   };
   
