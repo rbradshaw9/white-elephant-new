@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { MessageCircle, X, Send } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -31,6 +31,17 @@ export default function ElfChatbot() {
   const [input, setInput] = useState('');
   const [isTyping, setIsTyping] = useState(false);
   const [showQuickReplies, setShowQuickReplies] = useState(true);
+  const messagesEndRef = useRef<HTMLDivElement>(null);
+  const messagesContainerRef = useRef<HTMLDivElement>(null);
+
+  // Auto-scroll to bottom when messages change
+  const scrollToBottom = () => {
+    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+  };
+
+  useEffect(() => {
+    scrollToBottom();
+  }, [messages, isTyping]);
 
   const sendMessage = async (messageText?: string) => {
     const userMessage = (messageText || input).trim();
@@ -129,7 +140,7 @@ export default function ElfChatbot() {
                 </button>
               </div>
 
-              <div className="flex-1 bg-white overflow-y-auto p-4 space-y-4">
+              <div ref={messagesContainerRef} className="flex-1 bg-white overflow-y-auto p-4 space-y-4">
                 {messages.map((msg, idx) => (
                   <motion.div
                     key={idx}
@@ -196,6 +207,9 @@ export default function ElfChatbot() {
                     </div>
                   </div>
                 )}
+                
+                {/* Invisible element to scroll to */}
+                <div ref={messagesEndRef} />
               </div>
 
               <div className="bg-white border-t border-gray-200 p-4 rounded-b-2xl space-y-3">
