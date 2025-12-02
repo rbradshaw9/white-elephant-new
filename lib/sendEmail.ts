@@ -294,35 +294,32 @@ export async function sendNotificationEmail(data: EmailData) {
   console.log('[sendNotificationEmail] From:', notificationFromEmail);
   console.log('[sendNotificationEmail] Primary Name:', primaryName);
   
+  // Simple, plain HTML that Gmail won't block
   const htmlContent = `
-    <!DOCTYPE html>
-    <html>
-      <head>
-        <meta charset="utf-8">
-        <style>
-          body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; }
-          .container { max-width: 600px; margin: 0 auto; padding: 20px; }
-          h1 { color: #c41e3a; }
-          .details { background-color: #f9f9f9; padding: 15px; border-radius: 8px; margin: 20px 0; }
-        </style>
-      </head>
-      <body>
-        <div class="container">
-          <h1>🎄 New RSVP Received!</h1>
-          <p>Someone just RSVP'd to the party!</p>
-          
-          <div class="details">
-            <p><strong>Primary Contact:</strong> ${primaryName}</p>
-            <p><strong>Email:</strong> ${to}</p>
-            <p><strong>Party Size:</strong> ${guestNames.length} guest${guestNames.length > 1 ? 's' : ''}</p>
-            <p><strong>Guests & Elf Names:</strong></p>
-            <pre>${guestList}</pre>
-          </div>
-          
-          <p>Total RSVPs so far: Check the guest list at <a href="${process.env.NEXT_PUBLIC_BASE_URL || 'https://thewhiteelephantbash.com'}/guests">thewhiteelephantbash.com/guests</a></p>
-        </div>
-      </body>
-    </html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>New RSVP</title>
+</head>
+<body style="font-family: Arial, sans-serif; line-height: 1.6; color: #333; margin: 0; padding: 20px;">
+  <div style="max-width: 600px; margin: 0 auto;">
+    <h2 style="color: #c41e3a;">New RSVP Received</h2>
+    <p>Someone just RSVP'd to the White Elephant Bash!</p>
+    
+    <div style="background-color: #f9f9f9; padding: 15px; margin: 20px 0; border-left: 4px solid #c41e3a;">
+      <p><strong>Primary Contact:</strong> ${primaryName}</p>
+      <p><strong>Email:</strong> ${to}</p>
+      <p><strong>Party Size:</strong> ${guestNames.length} guest${guestNames.length > 1 ? 's' : ''}</p>
+      <p><strong>Guests:</strong></p>
+      ${guestNames.map((name, i) => `<p style="margin: 5px 0;">${name} (${elfNames[i]})</p>`).join('')}
+    </div>
+    
+    <p>View all guests at: <a href="${process.env.NEXT_PUBLIC_BASE_URL || 'https://thewhiteelephantbash.com'}/guests" style="color: #165b33;">thewhiteelephantbash.com/guests</a></p>
+  </div>
+</body>
+</html>
   `;
   
   const textContent = `
@@ -345,13 +342,13 @@ Total RSVPs so far: Check the guest list at ${process.env.NEXT_PUBLIC_BASE_URL |
     to: recipients,
     from: {
       email: notificationFromEmail,
-      name: 'White Elephant Party'
+      name: 'White Elephant Bash'
     },
     replyTo: {
       email: notificationFromEmail,
-      name: 'Ryan Bradshaw'
+      name: 'White Elephant Bash'
     },
-    subject: `🎉 New RSVP from ${primaryName}`,
+    subject: `New RSVP: ${primaryName}`,
     text: textContent,
     html: htmlContent,
     mailSettings: {
@@ -360,6 +357,12 @@ Total RSVPs so far: Check the guest list at ${process.env.NEXT_PUBLIC_BASE_URL |
       },
       bypassListManagement: {
         enable: true
+      },
+      footer: {
+        enable: false
+      },
+      spamCheck: {
+        enable: false
       }
     },
     trackingSettings: {
@@ -369,12 +372,10 @@ Total RSVPs so far: Check the guest list at ${process.env.NEXT_PUBLIC_BASE_URL |
       },
       openTracking: {
         enable: false
+      },
+      subscriptionTracking: {
+        enable: false
       }
-    },
-    categories: ['rsvp-notification'],
-    customArgs: {
-      notification_type: 'rsvp',
-      recipient_email: to
     }
   };
   
