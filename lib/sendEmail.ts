@@ -292,9 +292,15 @@ export async function sendNotificationEmail(data: EmailData) {
   console.log('[sendNotificationEmail] To:', notificationEmail);
   console.log('[sendNotificationEmail] From:', fromEmail);
   console.log('[sendNotificationEmail] Primary Name:', primaryName);
+  console.log('[sendNotificationEmail] WARNING: Sending from and to same address may cause delivery issues');
   
   if (!fromEmail) {
     throw new Error('SENDGRID_FROM_EMAIL environment variable is not set');
+  }
+  
+  // If from and to are the same, Gmail might reject it
+  if (fromEmail === notificationEmail) {
+    console.log('[sendNotificationEmail] ⚠️  FROM and TO are identical - this may cause Gmail to block delivery');
   }
   
   const htmlContent = `
@@ -334,12 +340,27 @@ export async function sendNotificationEmail(data: EmailData) {
       email: fromEmail,
       name: 'White Elephant RSVP System'
     },
+    replyTo: {
+      email: fromEmail,
+      name: 'White Elephant Bash'
+    },
     subject: `🎉 New RSVP from ${primaryName}`,
     html: htmlContent,
+    mailSettings: {
+      sandboxMode: {
+        enable: false
+      }
+    }
   };
   
   console.log('[sendNotificationEmail] Sending email...');
+  console.log('[sendNotificationEmail] Message config:', JSON.stringify({
+    to: msg.to,
+    from: msg.from,
+    subject: msg.subject
+  }));
   const result = await sgMail.send(msg);
   console.log('[sendNotificationEmail] Email sent successfully:', result[0].statusCode);
+  console.log('[sendNotificationEmail] Message ID:', result[0].headers['x-message-id']);
   return result;
 }
