@@ -182,8 +182,8 @@ export default function AdminPage() {
           transition={{ duration: 0.5 }}
           className="mb-8"
         >
-          <div className="flex justify-between items-center">
-            <h1 className="text-4xl md:text-5xl font-bold text-gray-800">
+          <div className="flex justify-between items-center px-4">
+            <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-gray-800">
               🎄 Admin Dashboard
             </h1>
             <Button
@@ -195,7 +195,7 @@ export default function AdminPage() {
                 localStorage.removeItem('adminPassword');
               }}
               variant="outline"
-              className="border-2 border-gray-700"
+              className="border-2 border-gray-700 min-h-[44px] text-sm sm:text-base whitespace-nowrap"
             >
               🔒 Logout
             </Button>
@@ -204,11 +204,11 @@ export default function AdminPage() {
         </motion.div>
 
         {/* Tabs */}
-        <div className="mb-6 border-b border-gray-200">
-          <nav className="-mb-px flex space-x-8">
+        <div className="mb-6 border-b border-gray-200 px-4">
+          <nav className="-mb-px flex space-x-4 sm:space-x-8 overflow-x-auto scrollbar-hide">
             <button
               onClick={() => setActiveTab('rsvps')}
-              className={`py-4 px-1 border-b-2 font-medium text-sm ${
+              className={`py-4 px-2 sm:px-1 border-b-2 font-medium text-xs sm:text-sm whitespace-nowrap min-h-[44px] ${
                 activeTab === 'rsvps'
                   ? 'border-red-600 text-red-600'
                   : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
@@ -218,7 +218,7 @@ export default function AdminPage() {
             </button>
             <button
               onClick={() => setActiveTab('settings')}
-              className={`py-4 px-1 border-b-2 font-medium text-sm ${
+              className={`py-4 px-2 sm:px-1 border-b-2 font-medium text-xs sm:text-sm whitespace-nowrap min-h-[44px] ${
                 activeTab === 'settings'
                   ? 'border-red-600 text-red-600'
                   : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
@@ -228,7 +228,7 @@ export default function AdminPage() {
             </button>
             <button
               onClick={() => setActiveTab('email')}
-              className={`py-4 px-1 border-b-2 font-medium text-sm ${
+              className={`py-4 px-2 sm:px-1 border-b-2 font-medium text-xs sm:text-sm whitespace-nowrap min-h-[44px] ${
                 activeTab === 'email'
                   ? 'border-red-600 text-red-600'
                   : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'

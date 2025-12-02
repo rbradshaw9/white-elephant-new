@@ -47,12 +47,12 @@ export default function ElfNameReveal({ guestNames, elfNames, elfTaglines = [] }
         initial={{ scale: 0.8, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
         transition={{ duration: 0.5 }}
-        className="text-center mb-8"
+        className="text-center mb-6 sm:mb-8 px-4"
       >
-        <h2 className="text-4xl md:text-5xl font-bold text-green-700 mb-4">
+        <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-green-700 mb-3 sm:mb-4">
           🎉 You&apos;re All Set! 🎉
         </h2>
-        <p className="text-xl text-gray-700">
+        <p className="text-lg sm:text-xl text-gray-700">
           Check your email for confirmation and meet your festive alter egos:
         </p>
       </motion.div>
@@ -65,20 +65,20 @@ export default function ElfNameReveal({ guestNames, elfNames, elfTaglines = [] }
             animate={{ x: 0, opacity: 1 }}
             transition={{ delay: index * 0.2, duration: 0.5, type: 'spring' }}
           >
-            <Card className="border-4 border-green-600 shadow-xl hover:shadow-2xl transition-shadow duration-300 overflow-hidden">
-              <CardContent className="p-6 bg-gradient-to-r from-red-50 via-white to-green-50">
-                <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
-                  <div className="flex items-center space-x-3">
+            <Card className="border-2 sm:border-4 border-green-600 shadow-xl hover:shadow-2xl transition-shadow duration-300 overflow-hidden">
+              <CardContent className="p-4 sm:p-6 bg-gradient-to-r from-red-50 via-white to-green-50">
+                <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-3 sm:gap-4">
+                  <div className="flex items-center space-x-2 sm:space-x-3">
                     <motion.div
                       animate={{ rotate: [0, 10, -10, 0] }}
                       transition={{ repeat: Infinity, duration: 2, delay: index * 0.3 }}
-                      className="text-4xl"
+                      className="text-3xl sm:text-4xl flex-shrink-0"
                     >
                       🎅
                     </motion.div>
                     <div>
-                      <p className="text-sm text-gray-500 font-medium">Real Name</p>
-                      <p className="text-2xl font-bold text-gray-800">{name}</p>
+                      <p className="text-xs sm:text-sm text-gray-500 font-medium">Real Name</p>
+                      <p className="text-xl sm:text-2xl font-bold text-gray-800">{name}</p>
                     </div>
                   </div>
 
@@ -91,21 +91,21 @@ export default function ElfNameReveal({ guestNames, elfNames, elfTaglines = [] }
                     →
                   </motion.div>
 
-                  <div className="flex items-center space-x-3 flex-1">
+                  <div className="flex items-center space-x-2 sm:space-x-3 flex-1">
                     <motion.div
                       animate={{ rotate: [0, -10, 10, 0] }}
                       transition={{ repeat: Infinity, duration: 2, delay: index * 0.3 + 0.5 }}
-                      className="text-4xl flex-shrink-0"
+                      className="text-3xl sm:text-4xl flex-shrink-0"
                     >
                       🧝
                     </motion.div>
-                    <div className="flex-1">
-                      <p className="text-sm text-green-600 font-medium">Elf Name</p>
+                    <div className="flex-1 min-w-0">
+                      <p className="text-xs sm:text-sm text-green-600 font-medium">Elf Name</p>
                       <motion.p
                         initial={{ scale: 0.8, opacity: 0 }}
                         animate={{ scale: 1, opacity: 1 }}
                         transition={{ delay: index * 0.2 + 0.4 }}
-                        className="text-2xl font-bold text-green-700"
+                        className="text-xl sm:text-2xl font-bold text-green-700 break-words"
                       >
                         {elfNames[index]}
                       </motion.p>
@@ -137,12 +137,12 @@ export default function ElfNameReveal({ guestNames, elfNames, elfTaglines = [] }
         <p className="text-lg text-gray-700">
           ✉️ A confirmation email has been sent to your inbox with all the details!
         </p>
-        <div className="flex flex-col sm:flex-row justify-center gap-4 mt-6">
+        <div className="flex flex-col sm:flex-row justify-center gap-3 sm:gap-4 mt-6 px-4">
           <motion.a
             href="/"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
-            className="inline-block bg-gradient-to-r from-red-600 to-green-600 text-white px-8 py-3 rounded-lg font-bold text-lg shadow-lg hover:shadow-xl transition-shadow"
+            className="inline-block bg-gradient-to-r from-red-600 to-green-600 text-white px-6 sm:px-8 py-3 rounded-lg font-bold text-base sm:text-lg shadow-lg hover:shadow-xl transition-shadow min-h-[48px] flex items-center justify-center"
           >
             🏠 Back to Home
           </motion.a>
@@ -150,7 +150,7 @@ export default function ElfNameReveal({ guestNames, elfNames, elfTaglines = [] }
             href="/gallery"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
-            className="inline-block bg-white border-4 border-green-600 text-green-700 px-8 py-3 rounded-lg font-bold text-lg shadow-lg hover:shadow-xl transition-shadow"
+            className="inline-block bg-white border-2 sm:border-4 border-green-600 text-green-700 px-6 sm:px-8 py-3 rounded-lg font-bold text-base sm:text-lg shadow-lg hover:shadow-xl transition-shadow min-h-[48px] flex items-center justify-center"
           >
             📸 View 2024 Gallery
           </motion.a>

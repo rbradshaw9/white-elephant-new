@@ -2,10 +2,10 @@ export default function Footer() {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="bg-gradient-to-r from-green-800 via-red-700 to-green-800 text-white py-8 mt-auto">
+    <footer className="bg-gradient-to-r from-green-800 via-red-700 to-green-800 text-white py-6 sm:py-8 mt-auto">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center space-y-2">
-          <p className="text-lg font-medium">
+          <p className="text-base sm:text-lg font-medium">
             🎄 The White Elephant Bash {currentYear} 🎁
           </p>
           <p className="text-sm opacity-90">

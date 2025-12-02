@@ -67,20 +67,20 @@ export default function Countdown({ targetDate }: CountdownProps) {
   ];
 
   return (
-    <div className="bg-gradient-to-r from-red-700 via-green-700 to-red-700 text-white rounded-lg p-6 md:p-8 shadow-2xl">
-      <h2 className="text-2xl md:text-3xl font-bold text-center mb-6">
+    <div className="bg-gradient-to-r from-red-700 via-green-700 to-red-700 text-white rounded-lg p-4 sm:p-6 md:p-8 shadow-2xl">
+      <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-center mb-4 sm:mb-6">
         ⏰ Countdown to Party Time! ⏰
       </h2>
-      <div className="grid grid-cols-4 gap-2 md:gap-4">
+      <div className="grid grid-cols-4 gap-2 sm:gap-3 md:gap-4">
         {timeBlocks.map((block) => (
           <div
             key={block.label}
-            className="bg-white/10 backdrop-blur-sm rounded-lg p-3 md:p-4 text-center hover:bg-white/20 transition-all hover:scale-105"
+            className="bg-white/10 backdrop-blur-sm rounded-lg p-2 sm:p-3 md:p-4 text-center hover:bg-white/20 transition-all hover:scale-105"
           >
-            <div className="text-3xl md:text-5xl font-bold mb-1 md:mb-2 transition-all duration-300">
+            <div className="text-2xl sm:text-3xl md:text-5xl font-bold mb-1 md:mb-2 transition-all duration-300">
               {String(block.value).padStart(2, '0')}
             </div>
-            <div className="text-xs md:text-sm font-medium opacity-90">
+            <div className="text-[10px] sm:text-xs md:text-sm font-medium opacity-90">
               {block.label}
             </div>
           </div>

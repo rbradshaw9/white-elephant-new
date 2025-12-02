@@ -100,10 +100,10 @@ export default function EditRsvpDialog({ rsvp, open, onClose, onSave, password }
 
   return (
     <Dialog open={open} onOpenChange={onClose}>
-      <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
+      <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto w-[95vw] sm:w-full">
         <DialogHeader>
-          <DialogTitle>Edit RSVP</DialogTitle>
-          <DialogDescription>
+          <DialogTitle className="text-xl sm:text-2xl">Edit RSVP</DialogTitle>
+          <DialogDescription className="text-sm sm:text-base">
             Update RSVP details, guest names, and elf names
           </DialogDescription>
         </DialogHeader>
@@ -146,33 +146,35 @@ export default function EditRsvpDialog({ rsvp, open, onClose, onSave, password }
             </div>
 
             {formData.guest_names.map((name, index) => (
-              <div key={index} className="grid grid-cols-12 gap-2 items-start p-3 bg-gray-50 rounded">
-                <div className="col-span-5">
+              <div key={index} className="flex flex-col sm:grid sm:grid-cols-12 gap-2 items-start p-3 bg-gray-50 rounded">
+                <div className="w-full sm:col-span-5">
                   <Label className="text-xs">Guest Name</Label>
                   <Input
                     value={name}
                     onChange={(e) => handleGuestNameChange(index, e.target.value)}
                     placeholder="Guest name"
+                    className="min-h-[44px]"
                   />
                 </div>
-                <div className="col-span-5">
+                <div className="w-full sm:col-span-5">
                   <Label className="text-xs">Elf Name</Label>
                   <Input
                     value={formData.elf_names[index] || ''}
                     onChange={(e) => handleElfNameChange(index, e.target.value)}
                     placeholder="Elf name"
+                    className="min-h-[44px]"
                   />
                 </div>
-                <div className="col-span-2 flex items-end">
+                <div className="w-full sm:col-span-2 sm:flex sm:items-end">
                   <Button
                     type="button"
                     size="sm"
                     variant="destructive"
                     onClick={() => handleRemoveGuest(index)}
                     disabled={formData.guest_names.length <= 1}
-                    className="w-full"
+                    className="w-full min-h-[44px]"
                   >
-                    🗑️
+                    🗑️ Remove
                   </Button>
                 </div>
               </div>
@@ -186,11 +188,11 @@ export default function EditRsvpDialog({ rsvp, open, onClose, onSave, password }
           )}
         </div>
 
-        <DialogFooter>
-          <Button variant="outline" onClick={onClose} disabled={saving}>
+        <DialogFooter className="flex-col sm:flex-row gap-2">
+          <Button variant="outline" onClick={onClose} disabled={saving} className="min-h-[44px] w-full sm:w-auto">
             Cancel
           </Button>
-          <Button onClick={handleSave} disabled={saving}>
+          <Button onClick={handleSave} disabled={saving} className="min-h-[44px] w-full sm:w-auto">
             {saving ? 'Saving...' : 'Save Changes'}
           </Button>
         </DialogFooter>
