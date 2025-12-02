@@ -94,6 +94,7 @@ export async function POST(request: NextRequest) {
         primaryName: primaryName,
         guestNames: guestNames,
         elfNames: elfNames,
+        elfTaglines: elfTaglines,
       });
       console.log('[RSVP] Email sent successfully');
     } catch (emailError) {
@@ -122,6 +123,7 @@ export async function POST(request: NextRequest) {
         primaryName: primaryName,
         guestNames: guestNames,
         elfNames: elfNames,
+        elfTaglines: elfTaglines,
       });
       console.log('[RSVP] ✅ NOTIFICATION EMAIL SENT SUCCESSFULLY');
       console.log('[RSVP] SendGrid response:', result);

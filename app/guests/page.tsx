@@ -8,6 +8,7 @@ import { RSVP } from '@/lib/supabase';
 interface GuestWithElf {
   name: string;
   elfName: string;
+  elfTagline?: string;
   rsvpDate: string;
 }
 
@@ -98,9 +99,16 @@ export default function GuestsPage() {
                       <span className="text-xl sm:text-2xl flex-shrink-0 group-hover:scale-125 transition-transform">👤</span>
                       <span className="break-words min-w-0">{guest.name}</span>
                     </CardTitle>
-                    <CardDescription className="text-sm sm:text-base font-medium text-green-700 flex items-center gap-2">
-                      <span className="text-lg sm:text-xl flex-shrink-0 group-hover:animate-bounce">🧝</span>
-                      <span className="break-words min-w-0">{guest.elfName}</span>
+                    <CardDescription className="flex flex-col gap-1">
+                      <div className="text-sm sm:text-base font-medium text-green-700 flex items-center gap-2">
+                        <span className="text-lg sm:text-xl flex-shrink-0 group-hover:animate-bounce">🧝</span>
+                        <span className="break-words min-w-0">{guest.elfName}</span>
+                      </div>
+                      {guest.elfTagline && (
+                        <p className="text-xs sm:text-sm italic text-gray-600 ml-7">
+                          &quot;{guest.elfTagline}&quot;
+                        </p>
+                      )}
                     </CardDescription>
                   </CardHeader>
                 </Card>

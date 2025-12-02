@@ -8,6 +8,7 @@ interface EmailData {
   primaryName: string;
   guestNames: string[];
   elfNames: string[];
+  elfTaglines?: string[];
 }
 
 function generateCalendarLink(eventConfig: any): string {
@@ -57,7 +58,7 @@ async function getEmailTemplate(): Promise<string | null> {
 }
 
 export async function sendRSVPConfirmation(data: EmailData): Promise<void> {
-  const { to, primaryName, guestNames, elfNames } = data;
+  const { to, primaryName, guestNames, elfNames, elfTaglines = [] } = data;
 
   // Load event settings from database
   const eventConfig = await getEventSettings();
@@ -70,6 +71,7 @@ export async function sendRSVPConfirmation(data: EmailData): Promise<void> {
           <td style="padding: 12px 15px; background: #ffffff; border-radius: 6px; border-left: 3px solid #10b981;">
             <p style="margin: 0; color: #2d3748; font-size: 15px; font-weight: 600;">${name}</p>
             <p style="margin: 5px 0 0; color: #10b981; font-size: 14px; font-weight: 500;">🧝 ${elfNames[index]}</p>
+            ${elfTaglines[index] ? `<p style="margin: 5px 0 0; color: #6b7280; font-size: 12px; font-style: italic;">"${elfTaglines[index]}"</p>` : ''}
           </td>
         </tr>
       </table>
@@ -280,7 +282,7 @@ See you at the party!
 }
 
 export async function sendNotificationEmail(data: EmailData) {
-  const { to, primaryName, guestNames, elfNames } = data;
+  const { to, primaryName, guestNames, elfNames, elfTaglines = [] } = data;
   const eventConfig = await getEventSettings();
   
   const guestList = guestNames.map((name, i) => `${name} → ${elfNames[i]}`).join('\n');
@@ -313,7 +315,10 @@ export async function sendNotificationEmail(data: EmailData) {
       <p><strong>Email:</strong> ${to}</p>
       <p><strong>Party Size:</strong> ${guestNames.length} guest${guestNames.length > 1 ? 's' : ''}</p>
       <p><strong>Guests:</strong></p>
-      ${guestNames.map((name, i) => `<p style="margin: 5px 0;">${name} (${elfNames[i]})</p>`).join('')}
+      ${guestNames.map((name, i) => `
+        <p style="margin: 5px 0;">${name} (${elfNames[i]})</p>
+        ${elfTaglines[i] ? `<p style="margin: 5px 0 5px 20px; color: #666; font-style: italic; font-size: 0.9em;">"${elfTaglines[i]}"</p>` : ''}
+      `).join('')}
     </div>
     
     <p>View all guests at: <a href="${process.env.NEXT_PUBLIC_BASE_URL || 'https://thewhiteelephantbash.com'}/guests" style="color: #165b33;">thewhiteelephantbash.com/guests</a></p>

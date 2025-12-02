@@ -7,7 +7,7 @@ export async function GET() {
     
     const { data: rsvps, error } = await supabase
       .from('rsvps')
-      .select('guest_names, elf_names, created_at')
+      .select('guest_names, elf_names, elf_taglines, created_at')
       .order('created_at', { ascending: true });
 
     if (error) {
@@ -28,6 +28,7 @@ export async function GET() {
           guests.push({
             name: rsvp.guest_names[i],
             elfName: rsvp.elf_names[i],
+            elfTagline: rsvp.elf_taglines?.[i] || '',
             rsvpDate: rsvp.created_at
           });
         }
