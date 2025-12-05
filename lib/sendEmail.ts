@@ -19,7 +19,7 @@ function generateCalendarLink(eventConfig: any): string {
   if (!dateTimeMatch) {
     // Fallback to old method if format doesn't match
     const startDate = new Date(eventConfig.partyDateTime);
-    const endDate = new Date(startDate.getTime() + 3 * 60 * 60 * 1000);
+    const endDate = new Date(startDate.getTime() + 5 * 60 * 60 * 1000);
     const formatDateForCal = (date: Date) => date.toISOString().replace(/[-:]/g, '').split('.')[0] + 'Z';
     const title = encodeURIComponent(eventConfig.title);
     const details = encodeURIComponent(`Dress Code: ${eventConfig.dressCode}\nGift Range: ${eventConfig.giftPriceRange}\n\nBring a wrapped gift and your competitive spirit!`);
@@ -32,9 +32,9 @@ function generateCalendarLink(eventConfig: any): string {
   // Format as YYYYMMDDTHHMMSS (no Z = treated as local time by Google Calendar)
   const startDateTime = `${year}${month}${day}T${hour}${minute}${second}`;
   
-  // Add 3 hours for end time
+  // Add 5 hours for end time (6 PM to 11 PM)
   const startDate = new Date(eventConfig.partyDateTime);
-  const endDate = new Date(startDate.getTime() + 3 * 60 * 60 * 1000);
+  const endDate = new Date(startDate.getTime() + 5 * 60 * 60 * 1000);
   const endYear = endDate.getFullYear();
   const endMonth = String(endDate.getMonth() + 1).padStart(2, '0');
   const endDay = String(endDate.getDate()).padStart(2, '0');
