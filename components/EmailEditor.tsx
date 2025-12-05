@@ -245,7 +245,7 @@ export default function EmailEditor({ password }: EmailEditorProps) {
 
   // Generate preview with sample data
   const getPreviewHtml = () => {
-    const sampleCalendarLink = 'https://calendar.google.com/calendar/render?action=TEMPLATE&text=The+White+Elephant+Bash+2025';
+    const sampleCalendarLink = 'https://calendar.google.com/calendar/render?action=TEMPLATE&text=The+White+Elephant+Bash';
     const sampleManageLink = 'https://thewhiteelephantbash.com/rsvp?email=sample@example.com';
     
     return template
@@ -278,7 +278,7 @@ export default function EmailEditor({ password }: EmailEditorProps) {
           </tr>
         </table>
       `)
-      .replace(/{{PARTY_DATETIME}}/g, 'Friday, December 13, 2025, 6:00 PM MST')
+      .replace(/{{PARTY_DATETIME}}/g, 'Friday, January 10 at 6:00 PM AST')
       .replace(/{{ADDRESS}}/g, '8853 S University Blvd, Highlands Ranch, CO 80126')
       .replace(/{{DRESS_CODE}}/g, 'Ugly Christmas Sweaters Encouraged! 🎄')
       .replace(/{{GIFT_RANGE}}/g, '$20 - $40')

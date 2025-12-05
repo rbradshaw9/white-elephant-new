@@ -118,7 +118,7 @@ export default function AdminSettings({ password }: AdminSettingsProps) {
               id="title"
               value={settings.title}
               onChange={(e) => setSettings({ ...settings, title: e.target.value })}
-              placeholder="The White Elephant Bash 2025"
+              placeholder="The White Elephant Bash"
             />
           </div>
 
