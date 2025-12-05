@@ -54,7 +54,7 @@ export default function Home() {
                 🎄 {eventConfig.title} 🎁
               </h1>
               <p className="text-xl sm:text-2xl md:text-3xl font-semibold text-yellow-300 mb-3 md:mb-4 drop-shadow-lg">
-                📅 {formattedDate} at {formattedTime}
+                🗓️ {formattedDate} at {formattedTime}
               </p>
               <p className="text-lg sm:text-xl md:text-2xl text-white/90 max-w-3xl mx-auto px-4">
                 {eventConfig.description}
@@ -147,7 +147,7 @@ export default function Home() {
             >
               <div className="space-y-3 sm:space-y-4">
                 <div className="flex items-start space-x-2 sm:space-x-3">
-                  <span className="text-2xl sm:text-3xl flex-shrink-0">📅</span>
+                  <span className="text-2xl sm:text-3xl flex-shrink-0">🗓️</span>
                   <div className="min-w-0">
                     <h3 className="font-bold text-base sm:text-lg text-gray-800 mb-1">Date & Time</h3>
                     <p className="text-sm sm:text-base text-gray-700 break-words">

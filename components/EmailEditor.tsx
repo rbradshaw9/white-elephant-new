@@ -93,7 +93,7 @@ const defaultEmailTemplate = `
                 <tr>
                   <td style="background-color: #c41e3a; padding: 30px;">
                     <h2 style="color: #ffffff; font-size: 24px; font-weight: bold; margin: 0 0 20px; padding: 0; font-family: Arial, Helvetica, sans-serif;">
-                      📅 Party Details
+                      🗓️ Party Details
                     </h2>
                     
                     <!-- Date -->
@@ -191,7 +191,7 @@ const defaultEmailTemplate = `
                 <tr>
                   <td style="padding: 0 5px;">
                     <a href="{{CALENDAR_LINK}}" style="display: inline-block; background-color: #c41e3a; color: #ffffff; text-decoration: none; padding: 14px 28px; font-weight: bold; font-size: 15px; font-family: Arial, Helvetica, sans-serif;">
-                      📅 Add to Calendar
+                      🗓️ Add to Calendar
                     </a>
                   </td>
                   <td style="padding: 0 5px;">

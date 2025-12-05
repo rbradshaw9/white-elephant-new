@@ -156,7 +156,7 @@ export async function sendRSVPConfirmation(data: EmailData): Promise<void> {
           </ul>
 
           <div class="details">
-            <h2>📅 Event Details</h2>
+            <h2>🗓️ Event Details</h2>
             <p><strong>Date & Time:</strong> ${new Date(eventConfig.partyDateTime).toLocaleString('en-US', {
               weekday: 'long',
               year: 'numeric',
@@ -183,7 +183,7 @@ export async function sendRSVPConfirmation(data: EmailData): Promise<void> {
           <p style="font-size: 14px; color: #666; margin-top: 15px;"><em>Arrive by 7:00 PM — Game starts at 7:30 sharp!</em></p>
 
           <div style="text-align: center; margin: 30px 0;">
-            <a href="{{CALENDAR_LINK}}" style="display: inline-block; background-color: #c41e3a; color: white; padding: 12px 30px; text-decoration: none; border-radius: 6px; font-weight: bold; margin: 5px;">📅 Add to Calendar</a>
+            <a href="{{CALENDAR_LINK}}" style="display: inline-block; background-color: #c41e3a; color: white; padding: 12px 30px; text-decoration: none; border-radius: 6px; font-weight: bold; margin: 5px;">🗓️ Add to Calendar</a>
             <a href="{{MANAGE_RSVP_LINK}}" style="display: inline-block; background-color: #165b33; color: white; padding: 12px 30px; text-decoration: none; border-radius: 6px; font-weight: bold; margin: 5px;">✏️ Manage RSVP</a>
           </div>
 
