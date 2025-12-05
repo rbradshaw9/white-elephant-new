@@ -1,12 +1,16 @@
+'use client';
+
+import { useEventSettings } from '@/hooks/useEventSettings';
+
 export default function Footer() {
-  const currentYear = new Date().getFullYear();
+  const { settings: eventConfig } = useEventSettings();
 
   return (
     <footer className="bg-gradient-to-r from-green-800 via-red-700 to-green-800 text-white py-6 sm:py-8 mt-auto">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center space-y-2">
           <p className="text-base sm:text-lg font-medium">
-            🎄 The White Elephant Bash {currentYear} 🎁
+            🎄 {eventConfig.title} 🎁
           </p>
           <p className="text-sm opacity-90">
             Made with ❤️, hot cocoa ☕, and a sprinkle of holiday magic ✨
