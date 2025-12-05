@@ -128,7 +128,7 @@ export default function AdminSettings({ password }: AdminSettingsProps) {
               onChange={(e) => {
                 // Convert local datetime to AST (UTC-4)
                 const localDateTime = e.target.value;
-                const isoString = localDateTime + ':00-07:00';
+                const isoString = localDateTime + ':00-04:00';
                 setSettings({ ...settings, partyDateTime: isoString });
               }}
             />
