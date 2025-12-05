@@ -158,6 +158,7 @@ export default function Home() {
                         day: 'numeric',
                         hour: 'numeric',
                         minute: '2-digit',
+                        timeZone: 'America/Puerto_Rico',
                         timeZoneName: 'short'
                       })}
                     </p>
