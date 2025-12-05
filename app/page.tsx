@@ -153,7 +153,6 @@ export default function Home() {
                     <p className="text-sm sm:text-base text-gray-700 break-words">
                       {new Date(eventConfig.partyDateTime).toLocaleString('en-US', {
                         weekday: 'long',
-                        year: 'numeric',
                         month: 'long',
                         day: 'numeric',
                         hour: 'numeric',
