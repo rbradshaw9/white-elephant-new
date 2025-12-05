@@ -102,8 +102,7 @@ export default function Home() {
           >
             🎉 Last Year's Highlights 🎉
           </motion.h2>
-          <p className="text-center text-white/80 text-sm mb-4 md:hidden">← Swipe to see more →</p>
-          <div className="md:grid md:grid-cols-4 md:gap-6 flex md:flex-none overflow-x-auto gap-4 pb-4 md:pb-0 snap-x snap-mandatory scrollbar-hide -mx-4 px-4 md:mx-0 md:px-0">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
             {[
               { emoji: '😭', value: '12', label: 'Broken Friendships' },
               { emoji: '🍷', value: '37', label: 'Glasses of Wine' },
@@ -120,7 +119,7 @@ export default function Home() {
                 whileInView={{ opacity: 1, scale: 1 }}
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.1, type: 'spring' }}
-                className="bg-white/10 backdrop-blur-md rounded-xl md:rounded-2xl p-4 md:p-6 text-center hover:bg-white/20 transition-all transform hover:scale-105 min-w-[160px] md:min-w-0 flex-shrink-0 snap-center"
+                className="bg-white/10 backdrop-blur-md rounded-xl md:rounded-2xl p-4 md:p-6 text-center hover:bg-white/20 transition-all transform hover:scale-105"
               >
                 <div className="text-4xl md:text-5xl mb-2 md:mb-3">{stat.emoji}</div>
                 <div className="text-3xl md:text-4xl font-black mb-1 md:mb-2">{stat.value}</div>
