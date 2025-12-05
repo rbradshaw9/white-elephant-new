@@ -261,12 +261,12 @@ See you at the party!
   const msg = {
     to,
     from: {
-      email: process.env.SENDGRID_FROM_EMAIL || 'party@thewhiteelephantbash.com',
-      name: process.env.SENDGRID_FROM_NAME || 'The White Elephant Bash'
+      email: eventConfig.emailFromAddress || process.env.SENDGRID_FROM_EMAIL || 'party@thewhiteelephantbash.com',
+      name: eventConfig.emailFromName || process.env.SENDGRID_FROM_NAME || 'The White Elephant Bash'
     },
     replyTo: {
-      email: process.env.SENDGRID_REPLY_TO_EMAIL || 'jenny.bradshaw@gmail.com',
-      name: process.env.SENDGRID_FROM_NAME || 'The White Elephant Bash'
+      email: eventConfig.emailReplyTo || process.env.SENDGRID_REPLY_TO_EMAIL || 'jenny.bradshaw@gmail.com',
+      name: eventConfig.emailFromName || process.env.SENDGRID_FROM_NAME || 'The White Elephant Bash'
     },
     subject: `🎄 You're confirmed for ${eventConfig.title}!`,
     text: textContent,

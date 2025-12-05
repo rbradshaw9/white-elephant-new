@@ -15,6 +15,8 @@ interface EventSettings {
   giftPriceRange: string;
   description: string;
   emailFromName: string;
+  emailFromAddress: string;
+  emailReplyTo: string;
 }
 
 interface AdminSettingsProps {
@@ -29,7 +31,9 @@ export default function AdminSettings({ password }: AdminSettingsProps) {
     dressCode: defaultConfig.dressCode,
     giftPriceRange: defaultConfig.giftPriceRange,
     description: defaultConfig.description,
-    emailFromName: process.env.NEXT_PUBLIC_EMAIL_FROM_NAME || 'The White Elephant Bash'
+    emailFromName: 'The White Elephant Bash',
+    emailFromAddress: 'party@thewhiteelephantbash.com',
+    emailReplyTo: 'jenny.bradshaw@gmail.com'
   });
 
   const [saving, setSaving] = useState(false);
@@ -179,16 +183,44 @@ export default function AdminSettings({ password }: AdminSettingsProps) {
             />
           </div>
 
-          {/* Email From Name */}
-          <div>
-            <Label htmlFor="emailFromName">Email "From" Name</Label>
-            <Input
-              id="emailFromName"
-              value={settings.emailFromName}
-              onChange={(e) => setSettings({ ...settings, emailFromName: e.target.value })}
-              placeholder="The White Elephant Bash"
-            />
-            <p className="text-sm text-gray-500 mt-1">This appears as the sender name in RSVP confirmation emails</p>
+          {/* Email Settings Section */}
+          <div className="pt-6 border-t space-y-4">
+            <h3 className="text-lg font-semibold text-gray-800">📧 Email Settings</h3>
+            
+            <div>
+              <Label htmlFor="emailFromName">Email "From" Name</Label>
+              <Input
+                id="emailFromName"
+                value={settings.emailFromName}
+                onChange={(e) => setSettings({ ...settings, emailFromName: e.target.value })}
+                placeholder="The White Elephant Bash"
+              />
+              <p className="text-sm text-gray-500 mt-1">This appears as the sender name in emails</p>
+            </div>
+
+            <div>
+              <Label htmlFor="emailFromAddress">Email "From" Address</Label>
+              <Input
+                id="emailFromAddress"
+                type="email"
+                value={settings.emailFromAddress}
+                onChange={(e) => setSettings({ ...settings, emailFromAddress: e.target.value })}
+                placeholder="party@thewhiteelephantbash.com"
+              />
+              <p className="text-sm text-gray-500 mt-1">Must be verified in SendGrid. Use your custom domain, not Gmail.</p>
+            </div>
+
+            <div>
+              <Label htmlFor="emailReplyTo">Reply-To Email Address</Label>
+              <Input
+                id="emailReplyTo"
+                type="email"
+                value={settings.emailReplyTo}
+                onChange={(e) => setSettings({ ...settings, emailReplyTo: e.target.value })}
+                placeholder="jenny.bradshaw@gmail.com"
+              />
+              <p className="text-sm text-gray-500 mt-1">Where replies to confirmation emails will be sent</p>
+            </div>
           </div>
 
           <div className="pt-4 border-t">
