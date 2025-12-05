@@ -13,17 +13,19 @@ export default function Home() {
   const { settings: eventConfig, loading } = useEventSettings();
   const featuredImages = gallery2024.filter(item => item.type === 'image').slice(0, 6);
 
-  // Format the party date
+  // Format the party date in Puerto Rico timezone
   const partyDate = new Date(eventConfig.partyDateTime);
   const formattedDate = partyDate.toLocaleDateString('en-US', {
     weekday: 'long',
     month: 'long',
-    day: 'numeric'
+    day: 'numeric',
+    timeZone: 'America/Puerto_Rico'
   });
   const formattedTime = partyDate.toLocaleTimeString('en-US', {
     hour: 'numeric',
     minute: '2-digit',
-    hour12: true
+    hour12: true,
+    timeZone: 'America/Puerto_Rico'
   });
 
   if (loading) {
