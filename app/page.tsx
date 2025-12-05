@@ -100,7 +100,7 @@ export default function Home() {
             viewport={{ once: true }}
             className="text-3xl sm:text-4xl md:text-5xl font-bold text-center mb-6 md:mb-12 px-4"
           >
-            🎉 2024 Party: The Receipts 🎉
+            🎉 Last Year's Highlights 🎉
           </motion.h2>
           <p className="text-center text-white/80 text-sm mb-4 md:hidden">← Swipe to see more →</p>
           <div className="md:grid md:grid-cols-4 md:gap-6 flex md:flex-none overflow-x-auto gap-4 pb-4 md:pb-0 snap-x snap-mandatory scrollbar-hide -mx-4 px-4 md:mx-0 md:px-0">
