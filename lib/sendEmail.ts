@@ -257,6 +257,7 @@ export async function sendRSVPConfirmation(data: EmailData): Promise<void> {
     .replace(/{{ADDRESS}}/g, eventConfig.address)
     .replace(/{{DRESS_CODE}}/g, eventConfig.dressCode)
     .replace(/{{GIFT_RANGE}}/g, eventConfig.giftPriceRange)
+    .replace(/{{TITLE}}/g, eventConfig.title)
     .replace(/{{CALENDAR_LINK}}/g, calendarLink)
     .replace(/{{MANAGE_RSVP_LINK}}/g, manageRsvpLink);
 
