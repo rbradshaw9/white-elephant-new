@@ -12,10 +12,12 @@ interface EmailData {
 }
 
 function generateCalendarLink(eventConfig: any): string {
+  // Parse the datetime string which includes timezone offset (e.g., -04:00 for Puerto Rico)
   const startDate = new Date(eventConfig.partyDateTime);
   const endDate = new Date(startDate.getTime() + 3 * 60 * 60 * 1000); // 3 hours later
   
   const formatDateForCal = (date: Date) => {
+    // Format as YYYYMMDDTHHMMSSZ for Google Calendar (in UTC)
     return date.toISOString().replace(/[-:]/g, '').split('.')[0] + 'Z';
   };
   

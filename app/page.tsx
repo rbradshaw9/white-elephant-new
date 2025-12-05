@@ -135,7 +135,7 @@ export default function Home() {
       <section className="py-12 md:py-16 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-center text-green-800 mb-8 md:mb-12">
-            📅 Event Details
+            🗓️ Event Details
           </h2>
           
           <div className="grid md:grid-cols-2 gap-4 sm:gap-6 md:gap-8">
