@@ -38,7 +38,7 @@ const defaultEmailTemplate = `
                 🎄 You're Confirmed! 🎁
               </h1>
               <p style="color: #ffffff; font-size: 18px; margin: 15px 0 0; padding: 0; font-family: Arial, Helvetica, sans-serif;">
-                The White Elephant Bash 2025
+                The White Elephant Bash
               </p>
             </td>
           </tr>
@@ -217,7 +217,7 @@ const defaultEmailTemplate = `
                 <tr>
                   <td style="text-align: center;">
                     <p style="color: #cccccc; font-size: 12px; margin: 0; padding: 0; font-family: Arial, Helvetica, sans-serif;">
-                      The White Elephant Bash 2025
+                      The White Elephant Bash
                     </p>
                   </td>
                 </tr>

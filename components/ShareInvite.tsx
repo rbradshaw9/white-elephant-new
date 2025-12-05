@@ -34,7 +34,7 @@ export default function ShareInvite() {
     if (navigator.share) {
       try {
         await navigator.share({
-          title: 'The White Elephant Bash 2025',
+          title: 'The White Elephant Bash',
           text: 'Join us for a night of gift stealing and holiday chaos!',
           url: url
         });

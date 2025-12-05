@@ -184,6 +184,7 @@ export async function sendRSVPConfirmation(data: EmailData): Promise<void> {
             <h2>🗓️ Event Details</h2>
             <p><strong>Date & Time:</strong> ${new Date(eventConfig.partyDateTime).toLocaleString('en-US', {
               weekday: 'long',
+              year: 'numeric',
               month: 'long',
               day: 'numeric',
               hour: 'numeric',
@@ -235,6 +236,7 @@ export async function sendRSVPConfirmation(data: EmailData): Promise<void> {
   // Format the date
   const formattedDate = new Date(eventConfig.partyDateTime).toLocaleString('en-US', {
     weekday: 'long',
+    year: 'numeric',
     month: 'long',
     day: 'numeric',
     hour: 'numeric',
