@@ -13,6 +13,19 @@ export default function Home() {
   const { settings: eventConfig, loading } = useEventSettings();
   const featuredImages = gallery2024.filter(item => item.type === 'image').slice(0, 6);
 
+  // Format the party date
+  const partyDate = new Date(eventConfig.partyDateTime);
+  const formattedDate = partyDate.toLocaleDateString('en-US', {
+    weekday: 'long',
+    month: 'long',
+    day: 'numeric'
+  });
+  const formattedTime = partyDate.toLocaleTimeString('en-US', {
+    hour: 'numeric',
+    minute: '2-digit',
+    hour12: true
+  });
+
   if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
@@ -39,7 +52,7 @@ export default function Home() {
                 🎄 {eventConfig.title} 🎁
               </h1>
               <p className="text-xl sm:text-2xl md:text-3xl font-semibold text-yellow-300 mb-3 md:mb-4 drop-shadow-lg">
-                📅 Friday, December 13th at 6:00 PM
+                📅 {formattedDate} at {formattedTime}
               </p>
               <p className="text-lg sm:text-xl md:text-2xl text-white/90 max-w-3xl mx-auto px-4">
                 {eventConfig.description}
