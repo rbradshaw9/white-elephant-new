@@ -211,7 +211,7 @@ const defaultEmailTemplate = `
                 Can't wait to see you there! 🎅✨
               </p>
               <p style="color: #ffffff; font-size: 14px; margin: 15px 0 0; padding: 0; font-family: Arial, Helvetica, sans-serif;">
-                Questions? Just reply to this email!
+                Questions? Just reply to this email or send a text to Jen Bradshaw.
               </p>
               <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="margin-top: 25px; padding-top: 25px; border-top: 1px solid #ffffff;">
                 <tr>

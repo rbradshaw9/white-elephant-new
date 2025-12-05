@@ -12,20 +12,43 @@ interface EmailData {
 }
 
 function generateCalendarLink(eventConfig: any): string {
-  // Parse the datetime string which includes timezone offset (e.g., -04:00 for Puerto Rico)
-  const startDate = new Date(eventConfig.partyDateTime);
-  const endDate = new Date(startDate.getTime() + 3 * 60 * 60 * 1000); // 3 hours later
+  // Extract the datetime parts from the ISO string to preserve the local time
+  // e.g., "2025-01-10T18:00:00-04:00" should be 6 PM local time
+  const dateTimeMatch = eventConfig.partyDateTime.match(/(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2}):(\d{2})/);
   
-  const formatDateForCal = (date: Date) => {
-    // Format as YYYYMMDDTHHMMSSZ for Google Calendar (in UTC)
-    return date.toISOString().replace(/[-:]/g, '').split('.')[0] + 'Z';
-  };
+  if (!dateTimeMatch) {
+    // Fallback to old method if format doesn't match
+    const startDate = new Date(eventConfig.partyDateTime);
+    const endDate = new Date(startDate.getTime() + 3 * 60 * 60 * 1000);
+    const formatDateForCal = (date: Date) => date.toISOString().replace(/[-:]/g, '').split('.')[0] + 'Z';
+    const title = encodeURIComponent(eventConfig.title);
+    const details = encodeURIComponent(`Dress Code: ${eventConfig.dressCode}\nGift Range: ${eventConfig.giftPriceRange}\n\nBring a wrapped gift and your competitive spirit!`);
+    const location = encodeURIComponent(eventConfig.address);
+    return `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${title}&dates=${formatDateForCal(startDate)}/${formatDateForCal(endDate)}&details=${details}&location=${location}`;
+  }
+  
+  const [, year, month, day, hour, minute, second] = dateTimeMatch;
+  
+  // Format as YYYYMMDDTHHMMSS (no Z = treated as local time by Google Calendar)
+  const startDateTime = `${year}${month}${day}T${hour}${minute}${second}`;
+  
+  // Add 3 hours for end time
+  const startDate = new Date(eventConfig.partyDateTime);
+  const endDate = new Date(startDate.getTime() + 3 * 60 * 60 * 1000);
+  const endYear = endDate.getFullYear();
+  const endMonth = String(endDate.getMonth() + 1).padStart(2, '0');
+  const endDay = String(endDate.getDate()).padStart(2, '0');
+  const endHour = String(endDate.getHours()).padStart(2, '0');
+  const endMinute = String(endDate.getMinutes()).padStart(2, '0');
+  const endSecond = String(endDate.getSeconds()).padStart(2, '0');
+  const endDateTime = `${endYear}${endMonth}${endDay}T${endHour}${endMinute}${endSecond}`;
   
   const title = encodeURIComponent(eventConfig.title);
   const details = encodeURIComponent(`Dress Code: ${eventConfig.dressCode}\nGift Range: ${eventConfig.giftPriceRange}\n\nBring a wrapped gift and your competitive spirit!`);
   const location = encodeURIComponent(eventConfig.address);
   
-  return `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${title}&dates=${formatDateForCal(startDate)}/${formatDateForCal(endDate)}&details=${details}&location=${location}`;
+  // Using ctz parameter to specify timezone
+  return `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${title}&dates=${startDateTime}/${endDateTime}&ctz=America/Puerto_Rico&details=${details}&location=${location}`;
 }
 
 function generateManageRsvpLink(email: string): string {
