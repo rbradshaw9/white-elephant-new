@@ -264,6 +264,10 @@ See you at the party!
       email: process.env.SENDGRID_FROM_EMAIL || 'party@thewhiteelephantbash.com',
       name: process.env.SENDGRID_FROM_NAME || 'The White Elephant Bash'
     },
+    replyTo: {
+      email: process.env.SENDGRID_REPLY_TO_EMAIL || 'jenny.bradshaw@gmail.com',
+      name: process.env.SENDGRID_FROM_NAME || 'The White Elephant Bash'
+    },
     subject: `🎄 You're confirmed for ${eventConfig.title}!`,
     text: textContent,
     html: htmlContent,
