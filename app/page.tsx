@@ -38,6 +38,9 @@ export default function Home() {
               <h1 className="text-4xl sm:text-5xl md:text-7xl font-bold mb-3 md:mb-4 drop-shadow-lg leading-tight px-2">
                 🎄 {eventConfig.title} 🎁
               </h1>
+              <p className="text-xl sm:text-2xl md:text-3xl font-semibold text-yellow-300 mb-3 md:mb-4 drop-shadow-lg">
+                📅 Friday, December 13th at 6:00 PM
+              </p>
               <p className="text-lg sm:text-xl md:text-2xl text-white/90 max-w-3xl mx-auto px-4">
                 {eventConfig.description}
               </p>
