@@ -164,7 +164,7 @@ export async function sendRSVPConfirmation(data: EmailData): Promise<void> {
               day: 'numeric',
               hour: 'numeric',
               minute: '2-digit',
-              timeZone: 'America/Denver',
+              timeZone: 'America/Puerto_Rico',
               timeZoneName: 'short'
             })}</p>
             <p><strong>Location:</strong> ${eventConfig.address}</p>
@@ -216,7 +216,7 @@ export async function sendRSVPConfirmation(data: EmailData): Promise<void> {
     day: 'numeric',
     hour: 'numeric',
     minute: '2-digit',
-    timeZone: 'America/Denver',
+    timeZone: 'America/Puerto_Rico',
     timeZoneName: 'short'
   });
   

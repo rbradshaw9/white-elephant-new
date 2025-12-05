@@ -1,5 +1,5 @@
 export const eventConfig = {
-  partyDateTime: process.env.PARTY_DATETIME || '2025-12-13T18:00:00-07:00',
+  partyDateTime: process.env.PARTY_DATETIME || '2025-12-13T18:00:00-04:00',
   title: 'The White Elephant Bash 2025',
   address: '8853 S University Blvd, Highlands Ranch, CO 80126',
   addressLink: 'https://maps.app.goo.gl/FgTo19iLXhYYijcV9',
