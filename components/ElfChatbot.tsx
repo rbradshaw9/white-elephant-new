@@ -123,7 +123,7 @@ export default function ElfChatbot() {
               animate={{ scale: 1, opacity: 1, y: 0 }}
               exit={{ scale: 0.8, opacity: 0, y: 100 }}
               transition={{ type: 'spring', stiffness: 300, damping: 25 }}
-              className="fixed bottom-4 left-4 right-4 md:left-auto md:right-4 md:bottom-4 md:w-96 z-[96] h-[80vh] md:h-[600px] max-h-[700px] flex flex-col"
+              className="fixed bottom-4 left-4 right-4 md:right-auto md:left-4 md:bottom-4 md:w-96 z-[96] h-[80vh] md:h-[600px] max-h-[700px] flex flex-col"
             >
               <div className="bg-gradient-to-r from-green-600 to-emerald-700 rounded-t-2xl p-4 flex items-center justify-between shadow-xl">
                 <div className="flex items-center gap-3">
