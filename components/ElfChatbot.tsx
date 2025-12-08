@@ -27,7 +27,7 @@ export default function ElfChatbot() {
   const [isOpen, setIsOpen] = useState(false);
   const [hasBeenOpened, setHasBeenOpened] = useState(false);
   const [messages, setMessages] = useState<Message[]>([
-    { role: 'elf', content: "Ho ho HOLD UP! I'm Jingles, your snarky party elf. Need gift advice? Stealing strategies? Or just someone to judge your life choices? I'm here for it all. 🧝‍♂️" }
+    { role: 'elf', content: "Well well well, look who showed up. I'm Jingles, and yes, you're on the naughty list. Don't look so surprised. Need gift advice? Stealing strategies? Or just someone to roast your questionable decisions? Lucky for you, I'm bored. 🧝‍♂️" }
   ]);
   const [input, setInput] = useState('');
   const [isTyping, setIsTyping] = useState(false);
