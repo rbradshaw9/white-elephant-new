@@ -85,7 +85,7 @@ export default function ElfChatbot() {
           initial={{ scale: 0, rotate: -180 }}
           animate={{ scale: 1, rotate: 0 }}
           transition={{ type: 'spring', stiffness: 200, damping: 15 }}
-          className="fixed bottom-24 sm:bottom-20 left-4 z-[85] flex flex-col items-center gap-1">
+          className="fixed bottom-24 sm:bottom-20 left-4 z-[85] flex flex-col items-center gap-1"
         >
           <motion.button
             onClick={() => {

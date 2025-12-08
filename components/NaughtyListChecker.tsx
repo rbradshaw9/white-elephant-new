@@ -63,7 +63,7 @@ export default function NaughtyListChecker() {
           initial={{ scale: 0, rotate: -180 }}
           animate={{ scale: 1, rotate: 0 }}
           transition={{ type: 'spring', stiffness: 200, damping: 15 }}
-          className="fixed bottom-24 sm:bottom-8 right-4 z-50">
+          className="fixed bottom-24 sm:bottom-8 right-4 z-50"
         >
           <motion.button
             onClick={handleOpen}
