@@ -61,14 +61,10 @@ export default function GuestsPage() {
           <p className="text-base sm:text-lg md:text-xl text-gray-700 mb-2 px-4">
             Meet your fellow party-goers and their festive elf names!
           </p>
-          <div className="flex justify-center gap-6 sm:gap-8 mt-4 sm:mt-6">
+          <div className="flex justify-center mt-4 sm:mt-6">
             <div className="text-center">
               <div className="text-3xl sm:text-4xl font-bold text-red-600">{guests.length}</div>
               <div className="text-xs sm:text-sm text-gray-600">Total Guests</div>
-            </div>
-            <div className="text-center">
-              <div className="text-3xl sm:text-4xl font-bold text-green-600">{totalParties}</div>
-              <div className="text-xs sm:text-sm text-gray-600">Parties</div>
             </div>
           </div>
         </motion.div>
@@ -87,7 +83,11 @@ export default function GuestsPage() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.2, duration: 0.5 }}
-            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4"
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.2, duration: 0.5 }}
+            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-2 sm:gap-3"
           >
             {guests.map((guest, index) => (
               <motion.div
@@ -96,51 +96,27 @@ export default function GuestsPage() {
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ delay: index * 0.02, duration: 0.3 }}
               >
-                <Card className="hover:shadow-xl transition-all duration-200 border-2 hover:border-green-500 bg-white/80 backdrop-blur hover:scale-105 group cursor-default">
-                  <CardHeader className="pb-3 p-4 sm:p-6">
-                    <CardTitle className="text-base sm:text-lg text-gray-800 flex items-center gap-2 group-hover:text-green-700 transition-colors">
-                      <span className="text-xl sm:text-2xl flex-shrink-0 group-hover:scale-125 transition-transform">👤</span>
-                      <span className="break-words min-w-0">{guest.name}</span>
+                <Card className="hover:shadow-lg transition-all duration-200 border hover:border-green-500 bg-white/80 backdrop-blur group cursor-default">
+                  <CardHeader className="p-3 sm:p-4">
+                    <CardTitle className="text-sm sm:text-base text-gray-800 flex items-center gap-1.5 group-hover:text-green-700 transition-colors">
+                      <span className="text-base sm:text-lg flex-shrink-0">👤</span>
+                      <span className="break-words min-w-0 leading-tight">{guest.name}</span>
                     </CardTitle>
-                    <CardDescription className="flex flex-col gap-1">
-                      <div className="text-sm sm:text-base font-medium text-green-700 flex items-center gap-2">
-                        <span className="text-lg sm:text-xl flex-shrink-0 group-hover:animate-bounce">🧝</span>
-                        <span className="break-words min-w-0">{guest.elfName}</span>
+                    <CardDescription className="flex flex-col gap-0.5">
+                      <div className="text-xs sm:text-sm font-medium text-green-700 flex items-center gap-1.5">
+                        <span className="text-sm sm:text-base flex-shrink-0">🧝</span>
+                        <span className="break-words min-w-0 leading-tight">{guest.elfName}</span>
                       </div>
                       {guest.elfTagline && (
-                        <p className="text-xs sm:text-sm italic text-gray-600 ml-7">
+                        <p className="text-xs italic text-gray-600 ml-5 sm:ml-6 mt-0.5 leading-tight">
                           &quot;{guest.elfTagline}&quot;
                         </p>
-                      )}
-                      {(guest.strategy || guest.lifeAsGift) && (
-                        <div className="mt-2 pt-2 border-t border-dashed border-yellow-300 space-y-1">
-                          {guest.strategy && (
-                            <div className="text-xs text-gray-600 ml-7">
-                              <span className="font-semibold">Strategy:</span>{' '}
-                              {guest.strategy === 'steal-everything' && '🦹 Steal everything'}
-                              {guest.strategy === 'play-safe' && '😇 Play it safe'}
-                              {guest.strategy === 'pure-chaos' && '🔥 Pure chaos'}
-                              {guest.strategy === 'no-idea' && '🤷 No idea'}
-                              {guest.strategy === 'here-for-snacks' && '🍕 Here for snacks'}
-                              {guest.strategy === 'friendship-destroyer' && '💔 Friendship destroyer'}
-                            </div>
-                          )}
-                          {guest.lifeAsGift && (
-                            <div className="text-xs italic text-gray-600 ml-7">
-                              <span className="font-semibold not-italic">Life as gift:</span> &quot;{guest.lifeAsGift}&quot;
-                            </div>
-                          )}
-                        </div>
                       )}
                     </CardDescription>
                   </CardHeader>
                 </Card>
               </motion.div>
-            ))}
-          </motion.div>
-        )}
-
-        <motion.div
+            ))}.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.4, duration: 0.5 }}
