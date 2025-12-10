@@ -112,7 +112,11 @@ export default function GuestsPage() {
                   </CardHeader>
                 </Card>
               </motion.div>
-            ))}.div
+            ))}
+          </motion.div>
+        )}
+
+        <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.4, duration: 0.5 }}
