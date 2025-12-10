@@ -94,21 +94,17 @@ export default function GuestsPage() {
               >
                 <Card className="hover:shadow-lg transition-all duration-200 border hover:border-green-500 bg-white/80 backdrop-blur group cursor-default">
                   <CardHeader className="p-3 sm:p-4">
-                    <CardTitle className="text-sm sm:text-base text-gray-800 flex items-center gap-1.5 group-hover:text-green-700 transition-colors">
-                      <span className="text-base sm:text-lg flex-shrink-0">👤</span>
-                      <span className="break-words min-w-0 leading-tight">{guest.name}</span>
+                    <CardTitle className="text-sm sm:text-base text-green-700 flex items-center gap-1.5 group-hover:text-green-800 transition-colors font-semibold">
+                      <span className="text-base sm:text-lg flex-shrink-0">🧝</span>
+                      <span className="break-words min-w-0 leading-tight">{guest.elfName}</span>
                     </CardTitle>
-                    <CardDescription className="flex flex-col gap-0.5">
-                      <div className="text-xs sm:text-sm font-medium text-green-700 flex items-center gap-1.5">
-                        <span className="text-sm sm:text-base flex-shrink-0">🧝</span>
-                        <span className="break-words min-w-0 leading-tight">{guest.elfName}</span>
-                      </div>
-                      {guest.elfTagline && (
-                        <p className="text-xs italic text-gray-600 ml-5 sm:ml-6 mt-0.5 leading-tight">
+                    {guest.elfTagline && (
+                      <CardDescription className="flex flex-col gap-0.5">
+                        <p className="text-xs italic text-gray-600 ml-5 sm:ml-6 leading-tight">
                           &quot;{guest.elfTagline}&quot;
                         </p>
-                      )}
-                    </CardDescription>
+                      </CardDescription>
+                    )}
                   </CardHeader>
                 </Card>
               </motion.div>
